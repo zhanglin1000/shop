@@ -13,7 +13,7 @@ use think\Controller;
 
 class Goods extends Controller
 {
-    //商品列表
+    //商品列表1
     public function lst()
     {
         //组合查询条件
