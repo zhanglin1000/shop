@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>雪狐商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__CSS__/bootstrap.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+    <link href="__CSS__/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__CSS__/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/demo.css" rel="stylesheet">
+    <link href="__CSS__/typicons.css" rel="stylesheet">
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="public/top" /}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                       <li><a href="{:url('Index/index')}">系统</a></li>
+                      <li class="active">链接列表</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+
+        <form method="post" action="{:url('link/sort')}">
+                <a href="{:url('link/add')}" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <button class="btn btn-azure btn-sm"><i class="fa fa-level-down"></i> 链接排序</button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">链接名称</th>
+                                                <th class="text-center">链接地址</th>
+                                                <th class="text-center">LOGO</th>
+                                                <th class="text-center">排序</th>
+                                                <th class="text-center">类型</th>
+                                                <th class="text-center">状态</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {volist name="linkAll" id="link"}
+                                              <tr>
+                                                <td align="center">{$link.id}</td>
+                                                <td align="center">{$link.link_name}</td>
+                                                <td align="center">
+                                                    {if $link['link_url']}
+                                                     {$link.link_url}
+                                                    {else /}
+                                                      暂无链接地址
+                                                    {/if}
+                                                </td>
+                                                <td align="center">
+                                                    {if $link['link_logo']}
+                                                    <img src="<?php echo APP_PATH; ?>/public/static/uploads/link/{$link.link_logo}" width="30" height="30" />
+                                                    {else /}
+                                                    暂无LOGO
+                                                    {/if}
+                                                </td>
+                                                <td align="center"><input type="text" name="sort[{$link.id}]" value="{$link.sort}" style="width:60px;height:25px;text-align:center;"></td>
+                                                <td align="center">
+                                                    {if $link['link_type'] eq 1}
+                                                    <span class="label label-info graded">文字链接</span>
+                                                    {else /}
+                                                    <span class="label label-info graded">图片链接</span>
+                                                    {/if}
+                                                </td>
+                                                <td align="center">
+                                                    {if $link['link_status'] eq 1}
+                                                    <span class="label label-info graded">显示</span>
+                                                    {else /}
+                                                    <span class="label label-danger graded">隐藏</span>
+                                                    {/if}
+                                                </td>
+                                                <td align="center">
+                                                    <a href="{:url('link/edit',array('id'=>$link['id']))}" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="{:url('link/del',array('id'=>$link['id']))}" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {/volist}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                    {$linkAll|raw}
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+    <!--Basic Scripts-->
+    <script src="__JS__/jquery.js"></script>
+    <script src="__JS__/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__JS__/beyond.js"></script>
+    <script src="__JS__/index.js"></script>
+</body>
+</html>

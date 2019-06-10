@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>雪狐商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__CSS__/bootstrap.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+    <link href="__CSS__/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__CSS__/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/demo.css" rel="stylesheet">
+    <link href="__CSS__/typicons.css" rel="stylesheet">
+    <link href="__CSS__/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="public/top" /}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                       <li><a href="{:url('Index/index')}">系统</a></li>
+                      <li class="active">文章栏目管理</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+
+        <form method="post" action="{:url('cate/sort')}">
+                <a href="{:url('cate/add')}" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <button class="btn btn-azure btn-sm"><i class="fa fa-level-down"></i> 文章栏目排序</button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">文章分类名称</th>
+                                                <th class="text-center">分类类型</th>
+                                                <th class="text-center">描述</th>
+                                                <th class="text-center">排序</th>
+                                                <th class="text-center">显示在导航栏</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             {volist name="cateRes" id="cate"}
+                                              <tr>
+                                                <td align="center">{$cate.id}</td>
+                                                <td align="left">{if $cate['pid'] neq 0}<?php echo '♩'.str_repeat('-',$cate['level'] * 8); ?>{/if}{$cate.cate_name}</td>
+                                                <td align="center">
+                                                    {if $cate.cate_type eq 1}
+                                                     系统分类
+                                                    {elseif $cate.cate_type eq 2 /}
+                                                     网店信息
+                                                    {elseif $cate.cate_type eq 3 /}
+                                                     网店帮助分类
+                                                    {else /}
+                                                     普通分类
+                                                    {/if}
+                                                </td>
+                                                <td align="center">{$cate.cate_desc|subtext=###,6}</td>
+                                                <td align="center"><input type="text" name="sort[{$cate.id}]" value="{$cate.sort}" style="width:60px;height:25px;text-align:center;"></td>
+                                                <td align="center">
+                                                    <a href="#" cateurl ="{:url('cate/status')}" cateid="{$cate.id}" onclick="cheng_status(this);"  class="{if $cate.show_nav eq 1}  label label-info {else /} label label-pink graded {/if}">{if $cate.show_nav eq 1}显示{else /}隐藏{/if}</a>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="{:url('cate/edit',array('id'=>$cate['id']))}" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="{:url('cate/del',array('id'=>$cate['id']))}" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;" {in name="$cate['id']" value="1,2,3"}disabled {/in} class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                             {/volist}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+    <!--Basic Scripts-->
+    <script src="__JS__/jquery.js"></script>
+    <script src="__JS__/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__JS__/beyond.js"></script>
+    <script src="__JS__/index.js"></script>
+</body>
+</html>
