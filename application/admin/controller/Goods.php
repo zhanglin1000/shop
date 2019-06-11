@@ -112,5 +112,11 @@ class Goods extends Controller
             $this->error('删除商品失败');
         }
     }
+
+    //商品库存添加
+    public function product_num()
+    {
+        return view();
+    }
 }
 ?>

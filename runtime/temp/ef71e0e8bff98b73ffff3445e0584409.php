@@ -1,4 +1,4 @@
-<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\goods\lst.html";i:1560263460;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:64:"D:\phpEnv\www\shop\application\admin\view\goods\product_num.html";i:1560264800;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -473,7 +473,6 @@
 
                 <!-- Page Body -->
                 <div class="page-body">
-                <a href="<?php echo url('goods/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="widget">
@@ -482,49 +481,40 @@
                                     <table class="table table-bordered table-hover">
                                         <thead class="">
                                             <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">商品名称</th>
-                                                <th class="text-center">商品编号</th>
-                                                <th class="text-center">商品分类</th>
-                                                <th class="text-center">本店价</th>
-                                                <th class="text-center">市场价</th>
-                                                <th class="text-center">上架</th>
-                                                <th class="text-center">品牌</th>
-                                                <th class="text-center">类型</th>
+                                                <th class="text-center">颜色</th>
+                                                <th class="text-center">硬盘</th>
+                                                <th class="text-center">库存量</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
-                                        <?php if(is_array($goodsAll) || $goodsAll instanceof \think\Collection || $goodsAll instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goods): $mod = ($i % 2 );++$i;?>
-                                              <tr>
-                                                <td align="center"><?php echo htmlentities($goods['id']); ?></td>
-                                                <td align="center"><?php echo subtext($goods['goods_name'],10); ?></td>
-                                                <td align="center"><?php echo htmlentities($goods['goods_code']); ?></td>
-                                                <td align="center"><?php if($goods['cate_name']): ?><?php echo htmlentities($goods['cate_name']); else: ?>暂无分类<?php endif; ?></td>
-                                                <td align="center"><?php echo htmlentities($goods['shop_price']); ?></td>
-                                                <td align="center"><?php echo htmlentities($goods['market_price']); ?></td>
-                                                <td align="center"><?php if($goods['on_sale'] == 1): ?><span class="label label-info">上架</span><?php else: ?><span class="label label-pink graded">下架</span><?php endif; ?></td>
-                                                <td align="center"><?php if($goods['brand_cname']): ?> <?php echo htmlentities($goods['brand_cname']); else: ?>暂无品牌<?php endif; ?></td>
-                                                <td align="center"><?php if($goods['type_name']): ?> <?php echo htmlentities($goods['type_name']); else: ?>暂无类型<?php endif; ?></td>
-                                                <td align="center">
-                                                    <a href="<?php echo url('goods/product_num',['id'=>$goods['id']]); ?>" class="btn btn-darkorange btn-sm">
-                                                        <i class="fa fa-rocket"></i> 库存
-                                                    </a>
-                                                    <a href="<?php echo url('goods/edit',['id'=>$goods['id']]); ?>" class="btn btn-azure btn-sm">
-                                                        <i class="fa fa-edit"></i> 编辑
-                                                    </a>
-                                                    <a href="<?php echo url('goods/del',['id'=>$goods['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
-                                                        <i class="fa fa-trash-o"></i> 删除
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        <tr>
+                                            <td align="center">
+                                                <select>
+                                                    <option value="">请选择</option>
+                                                    <option value="">红色</option>
+                                                    <option value="">蓝色</option>
+                                                </select>
+                                            </td>
+                                            <td align="center">
+                                                <select>
+                                                    <option value="">请选择</option>
+                                                    <option value="">80g</option>
+                                                    <option value="">160g</option>
+                                                </select>
+                                            </td>
+                                            <td align="center">
+                                                <input type="text" style="width:110px;">
+                                            </td>
+                                            <td align="center">
+                                                <a href="javascript:void(0);" onclick="addrow(this)" class="btn btn-azure btn-sm">+</a>
+                                            </td>
+                                        </tr>
 
                                         </tbody>
                                     </table>
                                 </div>
-                                <div style="text-align:right; margin-top:10px;">
 
                                 </div>
                                 <div>
@@ -546,5 +536,31 @@
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
     <script src="http://shop.com/public/static/admin/js/index.js"></script>
+
+    <script type="text/javascript">
+        function addrow( o )
+        {
+            //获取上一级
+            var tr = $( o ).parent().parent();
+
+            //判断系统是否点击的加号
+            if($( o ).html() == '+')
+            {
+                //执行克隆
+                var newtr = tr.clone();
+
+                //把新克隆的改为减号
+                newtr.find( 'a' ).html( "-" );
+
+                //把克隆的放在后面
+                tr.after( newtr );
+            }
+            else
+            {
+                tr.remove();
+            }
+
+        }
+    </script>
 </body>
 </html>
