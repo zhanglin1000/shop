@@ -50,8 +50,9 @@
                                     <table class="table table-bordered table-hover">
                                         <thead class="">
                                             <tr>
-                                                <th class="text-center">颜色</th>
-                                                <th class="text-center">硬盘</th>
+                                                {volist name="radioAttr" id="radio"}
+                                                <th class="text-center">{$key}</th>
+                                                {/volist}
                                                 <th class="text-center">库存量</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
@@ -59,22 +60,22 @@
                                         <tbody>
 
                                         <tr>
+
+                                            {volist name="radioAttr" id="radio"}
+                                                <td align="center">
+                                                    <select>
+                                                        <option value="">请选择</option>
+
+                                                        {volist name="radio" id="radio1"}
+                                                        <option value="{$radio1.attr_value}">{$radio1.attr_value}</option>
+                                                        {/volist}
+
+                                                    </select>
+                                                </td>
+                                            {/volist}
+
                                             <td align="center">
-                                                <select>
-                                                    <option value="">请选择</option>
-                                                    <option value="">红色</option>
-                                                    <option value="">蓝色</option>
-                                                </select>
-                                            </td>
-                                            <td align="center">
-                                                <select>
-                                                    <option value="">请选择</option>
-                                                    <option value="">80g</option>
-                                                    <option value="">160g</option>
-                                                </select>
-                                            </td>
-                                            <td align="center">
-                                                <input type="text" style="width:110px;">
+                                                <input type="text" name="" style="width:110px;">
                                             </td>
                                             <td align="center">
                                                 <a href="javascript:void(0);" onclick="addrow(this)" class="btn btn-azure btn-sm">+</a>

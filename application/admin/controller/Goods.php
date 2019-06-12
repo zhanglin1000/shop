@@ -114,9 +114,26 @@ class Goods extends Controller
     }
 
     //商品库存添加
-    public function product_num()
+    public function product_num($id)
     {
-        return view();
+        //根据商品ID查询所有单选属性
+        $radioAttr = db('goods_attr')
+            ->alias('ga')
+            ->field('ga.*,a.attr_name')
+            ->where('goods_id','=',$id)
+            ->join('attr a','ga.attr_id = a.id')
+            ->where('a.attr_type','=',2)
+            ->select();
+
+         //重新组合成想要的数组
+         $_radioAttr = [];
+
+         foreach ( $radioAttr as $k => $v )
+         {
+             $_radioAttr[$v['attr_name']][] =$v;
+         }
+
+        return view('admin/@goods/product_num',['radioAttr'=>$_radioAttr]);
     }
 }
 ?>
