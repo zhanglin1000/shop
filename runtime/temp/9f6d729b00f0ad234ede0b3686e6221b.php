@@ -1,4 +1,4 @@
-<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\goods\lst.html";i:1560263460;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\goods\lst.html";i:1560700385;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -491,6 +491,7 @@
                                                 <th class="text-center">上架</th>
                                                 <th class="text-center">品牌</th>
                                                 <th class="text-center">类型</th>
+                                                <th class="text-center">库存</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
                                         </thead>
@@ -507,6 +508,7 @@
                                                 <td align="center"><?php if($goods['on_sale'] == 1): ?><span class="label label-info">上架</span><?php else: ?><span class="label label-pink graded">下架</span><?php endif; ?></td>
                                                 <td align="center"><?php if($goods['brand_cname']): ?> <?php echo htmlentities($goods['brand_cname']); else: ?>暂无品牌<?php endif; ?></td>
                                                 <td align="center"><?php if($goods['type_name']): ?> <?php echo htmlentities($goods['type_name']); else: ?>暂无类型<?php endif; ?></td>
+                                                <td align="center"><?php if($goods['kucun']): ?> <?php echo htmlentities($goods['kucun']); else: ?>0<?php endif; ?></td>
                                                 <td align="center">
                                                     <a href="<?php echo url('goods/product_num',['id'=>$goods['id']]); ?>" class="btn btn-darkorange btn-sm">
                                                         <i class="fa fa-rocket"></i> 库存

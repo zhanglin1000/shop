@@ -20,10 +20,11 @@ class Goods extends Controller
         $join = [
             ['category cy','gs.category_id = cy.id','LEFT'],
             ['brand bd','gs.brand_id = bd.id','LEFT'],
-            ['type te','gs.type_id = te.id','LEFT']
+            ['type te','gs.type_id = te.id','LEFT'],
+            ['product pt','pt.goods_id = gs.id','LEFT']
         ];
         //查询所有商品数据
-        $goodsAll = db('goods')->alias('gs')->field('gs.*,cy.cate_name,bd.brand_cname,te.type_name')->join($join)->paginate(10);
+        $goodsAll = db('goods')->alias('gs')->field('gs.*,cy.cate_name,bd.brand_cname,te.type_name,sum(pt.goods_num) kucun')->join($join)->group('gs.id')->paginate(10);
 
         return view('admin@goods/lst',['goodsAll'=>$goodsAll]);
     }

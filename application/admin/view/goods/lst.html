@@ -60,6 +60,7 @@
                                                 <th class="text-center">上架</th>
                                                 <th class="text-center">品牌</th>
                                                 <th class="text-center">类型</th>
+                                                <th class="text-center">库存</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
                                         </thead>
@@ -76,6 +77,7 @@
                                                 <td align="center">{if $goods['on_sale'] eq 1}<span class="label label-info">上架</span>{else /}<span class="label label-pink graded">下架</span>{/if}</td>
                                                 <td align="center">{if $goods['brand_cname']} {$goods.brand_cname} {else /}暂无品牌{/if}</td>
                                                 <td align="center">{if $goods['type_name']} {$goods.type_name} {else /}暂无类型{/if}</td>
+                                                <td align="center">{if $goods['kucun']} {$goods.kucun} {else /}0{/if}</td>
                                                 <td align="center">
                                                     <a href="{:url('goods/product_num',['id'=>$goods['id']])}" class="btn btn-darkorange btn-sm">
                                                         <i class="fa fa-rocket"></i> 库存
