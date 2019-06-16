@@ -116,6 +116,69 @@ class Goods extends Controller
     //商品库存添加
     public function product_num($id)
     {
+        //判断是否是POST提交
+        if( request()->isPost() )
+        {
+            //实例化库存表
+            $product = db('product');
+
+            //修改之前先删除原有的
+            $product->where('goods_id','=',$id)->delete();
+
+            //接收表单数据
+            $data = input('post.');
+
+            //接收商品属性表单值
+            $goods_attr_id = $data['goods_attr'];
+
+            //接收商品库存值
+            $goods_num = $data['goods_num'];
+
+            //循环库存
+            foreach ( $goods_num as $k => $v )
+            {
+
+                 //判断是否为空
+                 if(empty( trim($v) ))
+                 {
+                     continue;
+                 }
+
+                 //定义储存属性ID的值数组
+                 $goodsAttr = [];
+
+                 //循环商品属性值
+                 foreach ( $goods_attr_id as $k1 => $v1 )
+                 {
+                      $goodsAttr[] = $v1[$k];
+                 }
+
+
+                 //对组合的数组升序排序
+                 sort($goodsAttr);
+
+                 //把数组组合成已逗号字符串
+                 $goodsAttr = implode(',',$goodsAttr);
+
+                 //写入数据到库存
+                 $product->insert([
+                     'id' => '',
+                     'goods_id' => $id,
+                     'goods_num' => $v,
+                     'goods_attr' => $goodsAttr
+                 ]);
+
+            }
+
+            $this->success('库存设置成功','lst');
+
+
+            return;
+
+
+            }
+
+
         //根据商品ID查询所有单选属性
         $radioAttr = db('goods_attr')
             ->alias('ga')
@@ -133,7 +196,11 @@ class Goods extends Controller
              $_radioAttr[$v['attr_name']][] =$v;
          }
 
-        return view('admin/@goods/product_num',['radioAttr'=>$_radioAttr]);
+         //根据指定ID查询库存
+         $productView = db('product')->where('goods_id','=',$id)->select();
+
+        return view('admin/@goods/product_num',['radioAttr'=>$_radioAttr,'productview'=>$productView]);
     }
+
 }
 ?>

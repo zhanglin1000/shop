@@ -178,6 +178,7 @@ class Goods extends Model
 
                             //执行批量写入商品属性
                             $goodsAttr->insert([
+                                'id' => '',
                                 'attr_id' => $k,
                                 'attr_value' => $v1,
                                 'attr_price' => isset($goods_price[$k][$k1]) ? $goods_price[$k][$k1] : 0 ,
@@ -186,10 +187,10 @@ class Goods extends Model
 
                         }
 
-                    }
-                }
 
-            }
+
+            }}
+                }
 
             /********* 处理商品属性批量添加结束 ********/
 
