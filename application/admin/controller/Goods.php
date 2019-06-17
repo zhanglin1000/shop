@@ -139,18 +139,18 @@ class Goods extends Controller
             foreach ( $goods_num as $k => $v )
             {
 
-                 //判断是否为空
-                 if(empty( trim($v) ))
-                 {
-                     continue;
-                 }
-
                  //定义储存属性ID的值数组
                  $goodsAttr = [];
 
                  //循环商品属性值
                  foreach ( $goods_attr_id as $k1 => $v1 )
                  {
+                     //判断是否选中为空,如果为空就跳过
+                      if( intval($v1[$k]) <= 0 )
+                      {
+                          continue 2;
+                      }
+
                       $goodsAttr[] = $v1[$k];
                  }
 
