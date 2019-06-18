@@ -94,6 +94,66 @@ class Goods extends Controller
     //商品编辑
     public function edit()
     {
+        //判断是否是POST提交
+        if( request()->isPost() )
+        {
+            //接收表单数据
+            $data = input('post.');
+
+            //表单验证
+            $validate = new \app\admin\validate\Goods();
+
+            if ( !$validate->check($data) )
+            {
+                $this->error( $validate->getError() );
+            }
+
+            //执行添加操作
+            $goodsUpdate = model('goods')->update( $data );
+
+            if( $goodsUpdate !== false )
+            {
+                $this->success('修改商品成功','lst');
+            }
+            else
+            {
+                $this->error('修改商品失败');
+            }
+
+            return ;
+        }
+
+
+        //查询所有商品类型
+        $typeAll = db('type')->select();
+
+        //查询所有的会员等级
+        $levelAll = db('member_level')->select();
+
+        //查询所有品牌
+        $brandAll = db('brand')->select();
+
+        //查询所有商品分类,调用无限极分类
+        $cateTree = new Catetree();
+
+        //查询所有商品分类
+        $category = db('category')->select();
+
+        //商品分类全部读取
+        $categoryAll = $cateTree->sort($category);
+
+        //查询商品基本信息
+        $goods = db('goods')->find(input('id'));
+
+        //分配数据到模板
+        $this->assign([
+            'levelAll' => $levelAll,
+            'typeAll' => $typeAll,
+            'brandAll' => $brandAll,
+            'categoryAll' => $categoryAll,
+            'goods' => $goods
+        ]);
+
         return view();
     }
 
