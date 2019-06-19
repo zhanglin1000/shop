@@ -68,6 +68,10 @@
                 <div id="horizontal-form">
                     <form class="form-horizontal" role="form" action="{:url('goods/edit')}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{$goods.id}">
+                        <input type="hidden" name="og_thumb" value="{$goods.og_thumb}">
+                        <input type="hidden" name="sm_thumb" value="{$goods.sm_thumb}">
+                        <input type="hidden" name="md_thumb" value="{$goods.md_thumb}">
+                        <input type="hidden" name="big_thumb" value="{$goods.big_thumb}">
                         <div class="widget-body">
                             <div class="widget-main ">
                                 <div class="tabbable">

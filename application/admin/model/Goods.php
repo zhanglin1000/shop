@@ -281,6 +281,53 @@ class Goods extends Model
 
         });
 
+        //修改之前处理
+        self::beforeUpdate(function ( $goods )
+        {
+            //判断是否有图片上传
+            if( $_FILES['og_thumb']['tmp_name'] != '' )
+            {
+                //拼装缩略图路径
+                $ogThumbPath = '../public/static/uploads/goods/';
+
+                //上传新图删除旧图
+                if( file_exists($ogThumbPath.$goods->og_thumb) )
+                {
+                    @unlink($ogThumbPath.$goods->og_thumb);
+                    @unlink($ogThumbPath.$goods->sm_thumb);
+                    @unlink($ogThumbPath.$goods->md_thumb);
+                    @unlink($ogThumbPath.$goods->big_thumb);
+                }
+
+                //获取到上传图片原文件名
+                $thumbName =  self::upload('og_thumb');
+
+                //根据原图生成三张缩略图
+                $ogThumb = date('Ymd').'/'.$thumbName;
+
+                $bigThumb = date('Ymd').'/'.'big_'.$thumbName;
+
+                $midThumb = date('Ymd').'/'.'mid_'.$thumbName;
+
+                $smThumb = date('Ymd').'/'.'sm_'.$thumbName;
+
+                //执行生成缩略图
+                $image = \think\Image::open($ogThumbPath.'/'.$ogThumb);
+
+                $image->thumb(500, 500)->save( $ogThumbPath.'/'.$bigThumb);
+                $image->thumb(200, 200)->save( $ogThumbPath.'/'.$midThumb );
+                $image->thumb(80, 80)->save( $ogThumbPath.'/'.$smThumb );
+
+                //生成的缩略图写入到数据库
+                $goods->og_thumb = $ogThumb;
+                $goods->big_thumb = $bigThumb;
+                $goods->md_thumb = $midThumb;
+                $goods->sm_thumb = $smThumb;
+
+            }
+        });
+
+
 
     }
 

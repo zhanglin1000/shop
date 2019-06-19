@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1560869043;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1560953070;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -499,6 +499,10 @@
                 <div id="horizontal-form">
                     <form class="form-horizontal" role="form" action="<?php echo url('goods/edit'); ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo htmlentities($goods['id']); ?>">
+                        <input type="hidden" name="og_thumb" value="<?php echo htmlentities($goods['og_thumb']); ?>">
+                        <input type="hidden" name="sm_thumb" value="<?php echo htmlentities($goods['sm_thumb']); ?>">
+                        <input type="hidden" name="md_thumb" value="<?php echo htmlentities($goods['md_thumb']); ?>">
+                        <input type="hidden" name="big_thumb" value="<?php echo htmlentities($goods['big_thumb']); ?>">
                         <div class="widget-body">
                             <div class="widget-main ">
                                 <div class="tabbable">
