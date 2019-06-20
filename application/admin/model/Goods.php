@@ -132,7 +132,7 @@ class Goods extends Model
                         $image->thumb(80, 80)->save( $ogPhotoPath.'/'.$smPhoto );
 
                         //生成好的缩略图批量写入数据库
-                        $photo->insert(['goods_id'=>$goods_id,'og_photo'=>$ogPhoto,'sm_photo'=>$smPhoto,'mid_photo'=>$midPhoto,'big_photo'=>$bigPhoto]);
+                        $photo->insert(['id'=> '','goods_id'=>$goods_id,'og_photo'=>$ogPhoto,'sm_photo'=>$smPhoto,'mid_photo'=>$midPhoto,'big_photo'=>$bigPhoto]);
 
                     }
                     else
@@ -325,7 +325,95 @@ class Goods extends Model
                 $goods->sm_thumb = $smThumb;
 
             }
+
+            /******** 处理会员价格批量修改 **********/
+             //获取商品ID
+             $goodsId = $goods->id;
+
+             //实例化会员价格
+             $memberPrice = db('member_price');
+
+             //删除原有会员价格,修改新的数据
+             $memberPrice->where('goods_id','=',$goodsId)->delete();
+
+             //获取会员价格
+             $mp = $goods->mp;
+
+             //判断是否存在会员价格,不存在就跳过
+             if($mp)
+             {
+                foreach ( $mp as $k => $v )
+                {
+                    //为空就跳过
+                    if(empty( $v ))
+                    {
+                        continue;
+                    }
+
+                    //写入会员价格
+                    $memberPrice->insert([
+                        'mprice' => $v,
+                        'mlevel_id' => $k,
+                        'goods_id'  => $goodsId
+                    ]);
+
+                }
+             }
+            /******** END **********/
+
+            /******** 处理相册修改 **********/
+            if(self::_hasImags($_FILES['goods_photo']['tmp_name']))
+            {
+                //实例化商品相册表
+                $photo = db('photo');
+
+                $files = request()->file( 'goods_photo' );
+
+                foreach( $files as $file )
+                {
+
+                    $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move(  '../public/static/uploads/goods_photo' );
+
+                    if( $info )
+                    {
+                        //原图路径
+                        $photoName =  $info->getFilename();
+
+                        //拼装缩略图路径
+                        $ogPhotoPath = '../public/static/uploads/goods_photo/';
+
+                        //根据原图生成三张缩略图
+                        $ogPhoto = date('Ymd').'/'.$photoName;
+
+                        $bigPhoto = date('Ymd').'/'.'big_'.$photoName;
+
+                        $midPhoto = date('Ymd').'/'.'mid_'.$photoName;
+
+                        $smPhoto = date('Ymd').'/'.'sm_'.$photoName;
+
+
+                        //执行生成缩略图
+                        $image = \think\Image::open($ogPhotoPath.'/'.$ogPhoto);
+
+                        $image->thumb(500, 500)->save( $ogPhotoPath.'/'.$bigPhoto);
+                        $image->thumb(200, 200)->save( $ogPhotoPath.'/'.$midPhoto );
+                        $image->thumb(80, 80)->save( $ogPhotoPath.'/'.$smPhoto );
+
+                        //生成好的缩略图批量写入数据库
+                        $photo->insert(['id'=> '','goods_id'=>$goodsId,'og_photo'=>$ogPhoto,'sm_photo'=>$smPhoto,'mid_photo'=>$midPhoto,'big_photo'=>$bigPhoto]);
+
+                    }
+                    else
+                    {
+
+                        // 上传失败获取错误信息
+                        echo $file->getError();
+                    }
+                }
+            }
+            /******** END **********/
         });
+
 
 
 

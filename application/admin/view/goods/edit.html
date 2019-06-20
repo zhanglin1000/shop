@@ -196,12 +196,11 @@
                                         </div>
 
                                        <div id="home3" class="tab-pane">
-
                                             {volist name="levelAll" id="ml"}
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label no-padding-right">{$ml.level_name} ( <?php echo ($ml['reate'] / 10); ?>折 ) </label>
                                                 <div class="col-sm-6">
-                                                    <input class="form-control" placeholder="商品级别价格"  name="mp[{$ml.id}]"  type="text">
+                                                    <input class="form-control" placeholder="商品级别价格"  name="mp[{$ml.id}]" value="<?php if(isset($memberprice[$ml['id']])) { echo $memberprice[$ml['id']]['mprice'];}else{echo '';} ?>"  type="text">
                                                 </div>
                                             </div>
                                             {/volist}
@@ -254,7 +253,15 @@
                                            </div>
                                        </div>
 
-                                        <div id="home5" class="tab-pane">
+                                        <div id="home5"  class="tab-pane">
+                                            {volist name="photo" id="photo"}
+                                            <div id="{$photo.id}" class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="delrow(this)">[-]</a></label>
+                                                <div class="col-sm-6">
+                                                    <img src="__PHOTO__/{$photo.sm_photo}"  width="50"/>
+                                                </div>
+                                            </div>
+                                            {/volist}
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addrow(this)">[+]</a> 上传商品图片：</label>
                                                 <div class="col-sm-6">
@@ -397,6 +404,41 @@
               div.remove();
           }
 
+        }
+
+        function delrow( a )
+        {
+
+            if(confirm('确定要删除此图片?'))
+            {
+                 //获取上一级
+                 var div = $( a ).parent().parent();
+
+                 //获取删除相册ID
+                 var id = div.attr('id');
+
+                 //删除相册网络地址
+                 var url = "{:url('goods/delphoto')}";
+
+                 $.ajax({
+                     type : 'POST',
+                     url : url,
+                     data : {
+                         'id' : id
+                     },
+                     success : function (data)
+                     {
+                         if( data == 1 )
+                         {
+                             div.remove();
+                         }
+                         else
+                         {
+                             layer.msg('删除相册失败');
+                         }
+                     }
+                 });
+            }
         }
     </script>
 

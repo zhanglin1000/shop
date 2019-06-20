@@ -145,13 +145,29 @@ class Goods extends Controller
         //查询商品基本信息
         $goods = db('goods')->find(input('id'));
 
+        //查询会员价格
+        $memberPrice = db('member_price')->where('goods_id','=',input('id'))->select();
+
+        //重组会员价格数组
+        $member_price = [];
+
+        foreach ($memberPrice as $k => $v)
+        {
+            $member_price[$v['mlevel_id']] = $v;
+        }
+
+        //查询指定相册
+        $photos = db('photo')->where('goods_id','=',input('id'))->select();
+
         //分配数据到模板
         $this->assign([
             'levelAll' => $levelAll,
             'typeAll' => $typeAll,
             'brandAll' => $brandAll,
             'categoryAll' => $categoryAll,
-            'goods' => $goods
+            'goods' => $goods,
+            'memberprice' => $member_price,
+            'photo' => $photos
         ]);
 
         return view();
@@ -261,6 +277,46 @@ class Goods extends Controller
          $productView = db('product')->where('goods_id','=',$id)->select();
 
         return view('admin/@goods/product_num',['radioAttr'=>$_radioAttr,'productview'=>$productView]);
+    }
+
+    //异步删除相册
+    public function delphoto($id)
+    {
+         //判断是否是AJAX请求
+         if( request()->isAjax() )
+         {
+             //实例化相册表
+             $gphoto = db('photo');
+
+             //查询指定商品相册
+             $photo = $gphoto->field('goods_id,id',true)->find($id);
+
+             //组装删除地址
+             $photoPath = "../public/static/uploads/goods_photo";
+             $og_photo = $photoPath.'/'.$photo['og_photo'];
+             $sm_photo = $photoPath.'/'.$photo['sm_photo'];
+             $mid_photo = $photoPath.'/'.$photo['mid_photo'];
+             $big_photo = $photoPath.'/'.$photo['big_photo'];
+
+             //判断是否相册是否存在
+             if( file_exists($og_photo) )
+             {
+                 @unlink($og_photo);
+                 @unlink($sm_photo);
+                 @unlink($mid_photo);
+                 @unlink($big_photo);
+             }
+
+             //删除相册记录
+             $gphoto->delete($id);
+
+             return 1;
+         }
+         else
+         {
+             $this->error('页面不存在');
+         }
+
     }
 
 }

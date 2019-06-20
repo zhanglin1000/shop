@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1560953070;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1560990102;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -627,12 +627,11 @@
                                         </div>
 
                                        <div id="home3" class="tab-pane">
-
                                             <?php if(is_array($levelAll) || $levelAll instanceof \think\Collection || $levelAll instanceof \think\Paginator): $i = 0; $__LIST__ = $levelAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ml): $mod = ($i % 2 );++$i;?>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label no-padding-right"><?php echo htmlentities($ml['level_name']); ?> ( <?php echo ($ml['reate'] / 10); ?>折 ) </label>
                                                 <div class="col-sm-6">
-                                                    <input class="form-control" placeholder="商品级别价格"  name="mp[<?php echo htmlentities($ml['id']); ?>]"  type="text">
+                                                    <input class="form-control" placeholder="商品级别价格"  name="mp[<?php echo htmlentities($ml['id']); ?>]" value="<?php if(isset($memberprice[$ml['id']])) { echo $memberprice[$ml['id']]['mprice'];}else{echo '';} ?>"  type="text">
                                                 </div>
                                             </div>
                                             <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -685,7 +684,15 @@
                                            </div>
                                        </div>
 
-                                        <div id="home5" class="tab-pane">
+                                        <div id="home5"  class="tab-pane">
+                                            <?php if(is_array($photo) || $photo instanceof \think\Collection || $photo instanceof \think\Paginator): $i = 0; $__LIST__ = $photo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$photo): $mod = ($i % 2 );++$i;?>
+                                            <div id="<?php echo htmlentities($photo['id']); ?>" class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="delrow(this)">[-]</a></label>
+                                                <div class="col-sm-6">
+                                                    <img src="http://shop.com/public/static/uploads/goods_photo/<?php echo htmlentities($photo['sm_photo']); ?>"  width="50"/>
+                                                </div>
+                                            </div>
+                                            <?php endforeach; endif; else: echo "" ;endif; ?>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addrow(this)">[+]</a> 上传商品图片：</label>
                                                 <div class="col-sm-6">
@@ -828,6 +835,41 @@
               div.remove();
           }
 
+        }
+
+        function delrow( a )
+        {
+
+            if(confirm('确定要删除此图片?'))
+            {
+                 //获取上一级
+                 var div = $( a ).parent().parent();
+
+                 //获取删除相册ID
+                 var id = div.attr('id');
+
+                 //删除相册网络地址
+                 var url = "<?php echo url('goods/delphoto'); ?>";
+
+                 $.ajax({
+                     type : 'POST',
+                     url : url,
+                     data : {
+                         'id' : id
+                     },
+                     success : function (data)
+                     {
+                         if( data == 1 )
+                         {
+                             div.remove();
+                         }
+                         else
+                         {
+                             layer.msg('删除相册失败');
+                         }
+                     }
+                 });
+            }
         }
     </script>
 
