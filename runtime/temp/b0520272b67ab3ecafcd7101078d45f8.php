@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1560990102;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561076450;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -646,7 +646,7 @@
                                                        <option value="">请选择</option>
 
                                                        <?php if(is_array($typeAll) || $typeAll instanceof \think\Collection || $typeAll instanceof \think\Paginator): $i = 0; $__LIST__ = $typeAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$type): $mod = ($i % 2 );++$i;?>
-                                                       <option value="<?php echo htmlentities($type['id']); ?>"><?php echo htmlentities($type['type_name']); ?></option>
+                                                       <option <?php if($type['id'] == $goods['type_id']): ?> selected <?php endif; ?> value="<?php echo htmlentities($type['id']); ?>"><?php echo htmlentities($type['type_name']); ?></option>
                                                        <?php endforeach; endif; else: echo "" ;endif; ?>
 
                                                    </select>
@@ -654,33 +654,67 @@
                                            </div>
 
                                            <div id="attr">
-                                              <!--<div class="form-group">
-                                                   <label  class="col-sm-2 control-label no-padding-right"><a href="#">[+]</a> 颜色</label>
+                                            <?php
+                                            $attr_id = [];
+
+                                            foreach( $attrRes as $k => $v ):
+                                            ?>
+                                            <div class="form-group">
+                                                   <label  class="col-sm-2 control-label no-padding-right"> <?php echo $v['attr_name']; ?></label>
                                                    <div class="col-sm-6">
-                                                       <select name="">
-                                                           <option value="黑色">黑色</option>
-                                                           <option value="白色">白色</option>
+
+                                                       <?php if( $v['attr_type'] == 2 ):
+
+                                                         //判断属性ID是否出现过
+                                                         if(in_array($v['attr_id'],$attr_id))
+                                                         {
+                                                            $opt = '[-]';
+                                                         }
+                                                         else
+                                                         {
+                                                            $opt = '[+]';
+                                                            $attr_id[] = $v['attr_id'];
+                                                         }
+
+                                                        ?>
+                                                       <a href='javascript:void();' onclick='addrow(this)'><?php echo $opt; ?></a> &nbsp;&nbsp;
+                                                       <?php endif; 
+                                                         if($v['attr_values'] != ''):
+                                                         $arr = explode(',',$v['attr_values']);
+                                                        ?>
+
+                                                       <select name="goods_attr[<?php echo $v['id'] ?>][]">
+                                                           <option value="">请选择</option>
+                                                           <?php foreach( $arr as $k1 => $v1 ):  ?>
+                                                           <option <?php if($v1 == $v['attr_value']): ?> selected <?php endif; ?> value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
+                                                           <?php endforeach; ?>
+
                                                        </select>
-                                                       <input type="text" name="" placeholder="价格" class="form-control price" />
+
+                                                       <?php else: ?>
+                                                        <input class="form-control price" value="<?php echo $v1; ?>"  name="goods_attr[<?php echo $v['id'] ?>][]" type="text">
+                                                       <?php endif; if( $v['attr_type'] == 2 ): ?>
+                                                       <input type="text" name="goods_price[<?php echo $v['id'] ?>][]" placeholder="价格"  value="<?php echo $v['attr_price']; ?>" class="form-control price" />
+                                                       <?php endif; ?>
                                                    </div>
                                                </div>
+                                            <?php endforeach; ?>
+                                               <!--<div class="form-group">
+                                                 <label  class="col-sm-2 control-label no-padding-right">材质</label>
+                                                 <div class="col-sm-6">
+                                                     <select name="">
+                                                         <option value="棉纶">棉纶</option>
+                                                         <option value="亚麻">亚麻</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
 
-                                               <div class="form-group">
-                                                   <label  class="col-sm-2 control-label no-padding-right">材质</label>
-                                                   <div class="col-sm-6">
-                                                       <select name="">
-                                                           <option value="棉纶">棉纶</option>
-                                                           <option value="亚麻">亚麻</option>
-                                                       </select>
-                                                   </div>
-                                               </div>
-
-                                               <div class="form-group">
-                                                   <label  class="col-sm-2 control-label no-padding-right">品牌名称</label>
-                                                   <div class="col-sm-6">
-                                                       <input class="form-control price"  name="" type="text">
-                                                   </div>
-                                               </div>-->
+                                             <div class="form-group">
+                                                 <label  class="col-sm-2 control-label no-padding-right">品牌名称</label>
+                                                 <div class="col-sm-6">
+                                                     <input class="form-control price"  name="" type="text">
+                                                 </div>
+                                             </div>-->
                                            </div>
                                        </div>
 

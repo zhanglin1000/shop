@@ -159,6 +159,12 @@ class Goods extends Controller
         //查询指定相册
         $photos = db('photo')->where('goods_id','=',input('id'))->select();
 
+        //根据类型查询相应属性
+        $join = [
+            ['attr ar','ga.attr_id = ar.id']
+        ];
+        $attrRes = db('goods_attr')->alias('ga')->field('ga.*,ar.*')->join($join)->where('ga.goods_id','=',input('id'))->select();
+
         //分配数据到模板
         $this->assign([
             'levelAll' => $levelAll,
@@ -167,7 +173,8 @@ class Goods extends Controller
             'categoryAll' => $categoryAll,
             'goods' => $goods,
             'memberprice' => $member_price,
-            'photo' => $photos
+            'photo' => $photos,
+            'attrRes' => $attrRes
         ]);
 
         return view();
