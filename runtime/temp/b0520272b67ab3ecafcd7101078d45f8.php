@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561076450;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561163066;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -657,44 +657,53 @@
                                             <?php
                                             $attr_id = [];
 
-                                            foreach( $attrRes as $k => $v ):
-                                            ?>
+                                            foreach( $attrRes as $k => $v ): ?>
                                             <div class="form-group">
                                                    <label  class="col-sm-2 control-label no-padding-right"> <?php echo $v['attr_name']; ?></label>
                                                    <div class="col-sm-6">
-
                                                        <?php if( $v['attr_type'] == 2 ):
 
-                                                         //判断属性ID是否出现过
-                                                         if(in_array($v['attr_id'],$attr_id))
-                                                         {
-                                                            $opt = '[-]';
-                                                         }
-                                                         else
-                                                         {
-                                                            $opt = '[+]';
-                                                            $attr_id[] = $v['attr_id'];
-                                                         }
-
+                                                            //判断属性ID是否出现过
+                                                             if(in_array($v['attr_id'],$attr_id))
+                                                             {
+                                                                $opt = '[-]';
+                                                             }
+                                                             else
+                                                             {
+                                                                $opt = '[+]';
+                                                                $attr_id[] = $v['attr_id'];
+                                                             }
                                                         ?>
                                                        <a href='javascript:void();' onclick='addrow(this)'><?php echo $opt; ?></a> &nbsp;&nbsp;
                                                        <?php endif; 
-                                                         if($v['attr_values'] != ''):
+                                                         if($v['attr_values']):
                                                          $arr = explode(',',$v['attr_values']);
                                                         ?>
 
-                                                       <select name="goods_attr[<?php echo $v['id'] ?>][]">
+                                                       <select name="">
                                                            <option value="">请选择</option>
-                                                           <?php foreach( $arr as $k1 => $v1 ):  ?>
-                                                           <option <?php if($v1 == $v['attr_value']): ?> selected <?php endif; ?> value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
+                                                           <?php foreach( $arr as $k1 => $v1 ):
+                                                              if(isset($v['attr_value']))
+                                                               {
+                                                                    if($v1 == $v['attr_value'])
+                                                                    {
+                                                                       $select = "selected='selected'";
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        $select = '';
+                                                                    }
+                                                               }
+                                                           ?>
+                                                           <option <?php echo $select; ?> value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
                                                            <?php endforeach; ?>
 
                                                        </select>
 
                                                        <?php else: ?>
-                                                        <input class="form-control price" value="<?php echo $v1; ?>"  name="goods_attr[<?php echo $v['id'] ?>][]" type="text">
-                                                       <?php endif; if( $v['attr_type'] == 2 ): ?>
-                                                       <input type="text" name="goods_price[<?php echo $v['id'] ?>][]" placeholder="价格"  value="<?php echo $v['attr_price']; ?>" class="form-control price" />
+                                                        <input class="form-control price" value="<?php if(isset($v['attr_value'])) { echo $v['attr_value'];} else {echo '';} ?>"  name="" type="text">
+                                                       <?php endif; if( $v['attr_type'] == 2 ):?>
+                                                       <input type="text" name="" placeholder="价格"  value="<?php echo isset($v['attr_price']) ? $v['attr_price'] : '' ; ?>" class="form-control price" />
                                                        <?php endif; ?>
                                                    </div>
                                                </div>

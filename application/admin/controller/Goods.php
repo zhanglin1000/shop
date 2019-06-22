@@ -163,7 +163,25 @@ class Goods extends Controller
         $join = [
             ['attr ar','ga.attr_id = ar.id']
         ];
-        $attrRes = db('goods_attr')->alias('ga')->field('ga.*,ar.*')->join($join)->where('ga.goods_id','=',input('id'))->select();
+        $attrRes = db('goods_attr')->alias('ga')->field('ga.*,ar.*')->join($join)->where('ga.goods_id','=',input('id'))->order('ga.attr_id ASC')->select();
+
+        //循环现有属性,把新的添加进去
+        $attr_id = [];
+
+        foreach ( $attrRes as $k => $v )
+        {
+            $attr_id[] = $v['attr_id'];
+        }
+
+        //去除数组重复数据
+        $attr_id = array_unique($attr_id);
+
+        //查询所有属性
+        $attrAll = db('attr')->where('type_id','=',$goods['type_id'])->whereNotIn('id',$attr_id)->select();
+
+        //新的属性合并到原有属性里
+        $attrRes = array_merge($attrRes,$attrAll);
+
 
         //分配数据到模板
         $this->assign([
