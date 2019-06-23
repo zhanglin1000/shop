@@ -160,27 +160,18 @@ class Goods extends Controller
         $photos = db('photo')->where('goods_id','=',input('id'))->select();
 
         //根据类型查询相应属性
-        $join = [
-            ['attr ar','ga.attr_id = ar.id']
-        ];
-        $attrRes = db('goods_attr')->alias('ga')->field('ga.*,ar.*')->join($join)->where('ga.goods_id','=',input('id'))->order('ga.attr_id ASC')->select();
+        $attrRes = db('attr')->where('type_id','=',$goods['type_id'])->select();
 
-        //循环现有属性,把新的添加进去
-        $attr_id = [];
+        //查询商品属性表
+        $_gattrRes = db('goods_attr')->where('goods_id','=',input('id'))->select();
 
-        foreach ( $attrRes as $k => $v )
+        //重新组合属性表已相同的类型为下标
+        $gattrRes = [];
+
+        foreach ( $_gattrRes as $k => $v )
         {
-            $attr_id[] = $v['attr_id'];
+            $gattrRes[$v['attr_id']][] = $v;
         }
-
-        //去除数组重复数据
-        $attr_id = array_unique($attr_id);
-
-        //查询所有属性
-        $attrAll = db('attr')->where('type_id','=',$goods['type_id'])->whereNotIn('id',$attr_id)->select();
-
-        //新的属性合并到原有属性里
-        $attrRes = array_merge($attrRes,$attrAll);
 
 
         //分配数据到模板
@@ -192,7 +183,8 @@ class Goods extends Controller
             'goods' => $goods,
             'memberprice' => $member_price,
             'photo' => $photos,
-            'attrRes' => $attrRes
+            'attrRes' => $attrRes,
+            'gattrRes' => $gattrRes
         ]);
 
         return view();
