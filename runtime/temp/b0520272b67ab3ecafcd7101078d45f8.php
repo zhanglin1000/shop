@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561250081;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561336220;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -654,49 +654,21 @@
                                            </div>
 
                                            <div id="attr">
-                                             <?php foreach( $attrRes as $k => $v ): ?>
-                                              <!------单选属性------->
-                                              <?php if( $v['attr_type'] == 2 ): $arrRedio = explode(',',$v['attr_values']);  if(isset($gattrRes[$v['id']])) :  foreach( $gattrRes[$v['id']] as $k0 => $v0 ): ?>
-                                              <div class="form-group">
-                                                   <label  class="col-sm-2 control-label no-padding-right"> <?php echo $v['attr_name']; ?> <a href='javascript:void();' onclick='addrow(this)'>[+]</a> &nbsp;&nbsp;</label>
+                                               <?php foreach( $gattrRes as  $k=>$v ): ?>
+                                               <div class="form-group">
+                                                   <label  class="col-sm-2 control-label no-padding-right">
+                                                       <?php echo $v['attr_name']; ?>&nbsp;&nbsp;
+
+                                                       <?php if( $v['attr_type'] == 2 ): ?>
+                                                       <a  href='javascript:void();' onclick='addrow(this)'>[+]</a>
+                                                       <?php endif; ?>
+
+                                                   </label>
                                                    <div class="col-sm-6">
-                                                       <select name="">
-                                                           <option value="">请选择</option>
-                                                           <?php foreach( $arrRedio as $k1 => $v1): ?>
-                                                           <option  value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
-                                                           <?php endforeach; ?>
-                                                       </select>
-                                                       <input type="text" name="" placeholder="价格"  value="" class="form-control price" />
+
                                                    </div>
                                                </div>
                                                <?php endforeach; ?>
-                                              <?php endif; ?>
-                                              <!------END--------->
-                                              <?php else: ?>
-                                               <!-------唯一属性---------->
-                                               <?php if( !$v['attr_values'] ): ?>
-                                               <div class="form-group">
-                                                   <label  class="col-sm-2 control-label no-padding-right"><?php echo $v['attr_name']; ?></label>
-                                                   <div class="col-sm-6">
-                                                       <input class="form-control price"  name="" type="text">
-                                                   </div>
-                                               </div>
-                                               <?php else: $arrSelect = explode(',',$v['attr_values']); ?>
-                                               <div class="form-group">
-                                                   <label  class="col-sm-2 control-label no-padding-right"> <?php echo $v['attr_name']; ?></label>
-                                                   <div class="col-sm-6">
-                                                       <select name="">
-                                                           <option value="">请选择</option>
-                                                           <?php foreach( $arrSelect as $k1 => $v1): ?>
-                                                           <option  value="<?php echo $v1; ?>"><?php echo $v1; ?></option>
-                                                           <?php endforeach; ?>
-                                                       </select>
-                                                   </div>
-                                               </div>
-                                               <?php endif; ?>
-                                               <!------END--------->
-                                              <?php endif; ?>
-                                            <?php endforeach; ?>
                                                <!--<div class="form-group">
                                                  <label  class="col-sm-2 control-label no-padding-right">材质</label>
                                                  <div class="col-sm-6">
@@ -705,6 +677,7 @@
                                                          <option value="亚麻">亚麻</option>
                                                      </select>
                                                  </div>
+                                                 <input type="text" name="" placeholder="价格"  value="" class="form-control price" />
                                              </div>
 
                                              <div class="form-group">

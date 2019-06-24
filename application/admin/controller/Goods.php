@@ -159,21 +159,10 @@ class Goods extends Controller
         //查询指定相册
         $photos = db('photo')->where('goods_id','=',input('id'))->select();
 
-        //根据类型查询相应属性
-        $attrRes = db('attr')->where('type_id','=',$goods['type_id'])->select();
-
         //查询商品属性表
-        $_gattrRes = db('goods_attr')->where('goods_id','=',input('id'))->select();
+        $gattrRes = db('goods_attr')->alias('ga')->leftJoin(['sp_attr'=>'ar'],'ga.attr_id=ar.id')->field('ga.*,ar.attr_name,ar.attr_type')->where('ga.goods_id','=',input('id'))->select();
 
-        //重新组合属性表已相同的类型为下标
-        $gattrRes = [];
-
-        foreach ( $_gattrRes as $k => $v )
-        {
-            $gattrRes[$v['attr_id']][] = $v;
-        }
-
-
+        print_r($gattrRes);
         //分配数据到模板
         $this->assign([
             'levelAll' => $levelAll,
@@ -183,7 +172,6 @@ class Goods extends Controller
             'goods' => $goods,
             'memberprice' => $member_price,
             'photo' => $photos,
-            'attrRes' => $attrRes,
             'gattrRes' => $gattrRes
         ]);
 
