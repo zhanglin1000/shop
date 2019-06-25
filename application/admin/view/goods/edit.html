@@ -272,7 +272,7 @@
 
                                                        ?>
 
-                                                       <select name="">
+                                                       <select name="old_goods_attr[<?php echo $v['attr_id'] ?>][]">
                                                            <option value="">请选择</option>
                                                            //可选属性值循环
                                                            <?php foreach( $_arr as $k1 => $v1 ):
@@ -295,13 +295,13 @@
 
                                                        <?php } else { ?>
 
-                                                       <input class="form-control price"  name="" value="{$v.attr_value}" type="text">
+                                                       <input class="form-control price"  name="old_goods_attr[<?php echo $v['attr_id'] ?>][]" value="{$v.attr_value}" type="text">
 
                                                        <?php } ?>
 
 
                                                        <?php if( $v['attr_type'] == 2 ): ?>
-                                                        <input type="text" name="" placeholder="价格"  value="{$v.attr_price}" class="form-control price" />
+                                                        <input type="text" name="old_goods_price[<?php echo $v['attr_id']; ?>][]" placeholder="价格"  value="{$v.attr_price}" class="form-control price" />
                                                        <?php endif; ?>
 
 

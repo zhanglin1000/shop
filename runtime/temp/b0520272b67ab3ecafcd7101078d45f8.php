@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561416012;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561505178;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -703,7 +703,7 @@
 
                                                        ?>
 
-                                                       <select name="">
+                                                       <select name="old_goods_attr[<?php echo $v['attr_id'] ?>][]">
                                                            <option value="">请选择</option>
                                                            //可选属性值循环
                                                            <?php foreach( $_arr as $k1 => $v1 ):
@@ -726,10 +726,10 @@
 
                                                        <?php } else { ?>
 
-                                                       <input class="form-control price"  name="" value="<?php echo htmlentities($v['attr_value']); ?>" type="text">
+                                                       <input class="form-control price"  name="old_goods_attr[<?php echo $v['attr_id'] ?>][]" value="<?php echo htmlentities($v['attr_value']); ?>" type="text">
 
                                                        <?php } if( $v['attr_type'] == 2 ): ?>
-                                                        <input type="text" name="" placeholder="价格"  value="<?php echo htmlentities($v['attr_price']); ?>" class="form-control price" />
+                                                        <input type="text" name="old_goods_price[<?php echo $v['attr_id']; ?>][]" placeholder="价格"  value="<?php echo htmlentities($v['attr_price']); ?>" class="form-control price" />
                                                        <?php endif; ?>
 
 
