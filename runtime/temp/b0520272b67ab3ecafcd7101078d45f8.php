@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561336220;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561416012;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -654,20 +654,89 @@
                                            </div>
 
                                            <div id="attr">
-                                               <?php foreach( $gattrRes as  $k=>$v ): ?>
+                                               <?php
+
+                                               //属性数组
+                                               $attrId = [];
+
+                                               foreach( $gattrRes as  $k=>$v ): ?>
+
                                                <div class="form-group">
                                                    <label  class="col-sm-2 control-label no-padding-right">
+
                                                        <?php echo $v['attr_name']; ?>&nbsp;&nbsp;
 
-                                                       <?php if( $v['attr_type'] == 2 ): ?>
-                                                       <a  href='javascript:void();' onclick='addrow(this)'>[+]</a>
+                                                       <?php if( $v['attr_type'] == 2 ):
+
+                                                        //如何通过循环确定同一个属性第一个是加号还是减号
+                                                        if( in_array($v['attr_id'],$attrId) )
+                                                        {
+                                                              $opt = '[-]';
+                                                        }
+                                                        else
+                                                        {
+                                                              $opt = '[+]';
+
+                                                              //如果第一次出现就加入到数组中
+                                                              $attrId[] = $v['attr_id'];
+                                                        }
+
+
+
+                                                      ?>
+
+                                                       <a  href='javascript:void(0);' onclick='addrow(this)'><?php echo htmlentities($opt); ?></a>
+
                                                        <?php endif; ?>
 
                                                    </label>
+
                                                    <div class="col-sm-6">
+                                                       <?php
+
+                                                       //如果属性有可选就是下拉框否则就文本框
+
+                                                       if( $v['attr_values'] )
+                                                       {
+
+                                                        $_arr = explode(',',$v['attr_values']);
+
+                                                       ?>
+
+                                                       <select name="">
+                                                           <option value="">请选择</option>
+                                                           //可选属性值循环
+                                                           <?php foreach( $_arr as $k1 => $v1 ):
+
+                                                             if( $v1 == $v['attr_value'] )
+                                                             {
+                                                                $select = "selected='selected'";
+                                                             }
+                                                             else
+                                                             {
+                                                                $select = '';
+                                                             }
+
+                                                           ?>
+                                                           <option <?php echo htmlentities($select); ?> value="<?php echo htmlentities($v1); ?>"><?php echo htmlentities($v1); ?></option>
+
+                                                           <?php endforeach; ?>
+
+                                                       </select>
+
+                                                       <?php } else { ?>
+
+                                                       <input class="form-control price"  name="" value="<?php echo htmlentities($v['attr_value']); ?>" type="text">
+
+                                                       <?php } if( $v['attr_type'] == 2 ): ?>
+                                                        <input type="text" name="" placeholder="价格"  value="<?php echo htmlentities($v['attr_price']); ?>" class="form-control price" />
+                                                       <?php endif; ?>
+
 
                                                    </div>
+
                                                </div>
+
                                                <?php endforeach; ?>
                                                <!--<div class="form-group">
                                                  <label  class="col-sm-2 control-label no-padding-right">材质</label>

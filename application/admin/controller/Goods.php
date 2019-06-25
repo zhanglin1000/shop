@@ -160,9 +160,32 @@ class Goods extends Controller
         $photos = db('photo')->where('goods_id','=',input('id'))->select();
 
         //查询商品属性表
-        $gattrRes = db('goods_attr')->alias('ga')->leftJoin(['sp_attr'=>'ar'],'ga.attr_id=ar.id')->field('ga.*,ar.attr_name,ar.attr_type')->where('ga.goods_id','=',input('id'))->select();
+        $gattrRes = db('goods_attr')->alias('ga')->leftJoin(['sp_attr'=>'ar'],'ga.attr_id=ar.id')->field('ga.*,ar.attr_name,ar.attr_type,ar.attr_values')->where('ga.goods_id','=',input('id'))->select();
 
-        print_r($gattrRes);
+        //循环现旧的属性ID,对比是否有新的属性
+        $attrID = [];
+
+        foreach ( $gattrRes as $k => $v )
+        {
+            $attrID[] = $v['attr_id'];
+        }
+
+        $attrID = array_unique($attrID);
+
+
+        //查询对应商品所有的属性
+        $attr = db('attr')->field(['id'=>'attr_id','attr_name','attr_values','attr_type'])->where('type_id','=',$goods['type_id'])->whereNotIn('id',$attrID)->select();
+
+        foreach ( $attr as $k => $v )
+        {
+             $attr[$k]['attr_value'] = '';
+             $attr[$k]['attr_price'] = '';
+        }
+
+        //把新的属性合并到旧的属性中
+        $gattrRes = array_merge($gattrRes,$attr);
+
+
         //分配数据到模板
         $this->assign([
             'levelAll' => $levelAll,
