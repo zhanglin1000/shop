@@ -160,7 +160,7 @@ class Goods extends Controller
         $photos = db('photo')->where('goods_id','=',input('id'))->select();
 
         //查询商品属性表
-        $gattrRes = db('goods_attr')->alias('ga')->leftJoin(['sp_attr'=>'ar'],'ga.attr_id=ar.id')->field('ga.*,ar.attr_name,ar.attr_type,ar.attr_values')->where('ga.goods_id','=',input('id'))->select();
+        $gattrRes = db('goods_attr')->alias('ga')->leftJoin(['sp_attr'=>'ar'],'ga.attr_id=ar.id')->field('ga.*,ar.attr_name,ar.attr_type,ar.attr_values')->where('ga.goods_id','=',input('id'))->order('ga.attr_id ASC')->select();
 
         //循环现旧的属性ID,对比是否有新的属性
         $attrID = [];
@@ -184,6 +184,7 @@ class Goods extends Controller
 
         //把新的属性合并到旧的属性中
         $gattrRes = array_merge($gattrRes,$attr);
+
 
 
         //分配数据到模板
@@ -345,6 +346,28 @@ class Goods extends Controller
              $this->error('页面不存在');
          }
 
+    }
+
+    //异步删除商品属性
+    public function delattr($id)
+    {
+       if( request()->isAjax() )
+       {
+           $delattr = db('goods_attr')->where('id','=',$id)->delete();
+
+           if($delattr !== false)
+           {
+               return 1;
+           }
+           else
+           {
+               return 0;
+           }
+       }
+       else
+       {
+          return false;
+       }
     }
 
 }

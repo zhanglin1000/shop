@@ -415,9 +415,82 @@ class Goods extends Model
 
             /*******处理商品属性**********/
 
+            //判断类型是否为空
+            if(!empty($goods->type_id))
+            {
+
+                //接收商品属性
+                $goods_attr = isset($goods->goods_attr) ? $goods->goods_attr : '' ;
+
+                //接收商品价格
+                $goods_price = isset($goods->goods_price) ? $goods->goods_price : '';
+
+
+                //实例化商品属性表
+                $goodsAttr = db('goods_attr');
+
+                //判断是否有商品属性
+                if( $goods_attr )
+                {
+                    //循环商品属性
+                    foreach ( $goods_attr as $k => $v )
+                    {
+                        foreach ( $v as $k1 => $v1 )
+                        {
+
+                            //判断是否为空,是空就跳过
+                            if( empty($v1) )
+                            {
+                                continue;
+                            }
+
+                            //执行批量写入商品属性
+                            $goodsAttr->insert([
+                                'id' => '',
+                                'attr_id' => $k,
+                                'attr_value' => $v1,
+                                'attr_price' => isset($goods_price[$k][$k1]) ? $goods_price[$k][$k1] : 0 ,
+                                'goods_id' => $goods->id
+                            ]);
+
+                        }
+
+
+
+                    }}
+            }
+
+
+            //处理旧的属性
+
+            $old_goods_attr = $goods->old_goods_attr;
+
+            $old_goods_price = $goods->old_goods_price;
+
+            //循环更新所有旧属性
+            foreach ( $old_goods_attr as $k => $v )
+            {
+                foreach ( $v as $k1 => $v1 )
+                {
+                     //可修改的属性
+                     $oldFiled = [
+                         'attr_value' => $v1
+                     ];
+
+                     //判断有没有价格
+                     if( isset( $old_goods_price[$k] ) )
+                     {
+                         $oldFiled['attr_price'] = $old_goods_price[$k][$k1];
+                     }
+
+                     //执行更新
+                     db('goods_attr')->where('id','=',$k1)->update($oldFiled);
+                }
+            }
+
+
+
             /**********END***************/
-            print_r(input('post.'));
-            die();
 
         });
 
