@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561505178;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561691049;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -685,7 +685,7 @@
 
                                                       ?>
 
-                                                       <a  href='javascript:void(0);' onclick='addrow(this)'><?php echo htmlentities($opt); ?></a>
+                                                       <a  href='javascript:void(0);' attrid = "<?php if(isset($v['id'])) { echo $v['id'];} ?>" onclick='addrow(this)'><?php echo htmlentities($opt); ?></a>
 
                                                        <?php endif; ?>
 
@@ -701,9 +701,17 @@
 
                                                         $_arr = explode(',',$v['attr_values']);
 
+                                                        if( empty($v['attr_value']) )
+                                                        {
+                                                              $old = '';
+                                                        }
+                                                        else
+                                                        {
+                                                               $old = 'old_';
+                                                        }
                                                        ?>
 
-                                                       <select name="old_goods_attr[<?php echo $v['attr_id'] ?>][]">
+                                                       <select name="<?php echo $old; ?>goods_attr[<?php echo $v['attr_id'] ?>][<?php if(isset($v['id'])) { echo $v['id'];} ?>]">
                                                            <option value="">请选择</option>
                                                            //可选属性值循环
                                                            <?php foreach( $_arr as $k1 => $v1 ):
@@ -726,10 +734,10 @@
 
                                                        <?php } else { ?>
 
-                                                       <input class="form-control price"  name="old_goods_attr[<?php echo $v['attr_id'] ?>][]" value="<?php echo htmlentities($v['attr_value']); ?>" type="text">
+                                                       <input  class="form-control price"  name="<?php echo $old; ?>goods_attr[<?php echo $v['attr_id'] ?>][<?php if(isset($v['id'])) { echo $v['id'];} ?>]" value="<?php echo htmlentities($v['attr_value']); ?>" type="text">
 
                                                        <?php } if( $v['attr_type'] == 2 ): ?>
-                                                        <input type="text" name="old_goods_price[<?php echo $v['attr_id']; ?>][]" placeholder="价格"  value="<?php echo htmlentities($v['attr_price']); ?>" class="form-control price" />
+                                                        <input type="text" name="<?php echo $old; ?>goods_price[<?php echo $v['attr_id']; ?>][<?php if(isset($v['id'])) { echo $v['id'];} ?>]" placeholder="价格"  value="<?php echo htmlentities($v['attr_price']); ?>" class="form-control price" />
                                                        <?php endif; ?>
 
 
@@ -896,6 +904,20 @@
           //执行克隆
           var newdiv = div.clone();
 
+          //把克隆出来的名字去掉
+          var oldName = newdiv.find('select').attr('name');
+
+          var newName = oldName.replace('old_','');
+
+          newdiv.find('select').attr('name',newName);
+
+            //把价格克隆出来的名字去掉
+            var oldName = newdiv.find('input').attr('name');
+
+            var newName = oldName.replace('old_','');
+
+            newdiv.find('input').attr('name',newName);
+
           //判断系统是否点击的加号
           if($( a ).html() == '[+]')
           {
@@ -906,7 +928,30 @@
           }
           else
           {
-              div.remove();
+              //点击减号删除对应记录
+              var id = $( a ).attr('attrid');
+
+              $.ajax({
+                  type: "POST",
+                  url: "<?php echo url('goods/delattr'); ?>",
+                  dataType: 'json',
+                  data: {
+                      'id': id
+                  },
+                  success: function ( data )
+                  {
+                     if( data == 1 )
+                     {
+                         div.remove();
+                         layer.msg('删除属性成功');
+                     }
+                     else
+                     {
+                         layer.msg('删除属性失败');
+                     }
+                  }
+              });
+
           }
 
         }
