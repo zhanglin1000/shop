@@ -1,4 +1,4 @@
-<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\article\edit.html";i:1557930688;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1558017097;}*/ ?>
+<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\article\edit.html";i:1557930688;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -100,7 +100,7 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('goods/lst'); ?>">
                         <span class="menu-text">
                             商品列表
                         </span>
@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('category/lst'); ?>">
                         <span class="menu-text">
                             商品分类
                         </span>
@@ -124,7 +124,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('type/lst'); ?>">
                         <span class="menu-text">
                             商品类型
                         </span>
@@ -181,6 +181,25 @@
                     <a href="<?php echo url('article/img_list'); ?>">
                         <span class="menu-text">
                             图片列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-paperclip"></i>
+                <span class="menu-text">
+                    链接模块
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('link/lst'); ?>">
+                        <span class="menu-text">
+                            链接列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -299,41 +318,9 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('memberlevel/lst'); ?>">
                         <span class="menu-text">
-                            商品列表
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品品牌
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品分类
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品类型
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品回收站
+                            会员级别
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -350,41 +337,17 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('config/lst'); ?>">
                         <span class="menu-text">
-                            商品列表
+                            配置列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('config/configlist'); ?>">
                         <span class="menu-text">
-                            商品品牌
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品分类
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品类型
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            商品回收站
+                            配置设置
                         </span>
                         <i class="menu-expand"></i>
                     </a>
