@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1561955821;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1561955649;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1561975744;}*/ ?>
+<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1561955821;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1561955649;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562036430;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -1878,7 +1878,7 @@
                     <h3><?php echo htmlentities($footer_article['cate_name']); ?> </h3>
                     <ul>
                         <?php if(is_array($footer_article['child']) || $footer_article['child'] instanceof \think\Collection || $footer_article['child'] instanceof \think\Paginator): $i = 0; $__LIST__ = $footer_article['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child): $mod = ($i % 2 );++$i;?>
-                        <li><a href="<?php echo url('article/index',['id'=>$child['id']]); ?>" title="<?php echo htmlentities($child['title']); ?>" target="_blank"><?php echo htmlentities($child['title']); ?></a></li>
+                        <li><a href="<?php echo url('articleContent/index',['id'=>$child['id'],'pid'=>$footer_article['id']]); ?>" title="<?php echo htmlentities($child['title']); ?>" target="_blank"><?php echo htmlentities($child['title']); ?></a></li>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
                     </dl>

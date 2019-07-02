@@ -8,16 +8,21 @@
 
 namespace app\index\controller;
 
+use catetree\Catetree;
+
 class Article extends Comment
 {
     //文章列表显示
-    public function index()
+    public function index($id)
     {
         //获取普通分类
         $this->getCate();
 
         //获取帮助分类
         $this->getHelp();
+
+        //获取文章列表
+        $this->getArticleList($id);
 
         return view('article/index');
     }
@@ -69,5 +74,41 @@ class Article extends Comment
         ]);
 
     }
+
+    //获取分类文章
+    public function getArticleList($id)
+    {
+        //实例化栏目表
+        $cate = db('cate');
+
+        //引入无限极分类
+        $catetree = new Catetree();
+
+        //查询出指定栏目子栏目ID
+        $subclass = $catetree->childId($cate->select(),$id);
+
+        //把自身加入其中
+        $subclass[] = $id;
+
+        //查询条件
+        $where = [
+            ['cate_id','IN',$subclass]
+        ];
+
+        //查询当前子栏目下所有文章
+        $article_list = db('article')->where($where)->select();
+
+        //获取当前子栏目下顶级栏目
+        $cate_name = $cate->field('cate_name')->find($id);
+
+        //查询的文章分配到模板
+        $this->assign([
+            'article_list' => $article_list,
+            'cate_name' => $cate_name
+        ]);
+
+
+    }
+
 }
 ?>

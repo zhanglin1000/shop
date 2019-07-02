@@ -32,50 +32,22 @@
     <div class="w w1200 clearfix">
 
         <!-----文章右侧菜单-------->
-        <div class="article-side">
-            <dl class="article-menu">
-                <dt class="am-t"><a href="javascript:void(0);">文章分类列表</a></dt>
-                <dd class="am-c">
-                    <div class="menu-item active">
-                        <div class="item-hd"><a href="javascript:void(0);">系统分类</a><i class="iconfont icon-down"></i></div>
-                        <ul class="item-bd">
-                            {volist name="cate_help" id="cate_help"}
-                            <li><a href="{:url('article/index',['id'=>$cate_help['id']])}">{$cate_help.cate_name}</a></li>
-                            {/volist}
-
-                        </ul>
-                    </div>
-                </dd>
-
-                <dd class="am-c">
-                    {volist name="cate_general" id="cate_general"}
-                    <div class="menu-item active">
-                        <div class="item-hd"><a href="{:url('article/index',['id'=>$cate_general['id']])}">{$cate_general.cate_name}</a>{if $cate_general['subclass']}<i class="iconfont icon-up"></i>{/if}</div>
-                        {if $cate_general['subclass']}
-                        <ul class="item-bd" style="display:none;">
-                            {volist name="cate_general.subclass" id="subclass"}
-                            <li><a href="{:url('article/index',['id'=>$subclass['id']])}">{$subclass.cate_name}</a></li>
-                            {/volist}
-                        </ul>
-                        {/if}
-                    </div>
-                    {/volist}
-                </dd>
-            </dl>
-        </div>
+        {include file="public/article_cate" /}
         <!-----END-------->
 
         <!------文章左侧列表--------->
         <div class="article-main">
             <div class="am-hd">
-                <h2>新手上路 </h2>
+                <h2>{$cate_name.cate_name} </h2>
             </div>
             <div class="am-bd">
                 <ul class="artilce-list">
+                    {volist name="article_list" id="article_list"}
                     <li>
-                        <h3><a href="#" title="隐私声明">隐私声明</a></h3>
+                        <h3><a href="{:url('index/ArticleContent/index',['id'=>$article_list['id'],'pid'=>$cate_name['id']])}" title="{$article_list.title}">{$article_list.title}</a></h3>
                         <p></p>
                     </li>
+                    {/volist}
                 </ul>
             </div>
         </div>

@@ -9,12 +9,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
-});
+//文章栏目路由
+\think\facade\Route::rule('article/:id','index/Article/index','GET')->pattern(['id'=>'\d+']);
 
-Route::get('hello/:name', 'index/hello');
-
-return [
-
-];
+//文章内容路由
+\think\facade\Route::rule('article_content/:id-pid-:pid','index/ArticleContent/index')->pattern(['id'=>'\d+','pid'=>'\d+']);

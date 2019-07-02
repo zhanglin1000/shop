@@ -1,10 +1,10 @@
-<?php /*a:4:{s:60:"D:\phpEnv\www\shop\application\index\view\article\index.html";i:1562076881;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1561955964;s:66:"D:\phpEnv\www\shop\application\index\view\public\article_cate.html";i:1562076426;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562036430;}*/ ?>
+<?php /*a:4:{s:67:"D:\phpEnv\www\shop\application\index\view\articleContent\index.html";i:1562076938;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1561955964;s:66:"D:\phpEnv\www\shop\application\index\view\public\article_cate.html";i:1562076426;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562036430;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="Keywords" content="文章分类列表" />
-<meta name="Description" content="文章分类列表" />
+<meta name="Keywords" content="文章内容" />
+<meta name="Description" content="文章内容" />
 <title>雪狐商城</title>
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css" href="http://shop.com/public/static/index/css/base.css" />
@@ -13,8 +13,7 @@
 <link rel="stylesheet" type="text/css" href="http://shop.com/public/static/index/css/purebox.css" />
 <link rel="stylesheet" type="text/css" href="http://shop.com/public/static/index/css/quicklinks.css" />
 <script type="text/javascript" src="http://shop.com/public/static/index/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="http://shop.com/public/static/index/js/article.js"></script>
-</head>
+    <script type="text/javascript" src="http://shop.com/public/static/index/js/article.js"></script>
 <body class="bg-ligtGary">
 
 <!---商城顶部导航--->
@@ -167,6 +166,7 @@
 <!----END----->
 <!----END---->
 
+
 <!---文章帮助中心------>
 <div class="content article-content">
 
@@ -214,29 +214,51 @@
 <!-----END-------->
         <!-----END-------->
 
-        <!------文章左侧列表--------->
+        <!-----文章内容-------->
         <div class="article-main">
+            <!-------文章面包屑导航------->
             <div class="am-hd">
-                <h2><?php echo htmlentities($cate_name['cate_name']); ?> </h2>
-            </div>
-            <div class="am-bd">
-                <ul class="artilce-list">
-                    <?php if(is_array($article_list) || $article_list instanceof \think\Collection || $article_list instanceof \think\Paginator): $i = 0; $__LIST__ = $article_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$article_list): $mod = ($i % 2 );++$i;?>
-                    <li>
-                        <h3><a href="<?php echo url('index/ArticleContent/index',['id'=>$article_list['id'],'pid'=>$cate_name['id']]); ?>" title="<?php echo htmlentities($article_list['title']); ?>"><?php echo htmlentities($article_list['title']); ?></a></h3>
-                        <p></p>
-                    </li>
+                <h2>隐私声明</h2>
+                <div class="extra">
+                    <?php if(is_array($cate_name) || $cate_name instanceof \think\Collection || $cate_name instanceof \think\Paginator): $i = 0; $__LIST__ = $cate_name;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$catename): $mod = ($i % 2 );++$i;if(count($cate_name) < count($catename)): ?>
+                     <a href="<?php echo url('index/Article/index',['id'=>$catename['id']]); ?>"><?php echo htmlentities($catename['cate_name']); ?></a>
+                     <i>&gt;</i>
+                    <?php else: ?>
+                    <i></i>
+                    <span><?php echo htmlentities($catename['cate_name']); ?></span>
+                    <?php endif; ?>
                     <?php endforeach; endif; else: echo "" ;endif; ?>
-                </ul>
+
+                </div>
+            </div>
+            <!------END-------->
+
+            <div class="am-bd">
+                <!-------文章详情-------->
+                <div class="article-words">
+                   <p>&nbsp;<strong style="font-family: 微软雅黑, 宋体, Arial, Helvetica, sans-serif; line-height: 24px; margin: 0px; padding: 0px; font-size: 14px; color: rgb(33, 33, 33);"><?php echo htmlentities($article_content['title']); ?></strong></p>
+                    <div class="content_list border_none list_top_txt" style="margin: 0px; padding: 25px 0px 15px; width: 733px; border: none; line-height: 24px; float: left; color: rgb(102, 102, 102); font-family: 微软雅黑, 宋体, Arial, Helvetica, sans-serif;">
+                        <?php echo $article_content['content']; ?>
+                    </div>
+                </div>
+                <!--------END------>
+
+                <!-------文章上一篇和下一篇-------->
+                <div class="more_article">
+                        <span class="art_prev">
+                            上一篇：<?php if($prev): ?><a href="<?php echo url('index/ArticleContent/index',['id'=>$prev['id'],'pid'=>input('pid')]); ?>" ><?php echo htmlentities($prev['title']); ?></a> <?php else: ?>没有啦<?php endif; ?>
+                         </span>
+                    <span class="art_next">
+                       下一篇：<?php if($next): ?><a href="<?php echo url('index/ArticleContent/index',['id'=>$next['id'],'pid'=>input('pid')]); ?>" ><?php echo htmlentities($next['title']); ?></a><?php else: ?>没有啦<?php endif; ?>
+                    </span>
+                </div>
+                <!-----END-------->
             </div>
         </div>
         <!----END----->
     </div>
-
-
-
 </div>
-<!-----END------>
+<!----END------>
 
 <!------底部导航--------->
 
@@ -311,6 +333,5 @@
 </div>
 <!-----END--------->
 <!-----END--------->
-
 </body>
 </html>
