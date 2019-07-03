@@ -80,12 +80,16 @@ class Goods extends Controller
         //商品分类全部读取
         $categoryAll = $cateTree->sort($category);
 
+        //商品推荐位
+        $goodsRec = db('rec_pos')->where('rec_type','=','1')->select();
+
         //分配数据到模板
         $this->assign([
             'levelAll' => $levelAll,
             'typeAll' => $typeAll,
             'brandAll' => $brandAll,
-            'categoryAll' => $categoryAll
+            'categoryAll' => $categoryAll,
+            'goodsRec' => $goodsRec
         ]);
 
         return view();

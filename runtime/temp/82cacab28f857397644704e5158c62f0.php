@@ -1,4 +1,4 @@
-<?php /*a:4:{s:67:"D:\phpEnv\www\shop\application\index\view\articleContent\index.html";i:1562076938;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1561955964;s:66:"D:\phpEnv\www\shop\application\index\view\public\article_cate.html";i:1562076426;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562036430;}*/ ?>
+<?php /*a:4:{s:67:"D:\phpEnv\www\shop\application\index\view\articleContent\index.html";i:1562076938;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1562138903;s:66:"D:\phpEnv\www\shop\application\index\view\public\article_cate.html";i:1562076426;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -76,10 +76,13 @@
 
                 <!----关键词搜索----->
                 <ul class="keyword">
-                    <li><a href="#" target="_blank">周大福</a></li>
-                    <li><a href="#" target="_blank">内衣</a></li>
-                    <li><a href="#" target="_blank">Five Plus</a></li>
-                    <li><a href="#" target="_blank">手机</a></li>
+                    <?php
+                     $keywords = explode(',',$config['keyword']);
+                     foreach( $keywords as $k => $v ):
+                    ?>
+                    <li><a href="#" target="_blank"><?php echo htmlentities($v); ?></a></li>
+                    <?php endforeach; ?>
+
                 </ul>
                 <!----END----->
 
@@ -146,17 +149,10 @@
         <!----商城导航菜单------->
         <div class="nav-main" id="nav">
             <ul class="navitems">
-                <li><a href="#" class="curr">首页</a></li>
-                <li><a href="#">食品特产</a></li>
-                <li><a href="#">服装城</a></li>
-                <li><a href="#">大家电</a></li>
-                <li><a href="#">鞋靴箱包</a></li>
-                <li><a href="#">品牌专区</a></li>
-                <li><a href="#">聚划算</a></li>
-                <li><a href="#">积分商城</a></li>
-                <li><a href="#">预售</a></li>
-                <li><a href="#">店铺街</a></li>
-                <li><a href="#">微分销</a></li>
+                <li><a href="<?php echo url('index/index'); ?>" class="curr">首页</a></li>
+                <?php if(is_array($nav["mid"]) || $nav["mid"] instanceof \think\Collection || $nav["mid"] instanceof \think\Paginator): $i = 0; $__LIST__ = $nav["mid"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$nav): $mod = ($i % 2 );++$i;?>
+                <li><a <?php if($nav['open'] == 1): ?>target="_blank"<?php endif; ?> href="<?php echo htmlentities($nav['nav_url']); ?>"><?php echo htmlentities($nav['nav_name']); ?></a></li>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </ul>
         </div>
         <!----END------>
@@ -310,7 +306,7 @@
                     <h3><?php echo htmlentities($footer_article['cate_name']); ?> </h3>
                     <ul>
                         <?php if(is_array($footer_article['child']) || $footer_article['child'] instanceof \think\Collection || $footer_article['child'] instanceof \think\Paginator): $i = 0; $__LIST__ = $footer_article['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child): $mod = ($i % 2 );++$i;?>
-                        <li><a href="<?php echo url('articleContent/index',['id'=>$child['id'],'pid'=>$footer_article['id']]); ?>" title="<?php echo htmlentities($child['title']); ?>" target="_blank"><?php echo htmlentities($child['title']); ?></a></li>
+                        <li><a href="<?php echo url('index/ArticleContent/index',['id'=>$child['id'],'pid'=>$footer_article['id']]); ?>" title="<?php echo htmlentities($child['title']); ?>" target="_blank"><?php echo htmlentities($child['title']); ?></a></li>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
                     </dl>

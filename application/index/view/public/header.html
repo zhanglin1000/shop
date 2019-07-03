@@ -57,10 +57,13 @@
 
                 <!----关键词搜索----->
                 <ul class="keyword">
-                    <li><a href="#" target="_blank">周大福</a></li>
-                    <li><a href="#" target="_blank">内衣</a></li>
-                    <li><a href="#" target="_blank">Five Plus</a></li>
-                    <li><a href="#" target="_blank">手机</a></li>
+                    <?php
+                     $keywords = explode(',',$config['keyword']);
+                     foreach( $keywords as $k => $v ):
+                    ?>
+                    <li><a href="#" target="_blank">{$v}</a></li>
+                    <?php endforeach; ?>
+
                 </ul>
                 <!----END----->
 
@@ -127,17 +130,10 @@
         <!----商城导航菜单------->
         <div class="nav-main" id="nav">
             <ul class="navitems">
-                <li><a href="#" class="curr">首页</a></li>
-                <li><a href="#">食品特产</a></li>
-                <li><a href="#">服装城</a></li>
-                <li><a href="#">大家电</a></li>
-                <li><a href="#">鞋靴箱包</a></li>
-                <li><a href="#">品牌专区</a></li>
-                <li><a href="#">聚划算</a></li>
-                <li><a href="#">积分商城</a></li>
-                <li><a href="#">预售</a></li>
-                <li><a href="#">店铺街</a></li>
-                <li><a href="#">微分销</a></li>
+                <li><a href="{:url('index/index')}" class="curr">首页</a></li>
+                {volist name='nav["mid"]' id='nav'}
+                <li><a {if $nav['open'] eq 1}target="_blank"{/if} href="{$nav.nav_url}">{$nav.nav_name}</a></li>
+                {/volist}
             </ul>
         </div>
         <!----END------>

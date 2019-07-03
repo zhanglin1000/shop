@@ -47,7 +47,7 @@
                     <h3>{$footer_article.cate_name} </h3>
                     <ul>
                         {volist name="footer_article.child" id="child"}
-                        <li><a href="{:url('articleContent/index',['id'=>$child['id'],'pid'=>$footer_article['id']])}" title="{$child.title}" target="_blank">{$child.title}</a></li>
+                        <li><a href="{:url('index/ArticleContent/index',['id'=>$child['id'],'pid'=>$footer_article['id']])}" title="{$child.title}" target="_blank">{$child.title}</a></li>
                         {/volist}
                     </ul>
                     </dl>

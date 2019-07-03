@@ -91,6 +91,32 @@ class Goods extends Model
 
             /********* 处理会员价格批量添加结束 ********/
 
+            /******** 处理商品推荐位 **********/
+
+             //获取推荐位数组
+             $goods_rec = isset($goods->goods_rec) ? $goods->goods_rec : '';
+
+             //实例化商品和推荐位公共表
+             $goodsRec =  db('goods_rec');
+
+             //判断是否存在
+             if( $goods_rec )
+             {
+                 //循环数组
+                 foreach ( $goods_rec as $k => $v )
+                 {
+                       //执行添加到商品和推荐位公共表
+                      $goodsRec->insert([
+                           'id' => '',
+                           'rec_id' => $v,
+                           'goods_id' => $goods_id
+                       ]);
+                 }
+             }
+
+
+            /******** END **********/
+
 
             /******** 处理商品相册批量添加 **********/
 
