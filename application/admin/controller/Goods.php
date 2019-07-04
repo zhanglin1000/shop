@@ -189,7 +189,23 @@ class Goods extends Controller
         //把新的属性合并到旧的属性中
         $gattrRes = array_merge($gattrRes,$attr);
 
+        //商品推荐位
+        $goodsRec = db('rec_pos')->where('rec_type','=','1')->select();
 
+        //查询指定商品推荐位
+        $where = [
+            'goods_id'=>input('id'),
+            'value_type' => 1
+        ];
+        $recPos = db('goods_rec')->where($where)->select();
+
+        //更改二维数组位一位数组
+        $myrecpos = [];
+
+        foreach ( $recPos as $k => $v )
+        {
+            $myrecpos[] = $v['rec_id'];
+        }
 
         //分配数据到模板
         $this->assign([
@@ -200,7 +216,9 @@ class Goods extends Controller
             'goods' => $goods,
             'memberprice' => $member_price,
             'photo' => $photos,
-            'gattrRes' => $gattrRes
+            'gattrRes' => $gattrRes,
+            'goodsRec' => $goodsRec,
+            'myrecpos' => $myrecpos
         ]);
 
         return view();

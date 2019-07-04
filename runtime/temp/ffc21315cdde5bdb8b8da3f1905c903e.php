@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562141172;}*/ ?>
+<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\category\lst.html";i:1558625837;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562141172;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -78,7 +78,7 @@
 	
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
+			<!-- Page Sidebar -->
             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
@@ -503,7 +503,8 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">商品分类管理</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -511,6 +512,53 @@
                 <!-- Page Body -->
                 <div class="page-body">
 
+        <form method="post" action="<?php echo url('category/sort'); ?>">
+                <a href="<?php echo url('category/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <button class="btn btn-azure btn-sm"><i class="fa fa-level-down"></i> 商品分类排序</button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">商品分类名称</th>
+                                                <th class="text-center">排序</th>
+                                                <th class="text-center">显示在导航栏</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             <?php if(is_array($categoryAll) || $categoryAll instanceof \think\Collection || $categoryAll instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($category['id']); ?></td>
+                                                <td align="left"><?php if($category['pid'] != 0): ?><?php echo '♩'.str_repeat('-',$category['level'] * 8); ?><?php endif; ?><?php echo htmlentities($category['cate_name']); ?></td>
+                                                <td align="center"><input type="text" name="sort[<?php echo htmlentities($category['id']); ?>]" value="<?php echo htmlentities($category['sort']); ?>" style="width:60px;height:25px;text-align:center;"></td>
+                                                <td align="center">
+                                                    <a href="#" category_url ="<?php echo url('category/status'); ?>" category_id="<?php echo htmlentities($category['id']); ?>" onclick="shop_status(this);"  class="<?php if($category['show_nav'] == 1): ?>  label label-info <?php else: ?> label label-pink graded <?php endif; ?>"><?php if($category['show_nav'] == 1): ?>显示<?php else: ?>隐藏<?php endif; ?></a>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('category/edit',array('id'=>$category['id'])); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('category/del',array('id'=>$category['id'])); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                             <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
                 </div>
                 <!-- /Page Body -->
             </div>
@@ -518,11 +566,11 @@
 		</div>	
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 </body>
 </html>

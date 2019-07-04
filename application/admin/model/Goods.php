@@ -107,9 +107,9 @@ class Goods extends Model
                  {
                        //执行添加到商品和推荐位公共表
                       $goodsRec->insert([
-                           'id' => '',
                            'rec_id' => $v,
-                           'goods_id' => $goods_id
+                           'goods_id' => $goods_id,
+                          'value_type' => 1
                        ]);
                  }
              }
@@ -310,6 +310,7 @@ class Goods extends Model
         //修改之前处理
         self::beforeUpdate(function ( $goods )
         {
+
             //判断是否有图片上传
             if( $_FILES['og_thumb']['tmp_name'] != '' )
             {
@@ -387,6 +388,39 @@ class Goods extends Model
              }
             /******** END **********/
 
+            /******** 处理商品推荐位 **********/
+
+            //获取推荐位数组
+            $goods_rec = isset($goods->goods_rec) ? $goods->goods_rec : '';
+
+            //实例化商品和推荐位公共表
+            $goodsRec =  db('goods_rec');
+
+            //删除之前数据
+            $where = [
+                'goods_id'=>input('id'),
+                'value_type' => 1
+            ];
+            $goodsRec->where($where)->delete();
+
+            //判断是否存在
+            if( $goods_rec )
+            {
+                //循环数组
+                foreach ( $goods_rec as $k => $v )
+                {
+                    //执行添加到商品和推荐位公共表
+                    $goodsRec->insert([
+                        'rec_id' => $v,
+                        'goods_id' => $goodsId,
+                        'value_type' => 1
+                    ]);
+                }
+            }
+
+
+            /******** END **********/
+
             /******** 处理相册修改 **********/
             if(self::_hasImags($_FILES['goods_photo']['tmp_name']))
             {
@@ -438,6 +472,7 @@ class Goods extends Model
                 }
             }
             /******** END **********/
+
 
             /*******处理商品属性**********/
 
@@ -514,11 +549,13 @@ class Goods extends Model
                 }
             }
 
-
-
             /**********END***************/
 
+
+
         });
+
+
 
 
 

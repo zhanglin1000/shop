@@ -1,4 +1,4 @@
-<?php /*a:3:{s:61:"D:\phpEnv\www\shop\application\index\view\category\index.html";i:1561956037;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1561955964;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1561955798;}*/ ?>
+<?php /*a:3:{s:61:"D:\phpEnv\www\shop\application\index\view\category\index.html";i:1561956037;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1562138903;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -85,10 +85,13 @@
 
                 <!----关键词搜索----->
                 <ul class="keyword">
-                    <li><a href="#" target="_blank">周大福</a></li>
-                    <li><a href="#" target="_blank">内衣</a></li>
-                    <li><a href="#" target="_blank">Five Plus</a></li>
-                    <li><a href="#" target="_blank">手机</a></li>
+                    <?php
+                     $keywords = explode(',',$config['keyword']);
+                     foreach( $keywords as $k => $v ):
+                    ?>
+                    <li><a href="#" target="_blank"><?php echo htmlentities($v); ?></a></li>
+                    <?php endforeach; ?>
+
                 </ul>
                 <!----END----->
 
@@ -155,17 +158,10 @@
         <!----商城导航菜单------->
         <div class="nav-main" id="nav">
             <ul class="navitems">
-                <li><a href="#" class="curr">首页</a></li>
-                <li><a href="#">食品特产</a></li>
-                <li><a href="#">服装城</a></li>
-                <li><a href="#">大家电</a></li>
-                <li><a href="#">鞋靴箱包</a></li>
-                <li><a href="#">品牌专区</a></li>
-                <li><a href="#">聚划算</a></li>
-                <li><a href="#">积分商城</a></li>
-                <li><a href="#">预售</a></li>
-                <li><a href="#">店铺街</a></li>
-                <li><a href="#">微分销</a></li>
+                <li><a href="<?php echo url('index/index'); ?>" class="curr">首页</a></li>
+                <?php if(is_array($nav["mid"]) || $nav["mid"] instanceof \think\Collection || $nav["mid"] instanceof \think\Paginator): $i = 0; $__LIST__ = $nav["mid"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$nav): $mod = ($i % 2 );++$i;?>
+                <li><a <?php if($nav['open'] == 1): ?>target="_blank"<?php endif; ?> href="<?php echo htmlentities($nav['nav_url']); ?>"><?php echo htmlentities($nav['nav_name']); ?></a></li>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
             </ul>
         </div>
         <!----END------>
@@ -1227,51 +1223,17 @@
     <div class="footer-new-con">
         <div class="fnc-warp">
             <div class="help-list">
+                <?php if(is_array($footer_article) || $footer_article instanceof \think\Collection || $footer_article instanceof \think\Paginator): $i = 0; $__LIST__ = $footer_article;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$footer_article): $mod = ($i % 2 );++$i;?>
                 <div class="help-item">
-                    <h3>新手上路 </h3>
+                    <h3><?php echo htmlentities($footer_article['cate_name']); ?> </h3>
                     <ul>
-                        <li><a href="#" title="售后流程" target="_blank">售后流程</a></li>
-                        <li><a href="#" title="购物流程" target="_blank">购物流程</a></li>
-                        <li><a href="#" title="订购方式" target="_blank">订购方式</a></li>
+                        <?php if(is_array($footer_article['child']) || $footer_article['child'] instanceof \think\Collection || $footer_article['child'] instanceof \think\Paginator): $i = 0; $__LIST__ = $footer_article['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$child): $mod = ($i % 2 );++$i;?>
+                        <li><a href="<?php echo url('index/ArticleContent/index',['id'=>$child['id'],'pid'=>$footer_article['id']]); ?>" title="<?php echo htmlentities($child['title']); ?>" target="_blank"><?php echo htmlentities($child['title']); ?></a></li>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
                     </dl>
                 </div>
-                <div class="help-item">
-                    <h3>配送与支付 </h3>
-                    <ul>
-                        <li><a href="#" title="货到付款区域" target="_blank">货到付款区域</a></li>
-                        <li><a href="#" title="配送支付智能查询 " target="_blank">配送支付智能查询</a></li>
-                        <li><a href="#" title="支付方式说明" target="_blank">支付方式说明</a></li>
-                    </ul>
-                    </dl>
-                </div>
-                <div class="help-item">
-                    <h3>会员中心</h3>
-                    <ul>
-                        <li><a href="#" title="资金管理" target="_blank">资金管理</a></li>
-                        <li><a href="#" title="我的收藏" target="_blank">我的收藏</a></li>
-                        <li><a href="#" title="我的订单" target="_blank">我的订单</a></li>
-                    </ul>
-                    </dl>
-                </div>
-                <div class="help-item">
-                    <h3>服务保证 </h3>
-                    <ul>
-                        <li><a href="#" title="退换货原则" target="_blank">退换货原则</a></li>
-                        <li><a href="#" title="售后服务保证" target="_blank">售后服务保证</a></li>
-                        <li><a href="#" title="产品质量保证 " target="_blank">产品质量保证</a></li>
-                    </ul>
-                    </dl>
-                </div>
-                <div class="help-item">
-                    <h3>联系我们 </h3>
-                    <ul>
-                        <li><a href="#" title="网站故障报告" target="_blank">网站故障报告</a></li>
-                        <li><a href="#" title="选机咨询 " target="_blank">选机咨询</a></li>
-                        <li><a href="#" title="投诉与建议 " target="_blank">投诉与建议</a></li>
-                    </ul>
-                    </dl>
-                </div>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
 
             </div>
             <div class="qr-code">

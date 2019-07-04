@@ -1,5 +1,5 @@
 <!---商城顶部导航--->
-<div class="site-nav" id="site-nav">
+<div class="site-nav" img="__IMG__" id="site-nav">
     <div class="w w1200">
 
         <!----顶部登录----->
@@ -103,27 +103,39 @@
             <div class="categorys-tab-content">
                 <div class="categorys-items" id="cata-nav">
 
-                    <div class="categorys-item" ectype="cateItem" data-id="858" data-eveval="0">
+                        {volist name="categoryTop" id="categoryTop"}
+                            <div class="categorys-item" ectype="cateItem" data-id="{$categoryTop.id}"  data-eveval="0">
+                            <div class="item item-content">
+                                <i class="iconfont {$categoryTop.cate_img}"></i>
+                                <div class="categorys-title">
+                                    <strong>
+                                        <a href="{:url('index/category/index',['id'=>$categoryTop['id']])}"   target="_blank">{$categoryTop.cate_name}</a>
+                                    </strong>
 
-                        <div class="item item-content">
-                            <i class="iconfont icon-ele"></i>
-                            <div class="categorys-title">
-                                <strong>
-                                    <a href="#" target="_blank">家用电器</a>
-                                </strong>
+                                    <span>
+                                               {volist name="categoryTop['two']" id="categoryTop2"}
+                                                <a href="{:url('index/category/index',['id'=>$categoryTop2['id']])}" target="_blank">{$categoryTop2.cate_name}</a>
+                                               {/volist}
 
-                                <span>
-                                            <a href="#" target="_blank">大家电</a>
-                                            <a href="#" target="_blank">生活电器</a>
-                                </span>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="clear"></div>
+                                <div class="categorys-items-layer" ectype="cateLayer">
+                                    <div class="cate-layer-con clearfix" ectype="cateLayerCon_{$categoryTop.id}">
+                                        <div class="cate-layer-left">
+                                            <div class="cate_channel" ectype="channels_{$categoryTop.id}"></div>
+                                            <div class="cate_detail" ectype="subitems_{$categoryTop.id}"></div>
+                                        </div>
+                                        <div class="cate-layer-rihgt" ectype="brands_{$categoryTop.id}"></div>
+                                    </div>
+                                </div>
 
-                    </div>
-
+                                <div class="clear"></div>
+                            </div>
+                        {/volist}
                 </div>
+
             </div>
 
         </div>
@@ -142,3 +154,8 @@
     </div>
 </div>
 <!----END----->
+
+<script type="text/javascript">
+    var url = "{:url('category/getCateInfo')}";
+    var img = $('#site-nav').attr('img');
+</script>

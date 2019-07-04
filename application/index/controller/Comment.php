@@ -27,6 +27,9 @@ class Comment extends Controller
            //获取配置
            $this->getConfig();
 
+           //获取导航分类
+           $this->getNavs();
+
       }
 
       //获取底部导航栏目帮助栏目和文章
@@ -110,6 +113,46 @@ class Comment extends Controller
           ]);
 
 
+      }
+
+      //获取导航顶级和二级到三级分类
+      private function getNavs()
+      {
+          //查询条件
+          $where = [
+              'pid' => 0,
+              'show_nav' => 1
+          ];
+
+          //获取所有顶级分类
+          $categoryTop = db('category')->where($where)->select();
+
+          //通过顶级分类获取二级分类
+          foreach ( $categoryTop as $k => $v )
+          {
+              $categoryTop[$k]['two'] = db('category')->limit(2)->where('pid','=',$v['id'])->where('show_nav','=',1)->select();
+          }
+
+          //分配数据到模板
+          $this->assign([
+              'categoryTop' => $categoryTop
+          ]);
+      }
+
+      //通过二级分类获取三级分类
+      public function getTwoS($id)
+      {
+
+           //通过顶级分类获取二级分类
+           $cateTwo = db('category')->where('pid','=',$id)->select();
+
+           //通过循环二级分类查找三级分类
+           foreach ( $cateTwo as  $k => $v )
+           {
+               $cateTwo[$k]['three'] = db('category')->where('pid','=',$v['id'])->select();
+           }
+
+           return $cateTwo;
       }
 
 }

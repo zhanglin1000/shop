@@ -50,7 +50,7 @@ class Category extends Controller
             }
 
             //写入数据到数据表
-            $categoryAdd = db('category')->insert($data);
+            $categoryAdd = model('category')->save($data);
 
             //判断是否新增成功
             if($categoryAdd)
@@ -73,9 +73,13 @@ class Category extends Controller
         //商品分类全部读取
         $categoryAll = $cateTree->sort($category);
 
+        //栏目推荐位
+        $goodsRec = db('rec_pos')->where('rec_type','=','2')->select();
+
         //分配数据到模板
         $this->assign([
-            'categoryAll' => $categoryAll
+            'categoryAll' => $categoryAll,
+            'goodsRec' => $goodsRec
         ]);
 
         return view();
@@ -99,7 +103,7 @@ class Category extends Controller
             }
 
             //编辑数据到数据表
-            $categorySave = db('category')->update($data);
+            $categorySave = model('category')->update($data);
 
             //判断是否修改成功
             if($categorySave !== false)
@@ -128,10 +132,30 @@ class Category extends Controller
         //获取一条商品分类记录
         $categoryFind = db('category')->find($id);
 
+        //栏目推荐位
+        $goodsRec = db('rec_pos')->where('rec_type','=','2')->select();
+
+        //查询指定栏目推荐位
+        $where = [
+            'goods_id'=>input('id'),
+            'value_type' => 2
+        ];
+        $recPos = db('goods_rec')->where($where)->select();
+
+        //更改二维数组位一位数组
+        $myrecpos = [];
+
+        foreach ( $recPos as $k => $v )
+        {
+            $myrecpos[] = $v['rec_id'];
+        }
+
         //分配数据到模板
         $this->assign([
             'categoryAll' => $categoryAll,
-            'categoryFind' => $categoryFind
+            'categoryFind' => $categoryFind,
+            'goodsRec' => $goodsRec,
+            'myrecpos' => $myrecpos
         ]);
         return view();
     }

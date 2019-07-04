@@ -113,6 +113,29 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="goods_name" class="col-sm-2 control-label no-padding-right">加入推荐</label>
+                                                <div class="col-sm-6">
+                                                    {volist name="goodsRec" id="goodsRec"}
+                                                    <?php
+                                                       if( in_array($goodsRec['id'],$myrecpos) )
+                                                       {
+                                                            $checked = 'checked="checked"';
+                                                       }
+                                                       else
+                                                       {
+                                                             $checked = '';
+                                                       }
+                                                    ?>
+                                                    <label style="margin: 6px 5px 0 0;">
+                                                        <input type="checkbox" <?php echo $checked; ?>  value="{$goodsRec.id}" class="colored-blue" name="goods_rec[]">
+                                                        <span class="text">{$goodsRec.rec_name}</span>
+                                                    </label>
+                                                    {/volist}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label  class="col-sm-2 control-label no-padding-right">商品分类</label>
                                                 <div class="col-sm-6">
                                                    <select name="category_id" class="form-control" >

@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1561691049;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1559225507;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1562199215;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562141172;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -215,6 +215,44 @@
                     <a href="<?php echo url('link/lst'); ?>">
                         <span class="menu-text">
                             链接列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-rocket"></i>
+                <span class="menu-text">
+                    导航管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('nav/lst'); ?>">
+                        <span class="menu-text">
+                            导航列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-fire"></i>
+                <span class="menu-text">
+                    推荐位管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('recommend/lst'); ?>">
+                        <span class="menu-text">
+                            推荐位列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -541,6 +579,28 @@
                                                     <input class="form-control" id="goods_name" placeholder="商品名称" name="goods_name" required="" value="<?php echo htmlentities($goods['goods_name']); ?>" type="text">
                                                 </div>
                                                 <p class="help-block col-sm-4 red">* 必填</p>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="goods_name" class="col-sm-2 control-label no-padding-right">加入推荐</label>
+                                                <div class="col-sm-6">
+                                                    <?php if(is_array($goodsRec) || $goodsRec instanceof \think\Collection || $goodsRec instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsRec;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsRec): $mod = ($i % 2 );++$i;
+                                                       if( in_array($goodsRec['id'],$myrecpos) )
+                                                       {
+                                                            $checked = 'checked="checked"';
+                                                       }
+                                                       else
+                                                       {
+                                                             $checked = '';
+                                                       }
+                                                    ?>
+                                                    <label style="margin: 6px 5px 0 0;">
+                                                        <input type="checkbox" <?php echo $checked; ?>  value="<?php echo htmlentities($goodsRec['id']); ?>" class="colored-blue" name="goods_rec[]">
+                                                        <span class="text"><?php echo htmlentities($goodsRec['rec_name']); ?></span>
+                                                    </label>
+                                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                                </div>
+
                                             </div>
 
                                             <div class="form-group">

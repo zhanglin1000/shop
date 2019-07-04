@@ -14,3 +14,6 @@
 
 //文章内容路由
 \think\facade\Route::rule('article_content/:id-pid-:pid','index/ArticleContent/index')->pattern(['id'=>'\d+','pid'=>'\d+']);
+
+//首页三级导航栏目优化地址
+\think\facade\Route::rule('category/:id','index/category/index')->pattern(['id'=>'\d+']);
