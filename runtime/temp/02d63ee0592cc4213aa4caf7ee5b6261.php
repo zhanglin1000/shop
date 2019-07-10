@@ -1,4 +1,4 @@
-<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\nav\add.html";i:1562114703;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562113822;}*/ ?>
+<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\nav\lst.html";i:1562133364;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562641771;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-
+    
 </head>
 <body>
 	<!-- 头部 -->
@@ -75,11 +75,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-
+	
 	<div class="main-container container-fluid">
 		<div class="page-container">
 			<!-- Page Sidebar -->
-             <div class="page-sidebar" id="sidebar">
+            <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -219,6 +219,44 @@
                     <a href="<?php echo url('nav/lst'); ?>">
                         <span class="menu-text">
                             导航列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-fire"></i>
+                <span class="menu-text">
+                    推荐位管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('recommend/lst'); ?>">
+                        <span class="menu-text">
+                            推荐位列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-mail-forward"></i>
+                <span class="menu-text">
+                    栏目关联词管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('word/lst'); ?>">
+                        <span class="menu-text">
+                            栏目关联词列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -484,92 +522,85 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                      <li>
-                         <a href="#">系统</a>
-                      </li>
-                      <li>
-                        <a href="<?php echo url('nav/lst'); ?>">导航管理</a>
-                      </li>
-                       <li class="active">添加导航</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">导航列表</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                 <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-          <div class="widget">
-            <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增导航</span>
-            </div>
-            <div class="widget-body">
-                <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('nav/add'); ?>" method="post" enctype="multipart/form-data">
-
-                        <div class="form-group">
-                            <label for="nav_name" class="col-sm-2 control-label no-padding-right">导航名称</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="nav_name" placeholder="导航名称" name="nav_name" required="" type="text">
+                <a href="<?php echo url('nav/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">导航名称</th>
+                                                <th class="text-center">导航网址</th>
+                                                <th class="text-center">打开方式</th>
+                                                <th class="text-center">导航位置</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($navList) || $navList instanceof \think\Collection || $navList instanceof \think\Paginator): $i = 0; $__LIST__ = $navList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$nav): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($nav['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($nav['nav_name']); ?></td>
+                                                <td align="center">
+                                                    <?php if($nav['nav_url']): ?>
+                                                    <?php echo htmlentities($nav['nav_url']); else: ?>
+                                                     暂无网址
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($nav['open'] == 1): ?>
+                                                    新窗口
+                                                    <?php else: ?>
+                                                    原窗口
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($nav['pos'] == 'top'): ?>
+                                                     头部
+                                                    <?php elseif($nav['pos'] == 'bottom'): ?>
+                                                    底部
+                                                    <?php else: ?>
+                                                    中间
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('nav/edit',['id'=>$nav['id']]); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('nav/del',['id'=>$nav['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                <?php echo $navList; ?>
+                                </div>
+                                <div>
+                                </div>
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
-
-                        <div class="form-group">
-                            <label for="nav_url" class="col-sm-2 control-label no-padding-right">导航网址</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="nav_url" placeholder="导航网址" name="nav_url" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">打开方式</label>
-                            <div class="col-sm-6">
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="open" checked type="radio" value="1" class="colored-blue">
-                                    <span class="text">blank</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="open" type="radio" value="2" class="colored-blue">
-                                    <span class="text">parent</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">导航位置</label>
-                            <div class="col-sm-6">
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" checked type="radio" value="1" class="colored-blue">
-                                    <span class="text">top</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" type="radio" value="2" class="colored-blue">
-                                    <span class="text">bottom</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" type="radio" value="3" class="colored-blue">
-                                    <span class="text">mid</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">保存信息</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>
+		</div>	
 	</div>
 
     <!--Basic Scripts-->
@@ -577,7 +608,6 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-    
-
-
-</body></html>
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
+</body>
+</html>

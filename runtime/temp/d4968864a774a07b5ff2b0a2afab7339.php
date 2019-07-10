@@ -1,4 +1,4 @@
-<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\category\add.html";i:1562201182;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562141172;}*/ ?>
+<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\category\add.html";i:1562201182;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562747911;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -238,6 +238,33 @@
                     <a href="<?php echo url('recommend/lst'); ?>">
                         <span class="menu-text">
                             推荐位列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-mail-forward"></i>
+                <span class="menu-text">
+                    栏目关联词管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('word/lst'); ?>">
+                        <span class="menu-text">
+                            栏目关联词列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo url('categorybrand/lst'); ?>">
+                        <span class="menu-text">
+                            品牌关联列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>

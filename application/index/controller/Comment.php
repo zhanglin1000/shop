@@ -155,5 +155,16 @@ class Comment extends Controller
            return $cateTwo;
       }
 
+      //获取商城首页栏目关键词
+      public function getKeyword($id)
+      {
+          //通过顶级栏目ID查询对应的关键词
+          $wordsRes = db('category_word')->where('category_id','=',$id)->select();
+
+          return $wordsRes;
+      }
+
+
+
 }
 ?>

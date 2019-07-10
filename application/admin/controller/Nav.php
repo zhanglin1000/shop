@@ -19,7 +19,7 @@ class Nav extends Controller
         //显示所有的导航
         $navList = db('nav')->paginate(10);
 
-        return view('Nav/lst',[
+        return view('nav/lst',[
             'navList' => $navList
         ]);
     }
@@ -65,7 +65,7 @@ class Nav extends Controller
 
             return;
         }
-        return view('Nav/add');
+        return view('nav/add');
     }
 
     //导航修改
@@ -114,7 +114,7 @@ class Nav extends Controller
         //根据ID查询一条记录
         $navFind = db('nav')->find($id);
 
-        return view('Nav/edit',[
+        return view('nav/edit',[
             'navFind' => $navFind
         ]);
     }

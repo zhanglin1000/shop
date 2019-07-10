@@ -1,4 +1,4 @@
-<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\nav\add.html";i:1562114703;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562113822;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\word\edit.html";i:1562729783;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562641771;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -219,6 +219,44 @@
                     <a href="<?php echo url('nav/lst'); ?>">
                         <span class="menu-text">
                             导航列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-fire"></i>
+                <span class="menu-text">
+                    推荐位管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('recommend/lst'); ?>">
+                        <span class="menu-text">
+                            推荐位列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-mail-forward"></i>
+                <span class="menu-text">
+                    栏目关联词管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('word/lst'); ?>">
+                        <span class="menu-text">
+                            栏目关联词列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -488,9 +526,9 @@
                          <a href="#">系统</a>
                       </li>
                       <li>
-                        <a href="<?php echo url('nav/lst'); ?>">导航管理</a>
+                        <a href="<?php echo url('word/lst'); ?>">栏目关键词管理</a>
                       </li>
-                       <li class="active">添加导航</li>
+                       <li class="active">编辑栏目关键词</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -501,56 +539,36 @@
           <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="widget">
             <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增导航</span>
+                <span class="widget-caption">编辑栏目关键词</span>
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('nav/add'); ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" action="<?php echo url('word/edit'); ?>" method="post">
+                        <input type="hidden" name="id" value="<?php echo htmlentities($wordFind['id']); ?>">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">上级分类</label>
+                            <div class="col-sm-6">
+                                <select name="category_id" style="width: 100%;">
+                                    <option selected="selected" value="">顶级级分类</option>
+                                    <?php if(is_array($category) || $category instanceof \think\Collection || $category instanceof \think\Paginator): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
+                                    <option <?php if($wordFind['category_id'] == $category['id']): ?> selected <?php endif; ?> value="<?php echo htmlentities($category['id']); ?>"><?php echo htmlentities($category['cate_name']); ?></option>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                            <label for="nav_name" class="col-sm-2 control-label no-padding-right">导航名称</label>
+                            <label for="keyword" class="col-sm-2 control-label no-padding-right">栏目关键词名称</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="nav_name" placeholder="导航名称" name="nav_name" required="" type="text">
+                                <input class="form-control" id="keyword" placeholder="栏目关键词名称" name="keyword" required="" value="<?php echo htmlentities($wordFind['keyword']); ?>" type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">
-                            <label for="nav_url" class="col-sm-2 control-label no-padding-right">导航网址</label>
+                            <label for="link_url" class="col-sm-2 control-label no-padding-right">关键词网址</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="nav_url" placeholder="导航网址" name="nav_url" type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">打开方式</label>
-                            <div class="col-sm-6">
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="open" checked type="radio" value="1" class="colored-blue">
-                                    <span class="text">blank</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="open" type="radio" value="2" class="colored-blue">
-                                    <span class="text">parent</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">导航位置</label>
-                            <div class="col-sm-6">
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" checked type="radio" value="1" class="colored-blue">
-                                    <span class="text">top</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" type="radio" value="2" class="colored-blue">
-                                    <span class="text">bottom</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" type="radio" value="3" class="colored-blue">
-                                    <span class="text">mid</span>
-                                </label>
+                                <input class="form-control" id="link_url" placeholder="关键词网址" value="<?php echo htmlentities($wordFind['link_url']); ?>" name="link_url"  type="text">
                             </div>
                         </div>
 

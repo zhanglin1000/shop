@@ -27,12 +27,26 @@ class Category extends Comment
         //获取二三季栏目
         $cateTree = $this->getTwoS($id);
 
+        //获取栏目关键词
+        $wordRes = $this->getKeyword($id);
+
         $data = [];
 
         //商城首页三级栏目头部
-        $topic_content = "<div class='cate_channel'> 
-                          <a href='#' target='_blank'>品牌日</a>
-                          </div>";
+        $topic_content = "<div class='cate_channel'>";
+        foreach ( $wordRes as $k => $v )
+        {
+            if( $v['link_url'] )
+            {
+                $topic_content .= "<a  href=".$v['link_url']."  target='_blank'>".$v['keyword']."</a>";
+            }
+            else
+            {
+                $topic_content .= "<a  href='#'>".$v['keyword']."</a>";
+            }
+
+        }
+        $topic_content .= " </div>";
 
         //商城首页三级栏目内容
         $cat_content = '';

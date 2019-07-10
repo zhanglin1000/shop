@@ -1,4 +1,4 @@
-<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\nav\add.html";i:1562114703;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562113822;}*/ ?>
+<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\nav\add.html";i:1562133262;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562641771;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -219,6 +219,44 @@
                     <a href="<?php echo url('nav/lst'); ?>">
                         <span class="menu-text">
                             导航列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-fire"></i>
+                <span class="menu-text">
+                    推荐位管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('recommend/lst'); ?>">
+                        <span class="menu-text">
+                            推荐位列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-mail-forward"></i>
+                <span class="menu-text">
+                    栏目关联词管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('word/lst'); ?>">
+                        <span class="menu-text">
+                            栏目关联词列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -540,15 +578,15 @@
                             <label  class="col-sm-2 control-label no-padding-right">导航位置</label>
                             <div class="col-sm-6">
                                 <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" checked type="radio" value="1" class="colored-blue">
+                                    <input name="pos" checked type="radio" value="top" class="colored-blue">
                                     <span class="text">top</span>
                                 </label>
                                 <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" type="radio" value="2" class="colored-blue">
+                                    <input name="pos" type="radio" value="bottom" class="colored-blue">
                                     <span class="text">bottom</span>
                                 </label>
                                 <label style="margin:8px 8px 0 0;">
-                                    <input name="pos" type="radio" value="3" class="colored-blue">
+                                    <input name="pos" type="radio" value="mid" class="colored-blue">
                                     <span class="text">mid</span>
                                 </label>
                             </div>
