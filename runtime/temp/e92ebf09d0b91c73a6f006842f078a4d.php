@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562747911;}*/ ?>
+<?php /*a:3:{s:65:"D:\phpEnv\www\shop\application\admin\view\categorybrand\edit.html";i:1562841113;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562747911;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-    
+
 </head>
 <body>
 	<!-- 头部 -->
@@ -75,11 +75,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-	
+
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
-            <div class="page-sidebar" id="sidebar">
+			<!-- Page Sidebar -->
+             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -530,26 +530,101 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                      <li>
+                         <a href="#">系统</a>
+                      </li>
+                      <li>
+                        <a href="<?php echo url('categorybrand/lst'); ?>">关联品牌管理</a>
+                      </li>
+                       <li class="active">修改关联品牌</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
+                 <div class="row">
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">修改关联品牌</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="<?php echo url('categorybrand/edit'); ?>" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<?php echo htmlentities($categorybrandFind['id']); ?>" />
+                        <input type="hidden" name="pro_img" value="<?php echo htmlentities($categorybrandFind['pro_img']); ?>" />
+                        <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">关联栏目</label>
+                                <div class="col-sm-6">
+                                    <select name="category_id" style="width: 100%;">
+                                        <option selected="selected" value="">顶级级分类</option>
+                                        <?php if(is_array($category) || $category instanceof \think\Collection || $category instanceof \think\Paginator): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
+                                        <option <?php if($categorybrandFind['category_id'] == $category['id']): ?> selected <?php endif; ?>  value="<?php echo htmlentities($category['id']); ?>"><?php echo htmlentities($category['cate_name']); ?></option>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    </select>
+                                </div>
+                                <p class="help-block col-sm-4 red">* 必填</p>
+                            </div>
 
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label no-padding-right">关联品牌</label>
+                            <div class="col-sm-6">
+                                <?php
+                                   $arr = explode(',',$categorybrandFind['brands']);
+                                if(is_array($brands) || $brands instanceof \think\Collection || $brands instanceof \think\Paginator): $i = 0; $__LIST__ = $brands;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$brands): $mod = ($i % 2 );++$i;?>
+                                <label style="margin:5px 10px 0 0; float:left;">
+                                    <input type="checkbox" <?php if(in_array($brands['id'],$arr)){ ?> checked <?php } ?> class="colored-success" value="<?php echo htmlentities($brands['id']); ?>" name="brands[]" >
+                                    <span class="text"><?php echo htmlentities($brands['brand_cname']); ?></span>
+                                </label>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label no-padding-right">推广图</label>
+                            <div class="col-sm-6">
+                               <input type="file" name="pro_img">
+                               <?php if($categorybrandFind['pro_img']): ?>
+                                <img src="<?php echo APP_PATH;  ?>/public/static/uploads/relation_img/<?php echo htmlentities($categorybrandFind['pro_img']); ?>" height="50" />
+                               <?php else: ?>
+                                暂无图片
+                               <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pro_url" class="col-sm-2 control-label no-padding-right">推广网址</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="pro_url" placeholder="推广网址" name="pro_url" value="<?php echo htmlentities($categorybrandFind['pro_url']); ?>" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>	
+		</div>
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    
 
-</body>
-</html>
+
+</body></html>

@@ -164,6 +164,31 @@ class Comment extends Controller
           return $wordsRes;
       }
 
+      //获取商城首页栏目关联品牌和广告
+      public function getResBrand($id)
+      {
+          //定义一个数组
+          $data = [];
+
+         //查询关联的品牌和广告
+         $resBrand = db('category_brand')->where('category_id','=',$id)->find();
+
+         //品牌ID打散成数组
+         $brand_id = explode(',',$resBrand['brands']);
+
+         //查询所有对应的品牌
+         $brands = db('brand')->field('brand_cname,brand_url,brand_logo')->where('id','in',$brand_id)->select();
+
+         //推广信息
+         $data['extension'] = $resBrand;
+
+         //品牌信息
+         $data['brands'] = $brands;
+
+         return $data;
+
+      }
+
 
 
 }
