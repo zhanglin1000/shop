@@ -1,4 +1,4 @@
-<?php /*a:3:{s:61:"D:\phpEnv\www\shop\application\index\view\category\index.html";i:1561956037;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1562138903;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
+<?php /*a:3:{s:61:"D:\phpEnv\www\shop\application\index\view\category\index.html";i:1561956037;s:60:"D:\phpEnv\www\shop\application\index\view\public\header.html";i:1562902369;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -27,7 +27,7 @@
 
 <!---商城顶部导航引入--->
 <!---商城顶部导航--->
-<div class="site-nav" id="site-nav">
+<div class="site-nav" img="http://shop.com/public/static/index/images" id="site-nav">
     <div class="w w1200">
 
         <!----顶部登录----->
@@ -130,27 +130,39 @@
             <div class="categorys-tab-content">
                 <div class="categorys-items" id="cata-nav">
 
-                    <div class="categorys-item" ectype="cateItem" data-id="858" data-eveval="0">
-
+                    <?php if(is_array($categoryTop) || $categoryTop instanceof \think\Collection || $categoryTop instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryTop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$categoryTop): $mod = ($i % 2 );++$i;?>
+                    <div class="categorys-item" ectype="cateItem" data-id="<?php echo htmlentities($categoryTop['id']); ?>"  data-eveval="0">
                         <div class="item item-content">
-                            <i class="iconfont icon-ele"></i>
+                            <i class="iconfont <?php echo htmlentities($categoryTop['cate_img']); ?>"></i>
                             <div class="categorys-title">
                                 <strong>
-                                    <a href="#" target="_blank">家用电器</a>
+                                    <a href="<?php echo url('index/category/index',['id'=>$categoryTop['id']]); ?>"   target="_blank"><?php echo htmlentities($categoryTop['cate_name']); ?></a>
                                 </strong>
 
                                 <span>
-                                            <a href="#" target="_blank">大家电</a>
-                                            <a href="#" target="_blank">生活电器</a>
-                                        </span>
+                                               <?php if(is_array($categoryTop['two']) || $categoryTop['two'] instanceof \think\Collection || $categoryTop['two'] instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryTop['two'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$categoryTop2): $mod = ($i % 2 );++$i;?>
+                                                <a href="<?php echo url('index/category/index',['id'=>$categoryTop2['id']]); ?>" target="_blank"><?php echo htmlentities($categoryTop2['cate_name']); ?></a>
+                                               <?php endforeach; endif; else: echo "" ;endif; ?>
+
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="categorys-items-layer" ectype="cateLayer">
+                            <div class="cate-layer-con clearfix" ectype="cateLayerCon_<?php echo htmlentities($categoryTop['id']); ?>">
+                                <div class="cate-layer-left">
+                                    <div class="cate_channel" ectype="channels_<?php echo htmlentities($categoryTop['id']); ?>"></div>
+                                    <div class="cate_detail" ectype="subitems_<?php echo htmlentities($categoryTop['id']); ?>"></div>
+                                </div>
+                                <div class="cate-layer-rihgt" ectype="brands_<?php echo htmlentities($categoryTop['id']); ?>"></div>
                             </div>
                         </div>
 
                         <div class="clear"></div>
-
                     </div>
-
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
+
             </div>
 
         </div>
@@ -169,6 +181,10 @@
     </div>
 </div>
 <!----END----->
+<script type="text/javascript">
+    var url = "<?php echo url('category/getCateInfo'); ?>";
+    var img = $('#site-nav').attr('img');
+</script>
 <!----END---->
 
     
