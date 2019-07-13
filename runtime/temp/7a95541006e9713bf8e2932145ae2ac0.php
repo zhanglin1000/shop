@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1562936831;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1562233499;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
+<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1563016700;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1562233499;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -561,40 +561,43 @@
                             </div>
                             <div class="bd-right">
                                 <div class="floor-tabs-content clearfix">
-                                    <div class="f-r-main f-r-m-adv">
-                                        <div class="f-r-m-item">
-                                            <a href="" target="_blank">
-                                                <div class="title">
-                                                    <h3>毛衣</h3>
-                                                    <span>满100减10</span>
+                                    <div class="f-r-main f-r-m-adv" style="display: block;">
+                                            <ul class="p-list">
+                                                <?php foreach( $v['newRecGoods'] as $k1 => $v1 ): ?>
+                                                <li class="opacity_img">
+                                                    <div class="product">
+                                                        <div class="p-img"><a href="<?php echo url('index/category/index',['id'=>$v1['id']]); ?>" target="_blank"><img src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v1['og_thumb'] ?>" width="140" height="140"></a></div>
+                                                        <div class="p-name"><a href="<?php echo url('index/category/index',['id'=>$v1['id']]); ?>" title="<?php echo $v1['goods_name'] ?>"><?php echo $v1['goods_name'] ?></a></div>
+                                                        <div class="p-price"><span class="shop-price">¥<?php echo $v1['market_price'] ?> </span>
+                                                            <span class="original-price"><?php echo $v1['shop_price'] ?></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                    </div>
+                                    <?php foreach( $v['subclass'] as $k1 => $v1 ): ?>
+                                    <div class="f-r-main" id="floor_cat_<?php echo $v1['id'] ?>" style="display: none;">
+                                        <ul class="p-list">
+                                            <?php foreach( $v1['baseGoods'] as $k2 => $v2 ): ?>
+                                            <li class="opacity_img">
+                                                <div class="product">
+                                                    <div class="p-img"><a href="#" target="_blank"><img src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v2['og_thumb'] ?>" width="140" height="140"></a></div>
+                                                    <div class="p-name"><a href="#" title=""><?php echo $v2['goods_name'] ?></a></div>
+                                                    <div class="p-price">
+                                                        <span class="shop-price">¥<?php echo $v2['shop_price']; ?></span>
+                                                        <span class="original-price"><?php echo $v2['market_price']; ?></span>
+                                                    </div>
                                                 </div>
-                                                <img src="&#10;&#9;&#9;http://shop.com/public/static/index/images/1494984997173604814.jpg ">
-                                            </a>
-                                        </div>
+                                            </li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                     </div>
-                                    <div class="f-r-main" ectype="floor_cat_347">
-                                        <div class="f-r-m-item">
-                                            <a href="" target="_blank">
-                                                <div class="title">
-                                                    <h3>毛衣</h3>
-                                                    <span>满100减10</span>
-                                                </div>
-                                                <img src="&#10;&#9;&#9;http://shop.com/public/static/index/images/1494984997173604814.jpg ">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="f-r-main" ectype="floor_cat_630">
-                                        <ul class="p-list"></ul>
-                                    </div>
-                                    <div class="f-r-main" ectype="floor_cat_547">
-                                        <ul class="p-list"></ul>
-                                    </div>
-                                    <div class="f-r-main" ectype="floor_cat_463">
-                                        <ul class="p-list"></ul>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
+
                         <!------END------------>
 
                         <!-------男女装品牌列表---------->

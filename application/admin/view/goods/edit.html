@@ -371,7 +371,7 @@
                                             </div>
                                             {/volist}
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addrow(this)">[+]</a> 上传商品图片：</label>
+                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addphoto(this)">[+]</a> 上传商品图片：</label>
                                                 <div class="col-sm-6">
                                                     <input type="file" name="goods_photo[]" style="margin-top:7px;">
                                                 </div>
@@ -584,6 +584,29 @@
                      }
                  });
             }
+        }
+
+        function addphoto( a )
+        {
+            //获取上一级
+            var div = $( a ).parent().parent();
+
+            //执行克隆
+            var newdiv = div.clone();
+
+            //判断系统是否点击的加号
+            if($( a ).html() == '[+]')
+            {
+                //把新克隆的改为减号
+                newdiv.find( 'a' ).html( "[-]" );
+                //把克隆的放在后面
+                div.after( newdiv );
+            }
+            else
+            {
+                div.remove();
+            }
+
         }
     </script>
 

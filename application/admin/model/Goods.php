@@ -523,31 +523,35 @@ class Goods extends Model
 
 
             //处理旧的属性
-
-            $old_goods_attr = $goods->old_goods_attr;
-
-            $old_goods_price = $goods->old_goods_price;
-
-            //循环更新所有旧属性
-            foreach ( $old_goods_attr as $k => $v )
+            if( isset( $goods->old_goods_attr ) )
             {
-                foreach ( $v as $k1 => $v1 )
+                $old_goods_attr = $goods->old_goods_attr;
+
+                $old_goods_price = $goods->old_goods_price;
+
+                //循环更新所有旧属性
+                foreach ( $old_goods_attr as $k => $v )
                 {
-                     //可修改的属性
-                     $oldFiled = [
-                         'attr_value' => $v1
-                     ];
+                    foreach ( $v as $k1 => $v1 )
+                    {
+                        //可修改的属性
+                        $oldFiled = [
+                            'attr_value' => $v1
+                        ];
 
-                     //判断有没有价格
-                     if( isset( $old_goods_price[$k] ) )
-                     {
-                         $oldFiled['attr_price'] = $old_goods_price[$k][$k1];
-                     }
+                        //判断有没有价格
+                        if( isset( $old_goods_price[$k] ) )
+                        {
+                            $oldFiled['attr_price'] = $old_goods_price[$k][$k1];
+                        }
 
-                     //执行更新
-                     db('goods_attr')->where('id','=',$k1)->update($oldFiled);
+                        //执行更新
+                        db('goods_attr')->where('id','=',$k1)->update($oldFiled);
+                    }
                 }
             }
+
+
 
             /**********END***************/
 

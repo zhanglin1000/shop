@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1562199215;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562747911;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1562997899;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562747911;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -863,7 +863,7 @@
                                             </div>
                                             <?php endforeach; endif; else: echo "" ;endif; ?>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addrow(this)">[+]</a> 上传商品图片：</label>
+                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addphoto(this)">[+]</a> 上传商品图片：</label>
                                                 <div class="col-sm-6">
                                                     <input type="file" name="goods_photo[]" style="margin-top:7px;">
                                                 </div>
@@ -1076,6 +1076,29 @@
                      }
                  });
             }
+        }
+
+        function addphoto( a )
+        {
+            //获取上一级
+            var div = $( a ).parent().parent();
+
+            //执行克隆
+            var newdiv = div.clone();
+
+            //判断系统是否点击的加号
+            if($( a ).html() == '[+]')
+            {
+                //把新克隆的改为减号
+                newdiv.find( 'a' ).html( "[-]" );
+                //把克隆的放在后面
+                div.after( newdiv );
+            }
+            else
+            {
+                div.remove();
+            }
+
         }
     </script>
 
