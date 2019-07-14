@@ -23,6 +23,11 @@ class Index extends Comment
                   $recPos[$k]['subclass'][$k1]['baseGoods'] = $baseGoods;
             }
 
+            //关联栏目轮播图
+            $recPos[$k]['categoryAd'] = $this->getCategoryImg($v['id']);
+
+            //获取关联品牌信息
+            $recPos[$k]['brands'] = $this->getResBrand($v['id']);
 
             //最新推荐数据
             $newGoods = $this->goodsRes($v['id'],2,1);
@@ -31,10 +36,20 @@ class Index extends Comment
 
         }
 
-        return view('index/index',['recPos'=>$recPos]);
+        //首页热卖商品
+        $indexhosGoods = $this->getRecHosGoods(6,20);
+
+        //首页公告功能
+        $notice = $this->getIndexArticle(11,3);
+
+        //首页促销
+        $promotion = $this->getIndexArticle(10,3);
+
+
+        return view('index/index',['recPos'=>$recPos,'indexhosGoods'=>$indexhosGoods,'notice'=>$notice,'promotion'=>$promotion]);
     }
 
-    //首页推荐实现
+    //首页栏目推荐实现
     public function getRec($rec,$pid=0)
     {
        //查询推荐数据
@@ -102,6 +117,36 @@ class Index extends Comment
 
         return $newGoods;
 
+    }
+
+    //实现首页关联栏目图片
+    public function getCategoryImg($id)
+    {
+        //根据顶级栏目ID查询所有轮播图
+        $categoryAd = db('category_ad')->where('category_id','=',$id)->select();
+
+        //循环所有轮播图重新组合
+        $categoryArr = [];
+
+        foreach ( $categoryAd as $k => $v )
+        {
+            $categoryArr[$v['category_position']][] = $v;
+        }
+
+        return $categoryArr;
+    }
+
+    //获取首页公共方法
+    public function getIndexArticle($id,$limit)
+    {
+       //组合查询条件
+       $where = [
+           ['cate_id','=',$id]
+       ];
+
+       $article = db('article')->where($where)->limit($limit)->select();
+
+       return $article;
     }
 
 

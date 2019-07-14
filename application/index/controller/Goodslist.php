@@ -8,7 +8,7 @@
 
 namespace app\index\controller;
 
-class Goodslist
+class Goodslist extends Comment
 {
     //商品详细列表
     public function index()

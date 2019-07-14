@@ -180,6 +180,18 @@ class Category extends Controller
             //把当前查询的所有子分类组合成字符串
             $category_child = implode(',',$category_child);
 
+            //删除栏目之前删除栏目推荐信息
+            $goodsRec = db('goods_rec');
+
+            //组合删除条件
+            $where = [
+                ['goods_id','IN',$category_child],
+                ['value_type','=',2]
+            ];
+
+            //删除推荐信息
+            $goodsRec->where($where)->delete();
+
             //执行删除方法
             $categoryDel = db('category')->delete($category_child);
 

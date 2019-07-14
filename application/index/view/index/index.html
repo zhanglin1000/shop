@@ -82,14 +82,14 @@
                                         </div>
                                         <div class="con">
                                             <ul>
-                                                <li><a href="article.php?id=63" target="_blank">服务店突破2000多家</a></li>
-                                                <li><a href="article.php?id=62" target="_blank">我们成为中国最大家电零售B2B2C系统</a></li>
-                                                <li><a href="article.php?id=61" target="_blank">三大国际腕表品牌签约</a></li>
+                                                {volist name="notice" id="notice"}
+                                                <li><a href="{:url('index/ArticleContent/index',['id'=>$notice['id'],'pid'=>$notice['cate_id']])}" target="_blank">{$notice.title}</a></li>
+                                                {/volist}
                                             </ul>
                                             <ul style="display: none;">
-                                                <li><a href="article.php?id=60" target="_blank">春季家装季，家电买一送一</a></li>
-                                                <li><a href="article.php?id=59" target="_blank">抢百元优惠券，享4.22%活期</a></li>
-                                                <li><a href="article.php?id=58" target="_blank">Macbook最高返50000消费豆！</a></li>
+                                                {volist name="promotion" id="promotion"}
+                                                <li><a href="{:url('index/ArticleContent/index',['id'=>$promotion['id'],'pid'=>$promotion['cate_id']])}" target="_blank">{$promotion.title}</a></li>
+                                                {/volist}
                                             </ul>
                                         </div>
                                     </div>
@@ -350,7 +350,7 @@
         <div class="visual-item w1200" data-mode="homeFloor" data-purebox="homeFloor" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">
             <div class="view">
                 <div class="floor-content" data-type="range" id="homeFloor_0" data-lift="女装">
-                    <div class="floor-line-con floorOne floor-color-type-1" data-title="<?php echo $v['cate_name']; ?>" data-idx="1" id="floor_1" ectype="floorItem">
+                    <div class="floor-line-con floorOne floor-color-type-<?php echo $k+1; ?>" data-title="<?php echo $v['cate_name']; ?>" data-idx="1" id="floor_1" ectype="floorItem">
 
                         <!-------男女装导航---------->
                         <div class="floor-hd" ectype="floorTit">
@@ -382,9 +382,9 @@
                                 <div class="floor-left-slide">
                                     <div class="bd">
                                         <ul>
-                                            <li><a href=""><img src="__IMG__/1494985255003388359.jpg"></a></li>
-                                            <li><a href=""><img src="__IMG__/1494985255671031591.jpg"></a></li>
-                                            <li><a href=""><img src="__IMG__/1494985255859372374.jpg"></a></li>
+                                            <?php if($v['categoryAd']): foreach( $v['categoryAd']['A'] as $k1 => $v1 ): ?>
+                                            <li><a href="<?php echo $v1['category_link'] ?>"><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v1['category_img']; ?>"></a></li>
+                                            <?php endforeach; endif; ?>
                                         </ul>
                                     </div>
                                     <div class="hd">
@@ -393,8 +393,12 @@
                                 </div>
 
                                 <div class="floor-left-adv">
-                                    <a href="" target="_blank"><img src="__IMG__/1494984993812175408.jpg"></a>
-                                    <a href="" target="_blank"><img src="__IMG__/1494984993892207941.jpg"></a>
+                                    <?php if( isset($v['categoryAd']['B']) ): ?>
+                                    <a href="<?php echo $v['categoryAd']['B'][0]['category_link'];?>" target="_blank"><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v['categoryAd']['B'][0]['category_img']; ?>"></a>
+                                    <?php endif; ?>
+                                    <?php if( isset($v['categoryAd']['C']) ): ?>
+                                    <a href="<?php echo $v['categoryAd']['C'][0]['category_link']; ?>" target="_blank"><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v['categoryAd']['C'][0]['category_img']; ?>"></a>
+                                    <?php endif; ?>
                                 </div>
 
                             </div>
@@ -421,8 +425,8 @@
                                             <?php foreach( $v1['baseGoods'] as $k2 => $v2 ): ?>
                                             <li class="opacity_img">
                                                 <div class="product">
-                                                    <div class="p-img"><a href="#" target="_blank"><img src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v2['og_thumb'] ?>" width="140" height="140"></a></div>
-                                                    <div class="p-name"><a href="#" title=""><?php echo $v2['goods_name'] ?></a></div>
+                                                    <div class="p-img"><a href="{:url('index/category/index',['id'=>$v2['id']])}" target="_blank"><img src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v2['og_thumb'] ?>" width="140" height="140"></a></div>
+                                                    <div class="p-name"><a href="{:url('index/category/index',['id'=>$v2['id']])}" title=""><?php echo $v2['goods_name'] ?></a></div>
                                                     <div class="p-price">
                                                         <span class="shop-price">¥<?php echo $v2['shop_price']; ?></span>
                                                         <span class="original-price"><?php echo $v2['market_price']; ?></span>
@@ -442,14 +446,16 @@
                         <!-------男女装品牌列表---------->
                         <div class="floor-fd">
                             <div class="floor-fd-brand clearfix">
+                                <?php foreach( $v['brands']['brands'] as $k1 => $v1 ): ?>
                                 <div class="item">
-                                    <a href="brandn.php?id=72" target="_blank">
+                                    <a href="<?php echo $v1['brand_url'] ?>" target="_blank">
                                         <div class="link-l"></div>
-                                        <div class="img"><img src="__IMG__/1490072313895957648.jpg" title="ELLE HOME">
+                                        <div class="img"><img src="<?php echo APP_PATH.'/public/static/uploads/brand/'.$v1['brand_logo'] ?>" title="ELLE HOME">
                                         </div>
                                         <div class="link"></div>
                                     </a>
                                 </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                         <!------END----------->
@@ -552,288 +558,22 @@
                     </div>
 
                     <ul>
+                        {volist name="indexhosGoods" id="hosGoods"}
                         <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
+                            <a href="{:url('Goodslist/index',['id'=>$hosGoods['id']])}" target="_blank">
+                                <div class="p-img"><img src="<?php echo APP_PATH; ?>/public/static/uploads/goods/{$hosGoods.og_thumb}"></div>
+                                <div class="p-name" title="{$hosGoods.goods_name}">
+                                    {$hosGoods.goods_name}
                                 </div>
                                 <div class="p-price">
                                     <div class="shop-price">
-                                        <em>¥</em>1500.00
+                                        <em>¥</em>{$hosGoods.shop_price}
                                     </div>
                                     <div class="original-price"></div>
                                 </div>
                             </a>
                         </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                        <a href="goods.php?id=620" target="_blank">
-                            <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                            <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                            </div>
-                            <div class="p-price">
-                                <div class="shop-price">
-                                    <em>¥</em>1500.00
-                                </div>
-                                <div class="original-price"></div>
-                            </div>
-                        </a>
-                    </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="opacity_img">
-                            <a href="goods.php?id=620" target="_blank">
-                                <div class="p-img"><img src="__IMG__/0_thumb_G_1489098265067.jpg"></div>
-                                <div class="p-name" title="新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框">
-                                    新品HYC 2k显示器32寸电脑显示器无边框HDMI液晶显示器IPS显示屏 2K高清屏IPS 超薄 厚6mm 无边框
-                                </div>
-                                <div class="p-price">
-                                    <div class="shop-price">
-                                        <em>¥</em>1500.00
-                                    </div>
-                                    <div class="original-price"></div>
-                                </div>
-                            </a>
-                        </li>
-
-
+                        {/volist}
                     </ul>
 
                     <div class="spec" data-spec=""></div>

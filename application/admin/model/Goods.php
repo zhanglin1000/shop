@@ -228,6 +228,17 @@ class Goods extends Model
             //获取删除商品ID
             $goods_id = $goods->id;
 
+            /******删除推荐信息*********/
+            //组合删除条件
+            $where = [
+                ['goods_id','=',$goods_id],
+                ['value_type','=',1]
+            ];
+
+            db('goods_rec')->where($where)->delete();
+
+            /*******END**********/
+
             /**************处理主图删除*******************/
 
              //拼装删除主图路径

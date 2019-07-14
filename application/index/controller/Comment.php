@@ -189,6 +189,32 @@ class Comment extends Controller
 
       }
 
+      //获取所有热卖商品
+      public function getRecHosGoods($rec_id,$limt)
+      {
+         //查询所有热卖商品
+         $where = [
+             ['rec_id' ,'=', $rec_id],
+             ['value_type' ,'=', 1]
+         ];
+
+         //从推荐表查询热卖商品
+         $recPos = db('goods_rec')->where($where)->select();
+
+         //循环所有热卖商品
+         $_recPos = [];
+
+         foreach ( $recPos as $k => $v )
+         {
+             $_recPos[] = $v['goods_id'];
+         }
+
+         //查询所有热卖商品
+         $hotGoods = db('goods')->where('id','IN',$_recPos)->limit($limt)->select();
+
+         return $hotGoods;
+      }
+
 
 
 }
