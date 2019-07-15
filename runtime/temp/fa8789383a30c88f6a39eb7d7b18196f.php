@@ -1,4 +1,4 @@
-<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\category\add.html";i:1562201182;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
+<?php /*a:3:{s:62:"D:\phpEnv\www\shop\application\admin\view\categoryad\edit.html";i:1563095235;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -542,9 +542,9 @@
                          <a href="#">系统</a>
                       </li>
                       <li>
-                        <a href="<?php echo url('category/lst'); ?>">商品分类管理</a>
+                        <a href="<?php echo url('categoryad/lst'); ?>">图片关联栏目管理</a>
                       </li>
-                       <li class="active">添加商品分类</li>
+                       <li class="active">编辑图片关联</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -555,66 +555,57 @@
           <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="widget">
             <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增商品分类</span>
+                <span class="widget-caption">编辑图片关联</span>
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('category/add'); ?>" method="post">
-
+                    <form class="form-horizontal" role="form" action="<?php echo url('categoryad/edit'); ?>" method="post" enctype="multipart/form-data">
+                       <input type="hidden" name="id" value="<?php echo htmlentities($categoryFind['id']); ?>" />
+                       <input type="hidden" name="category_img" value="<?php echo htmlentities($categoryFind['category_img']); ?>" />
                         <div class="form-group">
-                            <label for="cate_name" class="col-sm-2 control-label no-padding-right">商品分类名称</label>
+                            <label class="col-sm-2 control-label no-padding-right">上级分类</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="cate_name" placeholder="商品分类名称" name="cate_name" required="" type="text">
+                                <select name="category_id" style="width: 100%;">
+                                    <option selected="selected" value="">顶级级分类</option>
+                                    <?php if(is_array($category) || $category instanceof \think\Collection || $category instanceof \think\Paginator): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
+                                    <option <?php if($categoryFind['category_id'] == $category['id']): ?>selected<?php endif; ?>  value="<?php echo htmlentities($category['id']); ?>"><?php echo htmlentities($category['cate_name']); ?></option>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </select>
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">加入推荐</label>
+                            <label  class="col-sm-2 control-label no-padding-right">关键图片</label>
                             <div class="col-sm-6">
-                                <?php if(is_array($goodsRec) || $goodsRec instanceof \think\Collection || $goodsRec instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsRec;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsRec): $mod = ($i % 2 );++$i;?>
-                                <label style="margin: 6px 5px 0 0;">
-                                    <input type="checkbox" value="<?php echo htmlentities($goodsRec['id']); ?>" class="colored-blue" name="goods_rec[]">
-                                    <span class="text"><?php echo htmlentities($goodsRec['rec_name']); ?></span>
-                                </label>
-                                <?php endforeach; endif; else: echo "" ;endif; ?>
+                               <input type="file" name="category_img" style="margin-top: 7px;">
+                               <?php if($categoryFind['category_img']): ?>
+                                <img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo htmlentities($categoryFind['category_img']); ?>" height="50" />
+                               <?php else: ?>
+                                暂无图片
+                               <?php endif; ?>
                             </div>
-
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right">上级分类</label>
+                            <label  class="col-sm-2 control-label no-padding-right">关联图片位置</label>
                             <div class="col-sm-6">
-                                <select name="pid" style="width: 100%;">
-                                    <option selected="selected" value="">顶级级分类</option>
-                                    <?php if(is_array($categoryAll) || $categoryAll instanceof \think\Collection || $categoryAll instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
-                                    <option  value="<?php echo htmlentities($category['id']); ?>"><?php if($category['pid'] != 0): ?><?php echo '♩'.str_repeat('--',$category['level'] * 8); ?><?php endif; ?><?php echo htmlentities($category['cate_name']); ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                <select name="category_position" style="width: 100%;">
+                                    <option selected="selected" value="">请选择</option>
+                                    <option <?php if($categoryFind['category_position'] == 'A'): ?> selected <?php endif; ?>value="A">左图</option>
+                                    <option <?php if($categoryFind['category_position'] == 'B'): ?> selected<?php endif; ?> value="B">上图</option>
+                                    <option <?php if($categoryFind['category_position'] == 'C'): ?> selected<?php endif; ?> value="C">下图</option>
                                 </select>
                             </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">显示在导航栏</label>
+                            <label for="category_link" class="col-sm-2 control-label no-padding-right">关联图网址</label>
                             <div class="col-sm-6">
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="show_nav" checked type="radio" value="1" class="colored-blue">
-                                    <span class="text">显示</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="show_nav" type="radio" value="0" class="colored-blue">
-                                    <span class="text">隐藏</span>
-                                </label>
+                                <input class="form-control" id="category_link" placeholder="关联图网址" value="<?php echo htmlentities($categoryFind['category_link']); ?>" name="category_link"  type="text">
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="cate_img" class="col-sm-2 control-label no-padding-right">分类菜单图标</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="cate_img" placeholder="分类菜单图标" name="cate_img" type="text">
-                            </div>
-                        </div>
-
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -639,8 +630,6 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-    <script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
-    <script src="http://shop.com/public/static/admin/js/index.js"></script>
     
 
 

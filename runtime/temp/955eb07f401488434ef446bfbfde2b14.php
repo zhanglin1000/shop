@@ -1,4 +1,4 @@
-<?php /*a:3:{s:60:"D:\phpEnv\www\shop\application\admin\view\recommend\add.html";i:1562141928;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1562747911;}*/ ?>
+<?php /*a:3:{s:60:"D:\phpEnv\www\shop\application\admin\view\recommend\add.html";i:1562141928;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -265,6 +265,14 @@
                     <a href="<?php echo url('categorybrand/lst'); ?>">
                         <span class="menu-text">
                             品牌关联列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo url('categoryad/lst'); ?>">
+                        <span class="menu-text">
+                            左图关联列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>

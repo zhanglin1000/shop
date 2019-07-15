@@ -149,5 +149,32 @@ class Index extends Comment
        return $article;
     }
 
+    //实现首页品牌换一换
+    public function getBrand()
+    {
+        //查询所有品牌数据
+        $data = [];
 
+        $brands = db('brand')->order('id DESC')->field('brand_cname,id,brand_url,brand_logo')->paginate(15);
+
+        $data['totalPage'] = $brands->lastPage();
+
+        $brand = $brands->items();
+
+        $html = '';
+
+        $html .= '<div class="brand-list" id="recommend_brands"><ul>';
+
+        foreach ( $brand as $k => $v )
+        {
+            $html .= "<li><div class='brand-img'><a href='#' target='_blank'><img src='".APP_PATH."/public/static/uploads/brand/".$v['brand_logo']."'></a></div></li>";
+        }
+
+        $html .= '</ul><a href="javascript:void(0);" ectype="changeBrand" id="refresh-btn" class="refresh-btn"><i class="iconfont icon-rotate-alt"></i><span>换一批</span></a></div>';
+
+        $data['brands'] = $html;
+        return json($data);
+
+
+}
 }

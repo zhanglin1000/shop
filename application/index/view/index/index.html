@@ -245,88 +245,8 @@
 
                     <!------品牌-------->
                     <div ectype="homeBrand">
-                        <div class="brand-list" id="recommend_brands">
+                        <!---<div class="brand-list" id="recommend_brands">
                             <ul>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="brand-img"><a href="#" target="_blank">
-                                        <img src="__IMG__/1490039286075654490.jpg"></a>
-                                    </div>
-                                </li>
                                 <li>
                                     <div class="brand-img"><a href="#" target="_blank">
                                         <img src="__IMG__/1490039286075654490.jpg"></a>
@@ -337,7 +257,12 @@
                                 <i class="iconfont icon-rotate-alt"></i>
                                 <span>换一批</span>
                             </a>
-                        </div>
+                        </div>-->
+                        <a style="display: none;" href="javascript:void(0);" ectype="changeBrand" id="refresh-btn" class="refresh-btn">
+                            <i class="iconfont icon-rotate-alt"></i>
+                            <span>换一批</span>
+                        </a>
+
                     </div>
                     <!-----END------->
                 </div>
@@ -595,3 +520,10 @@
 
 </body>
 </html>
+<script type="text/javascript">
+    var page = 0;
+    var brand_url = "{:url('index/getBrand')}";
+    $(function () {
+        $('#refresh-btn').click();
+    });
+</script>

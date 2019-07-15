@@ -1,4 +1,4 @@
-<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\category\add.html";i:1562201182;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
+<?php /*a:3:{s:61:"D:\phpEnv\www\shop\application\admin\view\categoryad\lst.html";i:1563095274;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-
+    
 </head>
 <body>
 	<!-- 头部 -->
@@ -75,11 +75,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-
+	
 	<div class="main-container container-fluid">
 		<div class="page-container">
 			<!-- Page Sidebar -->
-             <div class="page-sidebar" id="sidebar">
+            <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -538,100 +538,79 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                      <li>
-                         <a href="#">系统</a>
-                      </li>
-                      <li>
-                        <a href="<?php echo url('category/lst'); ?>">商品分类管理</a>
-                      </li>
-                       <li class="active">添加商品分类</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">左图栏目关联列表</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                 <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-          <div class="widget">
-            <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增商品分类</span>
-            </div>
-            <div class="widget-body">
-                <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('category/add'); ?>" method="post">
-
-                        <div class="form-group">
-                            <label for="cate_name" class="col-sm-2 control-label no-padding-right">商品分类名称</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="cate_name" placeholder="商品分类名称" name="cate_name" required="" type="text">
-                            </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">加入推荐</label>
-                            <div class="col-sm-6">
-                                <?php if(is_array($goodsRec) || $goodsRec instanceof \think\Collection || $goodsRec instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsRec;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsRec): $mod = ($i % 2 );++$i;?>
-                                <label style="margin: 6px 5px 0 0;">
-                                    <input type="checkbox" value="<?php echo htmlentities($goodsRec['id']); ?>" class="colored-blue" name="goods_rec[]">
-                                    <span class="text"><?php echo htmlentities($goodsRec['rec_name']); ?></span>
-                                </label>
-                                <?php endforeach; endif; else: echo "" ;endif; ?>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right">上级分类</label>
-                            <div class="col-sm-6">
-                                <select name="pid" style="width: 100%;">
-                                    <option selected="selected" value="">顶级级分类</option>
-                                    <?php if(is_array($categoryAll) || $categoryAll instanceof \think\Collection || $categoryAll instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
-                                    <option  value="<?php echo htmlentities($category['id']); ?>"><?php if($category['pid'] != 0): ?><?php echo '♩'.str_repeat('--',$category['level'] * 8); ?><?php endif; ?><?php echo htmlentities($category['cate_name']); ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">显示在导航栏</label>
-                            <div class="col-sm-6">
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="show_nav" checked type="radio" value="1" class="colored-blue">
-                                    <span class="text">显示</span>
-                                </label>
-                                <label style="margin:8px 8px 0 0;">
-                                    <input name="show_nav" type="radio" value="0" class="colored-blue">
-                                    <span class="text">隐藏</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cate_img" class="col-sm-2 control-label no-padding-right">分类菜单图标</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="cate_img" placeholder="分类菜单图标" name="cate_img" type="text">
+                <a href="<?php echo url('categoryad/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">关联图片</th>
+                                                <th class="text-center">关联位置</th>
+                                                <th class="text-center">关联网址</th>
+                                                <th class="text-center">关联栏目</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($categoryAd) || $categoryAd instanceof \think\Collection || $categoryAd instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryAd;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category_ad): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($category_ad['id']); ?></td>
+                                                <td align="center"><?php if($category_ad['category_img']): ?><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo htmlentities($category_ad['category_img']); ?>" height="30"/><?php else: ?>暂无图片<?php endif; ?></td>
+                                                <td align="center">
+                                                    <?php if($category_ad['category_position'] == 'A'): ?>
+                                                    左图
+                                                    <?php elseif($category_ad['category_position'] == 'B'): ?>
+                                                    上图
+                                                    <?php else: ?>
+                                                    下图
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($category_ad['category_link']): ?>
+                                                    <?php echo htmlentities($category_ad['category_link']); else: ?>
+                                                    暂无网址
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center"><?php echo htmlentities($category_ad['cate_name']); ?></td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('categoryad/edit',['id'=>$category_ad['id']]); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('categoryad/del',['id'=>$category_ad['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                  <?php echo $categoryAd; ?>
+                                </div>
+                                <div>
+                                </div>
                             </div>
                         </div>
-
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">保存信息</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>
+		</div>	
 	</div>
 
     <!--Basic Scripts-->
@@ -639,9 +618,6 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-    <script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
     <script src="http://shop.com/public/static/admin/js/index.js"></script>
-    
-
-
-</body></html>
+</body>
+</html>

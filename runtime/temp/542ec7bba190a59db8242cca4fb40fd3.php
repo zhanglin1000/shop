@@ -1,4 +1,4 @@
-<?php /*a:3:{s:59:"D:\phpEnv\www\shop\application\admin\view\category\add.html";i:1562201182;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\cate\edit.html";i:1557677837;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -542,9 +542,9 @@
                          <a href="#">系统</a>
                       </li>
                       <li>
-                        <a href="<?php echo url('category/lst'); ?>">商品分类管理</a>
+                        <a href="<?php echo url('cate/lst'); ?>">文章分类管理</a>
                       </li>
-                       <li class="active">添加商品分类</li>
+                       <li class="active">编辑文章分类</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -555,40 +555,27 @@
           <div class="col-lg-12 col-sm-12 col-xs-12">
           <div class="widget">
             <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增商品分类</span>
+                <span class="widget-caption">编辑文章分类</span>
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('category/add'); ?>" method="post">
-
+                    <form class="form-horizontal" role="form" action="<?php echo url('cate/edit'); ?>" method="post">
+                        <input type="hidden" name="id" value="<?php echo htmlentities($cateFind['id']); ?>">
                         <div class="form-group">
-                            <label for="cate_name" class="col-sm-2 control-label no-padding-right">商品分类名称</label>
+                            <label for="cate_name" class="col-sm-2 control-label no-padding-right">文章分类名称</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="cate_name" placeholder="商品分类名称" name="cate_name" required="" type="text">
+                                <input class="form-control" id="cate_name" placeholder="文章分类名称" name="cate_name" value="<?php echo htmlentities($cateFind['cate_name']); ?>" required="" type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">加入推荐</label>
-                            <div class="col-sm-6">
-                                <?php if(is_array($goodsRec) || $goodsRec instanceof \think\Collection || $goodsRec instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsRec;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsRec): $mod = ($i % 2 );++$i;?>
-                                <label style="margin: 6px 5px 0 0;">
-                                    <input type="checkbox" value="<?php echo htmlentities($goodsRec['id']); ?>" class="colored-blue" name="goods_rec[]">
-                                    <span class="text"><?php echo htmlentities($goodsRec['rec_name']); ?></span>
-                                </label>
-                                <?php endforeach; endif; else: echo "" ;endif; ?>
-                            </div>
-
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label no-padding-right">上级分类</label>
                             <div class="col-sm-6">
                                 <select name="pid" style="width: 100%;">
-                                    <option selected="selected" value="">顶级级分类</option>
-                                    <?php if(is_array($categoryAll) || $categoryAll instanceof \think\Collection || $categoryAll instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
-                                    <option  value="<?php echo htmlentities($category['id']); ?>"><?php if($category['pid'] != 0): ?><?php echo '♩'.str_repeat('--',$category['level'] * 8); ?><?php endif; ?><?php echo htmlentities($category['cate_name']); ?></option>
+                                    <option selected="selected"  value="">顶级级分类</option>
+                                    <?php if(is_array($cateRes) || $cateRes instanceof \think\Collection || $cateRes instanceof \think\Paginator): $i = 0; $__LIST__ = $cateRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cate): $mod = ($i % 2 );++$i;?>
+                                    <option onclick="cate_status(this)" cateurl="<?php echo url('cate/cate_status'); ?>" <?php if($cateFind['pid'] == $cate['id']): ?>selected<?php endif; ?>  value="<?php echo htmlentities($cate['id']); ?>"><?php if($cate['pid'] != 0): ?><?php echo '♩'.str_repeat('-',$cate['level'] * 8); ?><?php endif; ?><?php echo htmlentities($cate['cate_name']); ?></option>
                                     <?php endforeach; endif; else: echo "" ;endif; ?>
                                 </select>
                             </div>
@@ -598,23 +585,29 @@
                             <label  class="col-sm-2 control-label no-padding-right">显示在导航栏</label>
                             <div class="col-sm-6">
                                 <label style="margin:8px 8px 0 0;">
-                                    <input name="show_nav" checked type="radio" value="1" class="colored-blue">
+                                    <input name="show_nav" <?php if($cateFind['show_nav'] == 1): ?> checked <?php endif; ?>type="radio" value="1" class="colored-blue">
                                     <span class="text">显示</span>
                                 </label>
                                 <label style="margin:8px 8px 0 0;">
-                                    <input name="show_nav" type="radio" value="0" class="colored-blue">
+                                    <input name="show_nav" <?php if($cateFind['show_nav'] == 0): ?> checked <?php endif; ?> type="radio" value="0" class="colored-blue">
                                     <span class="text">隐藏</span>
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="cate_img" class="col-sm-2 control-label no-padding-right">分类菜单图标</label>
+                            <label for="cate_keyword" class="col-sm-2 control-label no-padding-right">关键字</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="cate_img" placeholder="分类菜单图标" name="cate_img" type="text">
+                                <input class="form-control" id="cate_keyword" placeholder="关键字" value="<?php echo htmlentities($cateFind['cate_keyword']); ?>" name="cate_keyword" type="text">
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="cate_desc" class="col-sm-2 control-label no-padding-right">描述</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="cate_desc" placeholder="描述" name="cate_desc"><?php echo htmlentities($cateFind['cate_desc']); ?></textarea>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -641,7 +634,5 @@
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
     <script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
     <script src="http://shop.com/public/static/admin/js/index.js"></script>
-    
-
 
 </body></html>
