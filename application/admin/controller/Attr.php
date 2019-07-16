@@ -8,9 +8,8 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Attr extends Controller
+class Attr extends Base
 {
     //属性列表
     public function lst()

@@ -8,9 +8,8 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Nav extends Controller
+class Nav extends Base
 {
 
     //导航列表

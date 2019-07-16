@@ -8,9 +8,8 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Categoryad extends Controller
+class Categoryad extends Base
 {
     //左图关联栏目列表
     public function lst()

@@ -8,9 +8,8 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Recommend extends Controller
+class Recommend extends Base
 {
     //推荐位列表
     public function lst()

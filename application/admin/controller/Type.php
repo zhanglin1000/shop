@@ -7,10 +7,9 @@
  */
 namespace app\admin\controller;
 
-use function PHPSTORM_META\type;
-use think\Controller;
 
-class Type extends Controller
+
+class Type extends Base
 {
     //商品属性类型列表
     public function lst()

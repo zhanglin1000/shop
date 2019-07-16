@@ -1,4 +1,4 @@
-<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\goods\lst.html";i:1560700385;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270234;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
+<?php /*a:3:{s:55:"D:\phpEnv\www\shop\application\admin\view\type\lst.html";i:1559051349;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563269130;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -43,13 +43,6 @@
             <div class="navbar-header pull-right">
                 <div class="navbar-account">
                     <ul class="account-area">
-                        <li style="margin-top:12px;">
-                            <div class="avatar" title="View your public profile">
-                                <a href="<?php echo url('base/clearCache'); ?>" style="color:#ffffff;" class="login-area dropdown-toggle" data-toggle="dropdown">
-                                    清理缓存
-                                </a>
-                            </div>
-                        </li>
                         <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                 <div class="avatar" title="View your public profile">
@@ -74,6 +67,13 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li style="margin-top:12px;">
+                            <div class="avatar" title="View your public profile">
+                                <a href="#" style="color:#ffffff;" class="login-area dropdown-toggle" data-toggle="dropdown">
+                                 清理缓存
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -546,14 +546,14 @@
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
                        <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
-                      <li class="active">商品列表</li>
+                      <li class="active">商品类型列表</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                <a href="<?php echo url('goods/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <a href="<?php echo url('type/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="widget">
@@ -562,52 +562,34 @@
                                     <table class="table table-bordered table-hover">
                                         <thead class="">
                                             <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">商品名称</th>
-                                                <th class="text-center">商品编号</th>
-                                                <th class="text-center">商品分类</th>
-                                                <th class="text-center">本店价</th>
-                                                <th class="text-center">市场价</th>
-                                                <th class="text-center">上架</th>
-                                                <th class="text-center">品牌</th>
-                                                <th class="text-center">类型</th>
-                                                <th class="text-center">库存</th>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">商品类型名称</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                        <?php if(is_array($goodsAll) || $goodsAll instanceof \think\Collection || $goodsAll instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goods): $mod = ($i % 2 );++$i;?>
+                                        <?php if(is_array($typeAll) || $typeAll instanceof \think\Collection || $typeAll instanceof \think\Paginator): $i = 0; $__LIST__ = $typeAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$type): $mod = ($i % 2 );++$i;?>
                                               <tr>
-                                                <td align="center"><?php echo htmlentities($goods['id']); ?></td>
-                                                <td align="center"><?php echo subtext($goods['goods_name'],10); ?></td>
-                                                <td align="center"><?php echo htmlentities($goods['goods_code']); ?></td>
-                                                <td align="center"><?php if($goods['cate_name']): ?><?php echo htmlentities($goods['cate_name']); else: ?>暂无分类<?php endif; ?></td>
-                                                <td align="center"><?php echo htmlentities($goods['shop_price']); ?></td>
-                                                <td align="center"><?php echo htmlentities($goods['market_price']); ?></td>
-                                                <td align="center"><?php if($goods['on_sale'] == 1): ?><span class="label label-info">上架</span><?php else: ?><span class="label label-pink graded">下架</span><?php endif; ?></td>
-                                                <td align="center"><?php if($goods['brand_cname']): ?> <?php echo htmlentities($goods['brand_cname']); else: ?>暂无品牌<?php endif; ?></td>
-                                                <td align="center"><?php if($goods['type_name']): ?> <?php echo htmlentities($goods['type_name']); else: ?>暂无类型<?php endif; ?></td>
-                                                <td align="center"><?php if($goods['kucun']): ?> <?php echo htmlentities($goods['kucun']); else: ?>0<?php endif; ?></td>
+                                                <td align="center"><?php echo htmlentities($type['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($type['type_name']); ?></td>
                                                 <td align="center">
-                                                    <a href="<?php echo url('goods/product_num',['id'=>$goods['id']]); ?>" class="btn btn-darkorange btn-sm">
-                                                        <i class="fa fa-rocket"></i> 库存
+                                                    <a href="<?php echo url('attr/lst',array('id'=>$type['id'])); ?>" class="btn btn-purple btn-sm">
+                                                        <i class="fa fa-pagelines"></i> 属性列表
                                                     </a>
-                                                    <a href="<?php echo url('goods/edit',['id'=>$goods['id']]); ?>" class="btn btn-azure btn-sm">
+                                                    <a href="<?php echo url('type/edit',array('id'=>$type['id'])); ?>" class="btn btn-azure btn-sm">
                                                         <i class="fa fa-edit"></i> 编辑
                                                     </a>
-                                                    <a href="<?php echo url('goods/del',['id'=>$goods['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                    <a href="<?php echo url('type/del',array('id'=>$type['id'])); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
                                                         <i class="fa fa-trash-o"></i> 删除
                                                     </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; endif; else: echo "" ;endif; ?>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <div style="text-align:right; margin-top:10px;">
-
+                                    <?php echo $typeAll; ?>
                                 </div>
                                 <div>
                                 </div>

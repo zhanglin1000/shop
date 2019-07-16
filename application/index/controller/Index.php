@@ -3,48 +3,85 @@ namespace app\index\controller;
 
 use catetree\Catetree;
 
+use think\facade;
+
+
 class Index extends Comment
 {
     public function index()
     {
-        //首页推荐
-        $recPos = $this->getRec(4,0);
+        //首页推荐获取缓存
+        $get_recPos = facade\Cache::get('recpos');
 
-        foreach ( $recPos as $k => $v )
+        if( $get_recPos )
         {
-            //首页推荐二级分类
-            $recPos[$k]['subclass'] = $this->getRec(4,$v['id']);
+            $recPos = $get_recPos;
+        }
+        else
+        {
+            $recPos = $this->getRec(4,0);
 
-            //获取二级栏目或子栏目下的精品推荐
-            foreach (  $recPos[$k]['subclass'] as $k1 => $v1 )
+            foreach ( $recPos as $k => $v )
             {
-                  $baseGoods = $this->goodsRes($v1['id'],1,1);
+                //首页推荐二级分类
+                $recPos[$k]['subclass'] = $this->getRec(4,$v['id']);
 
-                  $recPos[$k]['subclass'][$k1]['baseGoods'] = $baseGoods;
+                //获取二级栏目或子栏目下的精品推荐
+                foreach (  $recPos[$k]['subclass'] as $k1 => $v1 )
+                {
+                    $baseGoods = $this->goodsRes($v1['id'],1,1);
+
+                    $recPos[$k]['subclass'][$k1]['baseGoods'] = $baseGoods;
+                }
+
+                //关联栏目轮播图
+                $recPos[$k]['categoryAd'] = $this->getCategoryImg($v['id']);
+
+                //获取关联品牌信息
+                $recPos[$k]['brands'] = $this->getResBrand($v['id']);
+
+                //最新推荐数据
+                $newGoods = $this->goodsRes($v['id'],2,1);
+
+                $recPos[$k]['newRecGoods']=$newGoods;
+
             }
 
-            //关联栏目轮播图
-            $recPos[$k]['categoryAd'] = $this->getCategoryImg($v['id']);
-
-            //获取关联品牌信息
-            $recPos[$k]['brands'] = $this->getResBrand($v['id']);
-
-            //最新推荐数据
-            $newGoods = $this->goodsRes($v['id'],2,1);
-
-            $recPos[$k]['newRecGoods']=$newGoods;
-
+            facade\Cache::set('recpos',$recPos,3600);
         }
+
 
         //首页热卖商品
         $indexhosGoods = $this->getRecHosGoods(6,20);
 
-        //首页公告功能
-        $notice = $this->getIndexArticle(11,3);
+        //首页公告功能获取缓存
+        $get_notice = facade\Cache::get('notice');
 
-        //首页促销
-        $promotion = $this->getIndexArticle(10,3);
+        //判断缓存是否存在,存在就读取否则就查询
+        if( $get_notice )
+        {
+            $notice = $get_notice;
+        }
+        else
+        {
+            $notice = $this->getIndexArticle(11,3);
+            facade\Cache::set('notice',$notice,3600);
+        }
 
+
+        //首页促销公告获取缓存
+        $get_promotion = facade\Cache::get('promotion');
+
+        //判断缓存是否存在,存在就读取否则就查询
+        if( $get_promotion )
+        {
+            $promotion = $get_notice;
+        }
+        else
+        {
+            $promotion = $this->getIndexArticle(10,3);
+            facade\Cache::set('promotion',$promotion,3600);
+        }
 
         return view('index/index',['recPos'=>$recPos,'indexhosGoods'=>$indexhosGoods,'notice'=>$notice,'promotion'=>$promotion]);
     }

@@ -7,9 +7,8 @@
  */
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Word extends Controller
+class Word extends Base
 {
 
     //栏目关联词列表

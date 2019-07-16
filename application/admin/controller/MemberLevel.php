@@ -7,9 +7,8 @@
  */
 namespace app\admin\controller;
 
-use think\Controller;
 
-class MemberLevel extends Controller
+class MemberLevel extends Base
 {
     //会员级别列表
     public function lst()

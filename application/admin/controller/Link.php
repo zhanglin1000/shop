@@ -7,10 +7,8 @@
  */
 namespace app\admin\controller;
 
-use function PHPSTORM_META\elementType;
-use think\Controller;
 
-class Link extends Controller
+class Link extends Base
 {
     //链接列表
     public function lst()

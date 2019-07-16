@@ -9,9 +9,8 @@ namespace app\admin\controller;
 
 use catetree\Catetree;
 
-use think\Controller;
 
-class Article extends Controller
+class Article extends Base
 {
     //文章列表
     public function lst()

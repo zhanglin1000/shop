@@ -7,11 +7,8 @@
  */
 namespace app\admin\controller;
 
-use think\Controller;
 
-
-
-class Categorybrand extends Controller
+class Categorybrand extends Base
 {
     //关联品牌列表
     public function lst()

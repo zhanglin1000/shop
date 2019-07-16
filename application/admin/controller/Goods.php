@@ -9,9 +9,8 @@ namespace app\admin\controller;
 
 use catetree\Catetree;
 
-use think\Controller;
 
-class Goods extends Controller
+class Goods extends Base
 {
     //商品列表
     public function lst()

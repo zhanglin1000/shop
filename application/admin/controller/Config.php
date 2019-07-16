@@ -7,9 +7,8 @@
  */
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Config extends Controller
+class Config extends Base
 {
     //配置项列表
     public function lst()

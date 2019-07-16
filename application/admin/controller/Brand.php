@@ -7,9 +7,8 @@
  */
 namespace app\admin\controller;
 
-use think\Controller;
 
-class Brand extends Controller
+class Brand extends Base
 {
     //载入品牌列表页
     public function lst()

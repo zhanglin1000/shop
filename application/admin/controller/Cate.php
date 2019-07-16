@@ -10,9 +10,8 @@ namespace app\admin\controller;
 
 use catetree\Catetree;
 
-use think\Controller;
 
-class Cate extends Controller
+class Cate extends Base
 {
      //文章分类列表
      public function lst()

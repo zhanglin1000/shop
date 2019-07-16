@@ -1,4 +1,4 @@
-<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1562997899;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1557143759;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\goods\edit.html";i:1562997899;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270234;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -58,6 +58,13 @@
             <div class="navbar-header pull-right">
                 <div class="navbar-account">
                     <ul class="account-area">
+                        <li style="margin-top:12px;">
+                            <div class="avatar" title="View your public profile">
+                                <a href="<?php echo url('base/clearCache'); ?>" style="color:#ffffff;" class="login-area dropdown-toggle" data-toggle="dropdown">
+                                    清理缓存
+                                </a>
+                            </div>
+                        </li>
                         <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                 <div class="avatar" title="View your public profile">
