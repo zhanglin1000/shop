@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329183;}*/ ?>
+<?php /*a:3:{s:53:"D:\phpEnv\www\shop\application\admin\view\ad\lst.html";i:1563354536;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -85,7 +85,7 @@
 	
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
+			<!-- Page Sidebar -->
             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
@@ -193,7 +193,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('ad/lst'); ?>">
                         <span class="menu-text">
                             广告列表
                         </span>
@@ -572,14 +572,62 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">广告列表</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
+                <a href="<?php echo url('ad/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">广告名称</th>
+                                                <th class="text-center">广告状态</th>
+                                                <th class="text-center">广告类型</th>
+                                                <th class="text-center">广告图片</th>
+                                                <th class="text-center">所属广告位</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                              <tr>
+                                                <td align="center"></td>
+                                                <td align="center"></td>
+                                                <td align="center"></td>
+                                                <td align="center"></td>
+                                                <td align="center"></td>
+                                                <td align="center"></td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('ad/edit'); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('ad/del'); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
 
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <!-- /Page Body -->
             </div>
@@ -587,11 +635,11 @@
 		</div>	
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 </body>
 </html>

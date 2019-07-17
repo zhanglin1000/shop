@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329183;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\adpos\lst.html";i:1563354449;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -85,7 +85,7 @@
 	
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
+			<!-- Page Sidebar -->
             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
@@ -193,7 +193,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('ad/lst'); ?>">
                         <span class="menu-text">
                             广告列表
                         </span>
@@ -572,14 +572,59 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">广告位列表</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-
+                <a href="<?php echo url('adpos/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">广告位名称</th>
+                                                <th class="text-center">广告位宽度</th>
+                                                <th class="text-center">广告位高度</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($adposRes) || $adposRes instanceof \think\Collection || $adposRes instanceof \think\Paginator): $i = 0; $__LIST__ = $adposRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adpos): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($adpos['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($adpos['name']); ?></td>
+                                                <td align="center"><?php echo htmlentities($adpos['width']); ?></td>
+                                                <td align="center"><?php echo htmlentities($adpos['height']); ?></td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('adpos/edit',['id'=>$adpos['id']]); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('adpos/del',['id'=>$adpos['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                  <?php echo $adposRes; ?>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <!-- /Page Body -->
             </div>
@@ -587,11 +632,11 @@
 		</div>	
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 </body>
 </html>

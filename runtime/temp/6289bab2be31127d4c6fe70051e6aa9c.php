@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329183;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\adpos\edit.html";i:1563352756;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-    
+
 </head>
 <body>
 	<!-- 头部 -->
@@ -82,11 +82,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-	
+
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
-            <div class="page-sidebar" id="sidebar">
+			<!-- Page Sidebar -->
+             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -193,7 +193,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<?php echo url('ad/lst'); ?>">
                         <span class="menu-text">
                             广告列表
                         </span>
@@ -572,26 +572,75 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                      <li>
+                         <a href="#">系统</a>
+                      </li>
+                      <li>
+                        <a href="<?php echo url('adpos/lst'); ?>">广告位管理</a>
+                      </li>
+                       <li class="active">编辑广告位</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
+                 <div class="row">
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">编辑广告位</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="<?php echo url('adpos/edit'); ?>" method="post">
+                        <input type="hidden" name="id" value="<?php echo htmlentities($adposFind['id']); ?>" />
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label no-padding-right">广告位名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="name" placeholder="广告位名称" value="<?php echo htmlentities($adposFind['name']); ?>" name="name" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="width" class="col-sm-2 control-label no-padding-right">广告位宽度</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="width" placeholder="广告位宽度" value="<?php echo htmlentities($adposFind['width']); ?>" name="width"  type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="height" class="col-sm-2 control-label no-padding-right">广告位高度</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="height" placeholder="广告位高度" value="<?php echo htmlentities($adposFind['height']); ?>" name="height" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>	
+		</div>
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    
 
-</body>
-</html>
+
+</body></html>

@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329183;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\config\add.html";i:1558362926;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-    
+
 </head>
 <body>
 	<!-- 头部 -->
@@ -82,11 +82,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-	
+
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
-            <div class="page-sidebar" id="sidebar">
+			<!-- Page Sidebar -->
+             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -169,33 +169,6 @@
                     <a href="<?php echo url('article/lst'); ?>">
                         <span class="menu-text">
                             文章列表
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" class="menu-dropdown">
-                <i class="menu-icon fa fa-dashboard"></i>
-                <span class="menu-text">
-                    广告管理
-                </span>
-                <i class="menu-expand"></i>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="<?php echo url('adpos/lst'); ?>">
-                        <span class="menu-text">
-                            广告位列表
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            广告列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -572,26 +545,108 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                      <li>
+                         <a href="#">系统</a>
+                      </li>
+                      <li>
+                        <a href="<?php echo url('config/lst'); ?>">配置管理</a>
+                      </li>
+                       <li class="active">添加配置</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
+                 <div class="row">
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">新增配置</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="<?php echo url('config/add'); ?>" method="post" enctype="multipart/form-data">
 
+                        <div class="form-group">
+                            <label for="cname" class="col-sm-2 control-label no-padding-right">配置中文名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="cname" placeholder="配置中文名称" name="cname" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ename" class="col-sm-2 control-label no-padding-right">配置英文名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="ename" placeholder="配置英文名称" required="" name="ename" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label no-padding-right">表单类型</label>
+                            <div class="col-sm-6">
+                              <select class="form-control" name="field_type">
+                                  <option value="1">文本</option>
+                                  <option value="2">单选</option>
+                                  <option value="3">复选框</option>
+                                  <option value="4">文本域</option>
+                                  <option value="5">文件域</option>
+                                  <option value="6">下拉框</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label no-padding-right">配置类型</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" name="conf_type">
+                                    <option value="1">网店</option>
+                                    <option value="2">商品</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="values" class="col-sm-2 control-label no-padding-right">配置可选值</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="values" name="values"></textarea>
+                            </div>
+                            <p class="help-block col-sm-4 red">此设置为配置项可选值（格式：选项1,选项2,选项3 注：逗号为英文逗号)</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="value" class="col-sm-2 control-label no-padding-right">配置默认值</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="value" name="value"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>	
+		</div>
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    
 
-</body>
-</html>
+
+</body></html>

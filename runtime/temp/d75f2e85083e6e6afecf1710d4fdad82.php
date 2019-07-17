@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\admin\view\index\index.html";i:1557142406;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329183;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\config\lst.html";i:1558364245;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -85,7 +85,7 @@
 	
 	<div class="main-container container-fluid">
 		<div class="page-container">
-            <!-- Page Sidebar -->
+			<!-- Page Sidebar -->
             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
@@ -169,33 +169,6 @@
                     <a href="<?php echo url('article/lst'); ?>">
                         <span class="menu-text">
                             文章列表
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" class="menu-dropdown">
-                <i class="menu-icon fa fa-dashboard"></i>
-                <span class="menu-text">
-                    广告管理
-                </span>
-                <i class="menu-expand"></i>
-            </a>
-            <ul class="submenu">
-                <li>
-                    <a href="<?php echo url('adpos/lst'); ?>">
-                        <span class="menu-text">
-                            广告位列表
-                        </span>
-                        <i class="menu-expand"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-text">
-                            广告列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
@@ -572,7 +545,8 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active">控制面板</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">配置管理</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
@@ -580,6 +554,87 @@
                 <!-- Page Body -->
                 <div class="page-body">
 
+                <a href="<?php echo url('config/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">配置中文名称</th>
+                                                <th class="text-center">配置英文名称</th>
+                                                <th class="text-center">表单类型</th>
+                                                <th class="text-center">配置类型</th>
+                                                <th class="text-center">可选值</th>
+                                                <th class="text-center">默认值</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($configAll) || $configAll instanceof \think\Collection || $configAll instanceof \think\Paginator): $i = 0; $__LIST__ = $configAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$config): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($config['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($config['cname']); ?></td>
+                                                <td align="center"><?php echo htmlentities($config['ename']); ?></td>
+                                                <td align="center">
+                                                    <?php if($config['field_type'] == 1): ?>
+                                                    文本
+                                                    <?php elseif($config['field_type'] == 2): ?>
+                                                    单选
+                                                    <?php elseif($config['field_type'] == 3): ?>
+                                                    复选框
+                                                    <?php elseif($config['field_type'] == 4): ?>
+                                                    文本域
+                                                    <?php elseif($config['field_type'] == 5): ?>
+                                                    文件域
+                                                    <?php else: ?>
+                                                    下拉框
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($config['conf_type'] == 1): ?>
+                                                    网店配置
+                                                    <?php else: ?>
+                                                    商品配置
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($config['values']): ?>
+                                                    <?php echo htmlentities($config['values']); else: ?>
+                                                    暂无可选值
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($config['value']): ?>
+                                                    <?php echo htmlentities($config['value']); else: ?>
+                                                    暂无默认值
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('config/edit',array('id'=>$config['id'])); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('config/del',array('id'=>$config['id'])); ?>" onClick="return confirm('你确认要删除选定的配置吗？') ? true : false;" class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                  <div style="text-align:right; margin-top:10px;">
+                                      <?php echo $configAll; ?>
+                                  </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <!-- /Page Body -->
             </div>
@@ -587,11 +642,12 @@
 		</div>	
 	</div>
 
-	<!--Basic Scripts-->
+    <!--Basic Scripts-->
     <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 
 </body>
 </html>
