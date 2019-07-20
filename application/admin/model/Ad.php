@@ -26,6 +26,12 @@ class Ad extends Model
                 }
 
             }
+
+            //判断广告是否启用状态
+            if( $ad['statue'] == 1 )
+            {
+                db('ad')->where('ad_type','=',$ad['ad_type'])->update(['statue'=>0]);
+            }
         });
 
         //添加广告之后

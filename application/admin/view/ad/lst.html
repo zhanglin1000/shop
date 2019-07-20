@@ -55,34 +55,34 @@
                                                 <th class="text-center">广告名称</th>
                                                 <th class="text-center">广告状态</th>
                                                 <th class="text-center">广告类型</th>
-                                                <th class="text-center">广告图片</th>
                                                 <th class="text-center">所属广告位</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        {volist name="adres" id="ad"}
                                               <tr>
-                                                <td align="center"></td>
-                                                <td align="center"></td>
-                                                <td align="center"></td>
-                                                <td align="center"></td>
-                                                <td align="center"></td>
-                                                <td align="center"></td>
+                                                <td align="center">{$ad.id}</td>
+                                                <td align="center">{$ad.ad_name}</td>
+                                                <td align="center">{$ad.statue == 1 ? '开启':'关闭'}</td>
+                                                <td align="center">{$ad.ad_type == 1 ? '图片广告':'轮播广告'}</td>
+                                                <td align="center">{$ad.name}</td>
                                                 <td align="center">
-                                                    <a href="{:url('ad/edit')}" class="btn btn-azure btn-sm">
+                                                    <a href="{:url('ad/edit',['id'=>$ad['id']])}" class="btn btn-azure btn-sm">
                                                         <i class="fa fa-edit"></i> 编辑
                                                     </a>
-                                                    <a href="{:url('ad/del')}" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                    <a href="{:url('ad/del',['id'=>$ad['id']])}" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
                                                         <i class="fa fa-trash-o"></i> 删除
                                                     </a>
                                                 </td>
-                                            </tr>
+                                             </tr>
+                                        {/volist}
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <div style="text-align:right; margin-top:10px;">
-
+                                 {$adres|raw}
                                 </div>
                                 <div>
                                 </div>

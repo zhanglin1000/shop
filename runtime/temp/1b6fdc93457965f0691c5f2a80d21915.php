@@ -1,4 +1,4 @@
-<?php /*a:3:{s:53:"D:\phpEnv\www\shop\application\admin\view\ad\lst.html";i:1563632832;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\brand\add.html";i:1557331438;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-    
+
 </head>
 <body>
 	<!-- 头部 -->
@@ -82,11 +82,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-	
+
 	<div class="main-container container-fluid">
 		<div class="page-container">
 			<!-- Page Sidebar -->
-            <div class="page-sidebar" id="sidebar">
+             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -572,67 +572,119 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
-                      <li class="active">广告列表</li>
+                      <li>
+                         <a href="#">系统</a>
+                      </li>
+                      <li>
+                        <a href="<?php echo url('brand/lst'); ?>">品牌管理</a>
+                      </li>
+                       <li class="active">添加品牌</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                <a href="<?php echo url('ad/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12 col-xs-12">
-                        <div class="widget">
-                            <div class="widget-body">
-                                <div class="flip-scroll">
-                                    <table class="table table-bordered table-hover">
-                                        <thead class="">
-                                            <tr>
-                                                <th class="text-center">编号</th>
-                                                <th class="text-center">广告名称</th>
-                                                <th class="text-center">广告状态</th>
-                                                <th class="text-center">广告类型</th>
-                                                <th class="text-center">所属广告位</th>
-                                                <th class="text-center">操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php if(is_array($adres) || $adres instanceof \think\Collection || $adres instanceof \think\Paginator): $i = 0; $__LIST__ = $adres;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ad): $mod = ($i % 2 );++$i;?>
-                                              <tr>
-                                                <td align="center"><?php echo htmlentities($ad['id']); ?></td>
-                                                <td align="center"><?php echo htmlentities($ad['ad_name']); ?></td>
-                                                <td align="center"><?php echo $ad['statue']==1 ? '开启' : '关闭'; ?></td>
-                                                <td align="center"><?php echo $ad['ad_type']==1 ? '图片广告' : '轮播广告'; ?></td>
-                                                <td align="center"><?php echo htmlentities($ad['name']); ?></td>
-                                                <td align="center">
-                                                    <a href="<?php echo url('ad/edit',['id'=>$ad['id']]); ?>" class="btn btn-azure btn-sm">
-                                                        <i class="fa fa-edit"></i> 编辑
-                                                    </a>
-                                                    <a href="<?php echo url('ad/del',['id'=>$ad['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
-                                                        <i class="fa fa-trash-o"></i> 删除
-                                                    </a>
-                                                </td>
-                                             </tr>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                 <div class="row">
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">新增品牌</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="<?php echo url('brand/add'); ?>" method="post" enctype="multipart/form-data">
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div style="text-align:right; margin-top:10px;">
-                                 <?php echo $adres; ?>
-                                </div>
-                                <div>
-                                </div>
+                        <div class="form-group">
+                            <label for="brand_cname" class="col-sm-2 control-label no-padding-right">品牌中文名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="brand_cname" placeholder="品牌中文名称" name="brand_cname" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand_ename" class="col-sm-2 control-label no-padding-right">品牌英文名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="brand_ename" placeholder="品牌英文名称" name="brand_ename" type="text">
                             </div>
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            <label for="brand_initials" class="col-sm-2 control-label no-padding-right">品牌首字母</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="brand_initials" placeholder="品牌首字母" name="brand_initials" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">(用于解决某些生僻字无法正确生成品牌首字母的情况)</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand_url" class="col-sm-2 control-label no-padding-right">品牌网址</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="brand_url" placeholder="品牌网址" name="brand_url" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand_logo" class="col-sm-2 control-label no-padding-right">品牌LOGO</label>
+                            <div class="col-sm-6">
+                                <input id="brand_logo"  name="brand_logo" type="file" style="margin-top:8px;">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填 (请上传图片，做为品牌的LOGO！标准尺寸200*88)</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand_desc" class="col-sm-2 control-label no-padding-right">品牌描述</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="brand_desc" placeholder="品牌描述" name="brand_desc"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label no-padding-right">品牌状态</label>
+                            <div class="col-sm-6">
+                                <label style="margin:8px 8px 0 0;">
+                                    <input name="brand_status" checked type="radio" value="0" class="colored-blue">
+                                    <span class="text">显示</span>
+                                </label>
+                                <label style="margin:8px 8px 0 0;">
+                                    <input name="brand_status" type="radio" value="1" class="colored-blue">
+                                    <span class="text">隐藏</span>
+                                </label>
+                            </div>
+                            <p class="help-block col-sm-4 red">(当品牌没有商品时，首页及分类页的品牌区将不会显示该品牌。)</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label no-padding-right">品牌推荐</label>
+                            <div class="col-sm-6">
+                                <label style="margin:8px 8px 0 0;">
+                                    <input name="brand_recommend" checked type="radio" value="0" class="colored-blue">
+                                    <span class="text">未推荐</span>
+                                </label>
+                                <label style="margin:8px 8px 0 0;">
+                                    <input name="brand_recommend" type="radio" value="1" class="colored-blue">
+                                    <span class="text">推荐</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>	
+		</div>
 	</div>
 
     <!--Basic Scripts-->
@@ -640,6 +692,7 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-    <script src="http://shop.com/public/static/admin/js/index.js"></script>
-</body>
-</html>
+    
+
+
+</body></html>

@@ -13,7 +13,15 @@ class Ad extends Base
     //广告列表
     public function lst()
     {
-        return view('ad/lst');
+        //查询条件
+        $join = [
+            ['ad_pos ap','a.adpos_id = ap.id']
+        ];
+
+        //查询所有广告
+        $adres = db('ad')->alias('a')->field('a.*,ap.name')->join($join)->paginate(10);
+
+        return view('ad/lst',['adres'=>$adres]);
     }
 
     //广告添加

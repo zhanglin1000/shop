@@ -1,4 +1,4 @@
-<?php /*a:3:{s:55:"D:\phpEnv\www\shop\application\admin\view\cate\lst.html";i:1558105720;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563269821;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563072950;}*/ ?>
+<?php /*a:3:{s:55:"D:\phpEnv\www\shop\application\admin\view\cate\lst.html";i:1558105720;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -43,6 +43,13 @@
             <div class="navbar-header pull-right">
                 <div class="navbar-account">
                     <ul class="account-area">
+                        <li style="margin-top:12px;">
+                            <div class="avatar">
+                                <a href="<?php echo url('base/clearCache'); ?>" style="color:#ffffff;" class="login-area dropdown-toggle">
+                                    清理缓存
+                                </a>
+                            </div>
+                        </li>
                         <li>
                             <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                 <div class="avatar" title="View your public profile">
@@ -67,13 +74,6 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li style="margin-top:12px;">
-                            <div class="avatar" title="View your public profile">
-                                <a href="<?php echo url('base/clear_cache'); ?>" style="color:#ffffff;" class="login-area dropdown-toggle" data-toggle="dropdown">
-                                 清理缓存
-                                </a>
-                            </div>
                         </li>
                     </ul>
                 </div>
@@ -169,6 +169,33 @@
                     <a href="<?php echo url('article/lst'); ?>">
                         <span class="menu-text">
                             文章列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-dashboard"></i>
+                <span class="menu-text">
+                    广告管理
+                </span>
+                <i class="menu-expand"></i>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="<?php echo url('adpos/lst'); ?>">
+                        <span class="menu-text">
+                            广告位列表
+                        </span>
+                        <i class="menu-expand"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo url('ad/lst'); ?>">
+                        <span class="menu-text">
+                            广告列表
                         </span>
                         <i class="menu-expand"></i>
                     </a>
