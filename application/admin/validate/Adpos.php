@@ -13,7 +13,7 @@ class Adpos extends Validate
 {
     //商品类型验证
     protected $rule =   [
-        'name'  => 'require|max:30|unique:ad_pos'
+        'name'  => 'require|max:30|unique:adpos'
     ];
 
     //商品类型验证中文

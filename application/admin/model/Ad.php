@@ -90,6 +90,47 @@ class Ad extends Model
             }
 
         });
+
+        //删除之前
+        self::event('before_delete',function ( $ad ){
+
+            //根据类型删除图片
+            if( $ad['ad_type'] == 1 )
+            {
+                //组合删除图片路径
+                $delimg = '../public/static/uploads/picture/'.$ad['img_src'];
+
+                //判断是否存在
+                if ( file_exists( $delimg ) )
+                {
+                    @unlink($delimg);
+                }
+            }
+            else
+            {
+                //查询轮播多张图片表
+                $imgs = db('adflash')->where('ad_id','=',$ad['id'])->select();
+
+                //声明图片删除变量
+                $delimg = '';
+
+                //循环删除所有图片
+                foreach ( $imgs as $k => $v )
+                {
+                    $delimg = "../public/static/uploads/pictures/".$v['flash_img'];
+
+                    if( file_exists( $delimg ) )
+                    {
+                        @unlink($delimg);
+                    }
+
+                    db('adflash')->where('ad_id','=',$ad['id'])->delete();
+                }
+
+
+            }
+
+        });
     }
 
     //单上传文件

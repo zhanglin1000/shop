@@ -1,4 +1,4 @@
-<?php /*a:3:{s:53:"D:\phpEnv\www\shop\application\admin\view\ad\lst.html";i:1563632832;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563329772;}*/ ?>
+<?php /*a:3:{s:53:"D:\phpEnv\www\shop\application\admin\view\ad\lst.html";i:1563682085;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -602,7 +602,14 @@
                                               <tr>
                                                 <td align="center"><?php echo htmlentities($ad['id']); ?></td>
                                                 <td align="center"><?php echo htmlentities($ad['ad_name']); ?></td>
-                                                <td align="center"><?php echo $ad['statue']==1 ? '开启' : '关闭'; ?></td>
+                                                <td align="center">
+                                                    <div style="height:25px; padding-top:3px;">
+                                                        <label>
+                                                            <input ad_id = "<?php echo htmlentities($ad['id']); ?>" ad_pos = "<?php echo htmlentities($ad['adpos_id']); ?>" class="checkbox-slider colored-blue" onclick="checkstatus(this);" name="statue" <?php if($ad['statue'] == 1): ?>checked<?php endif; ?> type="checkbox">
+                                                            <span class="text"></span>
+                                                       </label>
+                                                    </div>
+                                                </td>
                                                 <td align="center"><?php echo $ad['ad_type']==1 ? '图片广告' : '轮播广告'; ?></td>
                                                 <td align="center"><?php echo htmlentities($ad['name']); ?></td>
                                                 <td align="center">
@@ -640,6 +647,44 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    <script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
     <script src="http://shop.com/public/static/admin/js/index.js"></script>
+    <script type="text/javascript">
+        function checkstatus(o)
+        {
+           var ad_id = $(o).attr('ad_id');
+           var ad_pos = $(o).attr('ad_pos');
+           var ischeck = $(o).is(":checked");
+
+            $("input[ad_pos="+ad_pos+"]").prop('checked',false);
+
+            if( ischeck )
+            {
+                $(o).prop('checked',true);
+            }
+            else
+            {
+                $(o).prop('checked',false);
+            }
+
+            $.ajax({
+                type : "POST", //提交方式
+                url : "<?php echo url('ad/adStatus'); ?>",//路径
+                data : {
+                    "ad_id" : ad_id,
+                    "ad_pos" : ad_pos
+                },
+                dataType : 'json',
+                success : function(result)
+                {
+                    if ( result.code == 200 )
+                    {
+                        layer.msg(result.msg);
+
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>

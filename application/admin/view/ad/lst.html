@@ -64,7 +64,14 @@
                                               <tr>
                                                 <td align="center">{$ad.id}</td>
                                                 <td align="center">{$ad.ad_name}</td>
-                                                <td align="center">{$ad.statue == 1 ? '开启':'关闭'}</td>
+                                                <td align="center">
+                                                    <div style="height:25px; padding-top:3px;">
+                                                        <label>
+                                                            <input ad_id = "{$ad.id}" ad_pos = "{$ad.adpos_id}" class="checkbox-slider colored-blue" onclick="checkstatus(this);" name="statue" {if $ad['statue'] == 1}checked{/if} type="checkbox">
+                                                            <span class="text"></span>
+                                                       </label>
+                                                    </div>
+                                                </td>
                                                 <td align="center">{$ad.ad_type == 1 ? '图片广告':'轮播广告'}</td>
                                                 <td align="center">{$ad.name}</td>
                                                 <td align="center">
@@ -102,6 +109,44 @@
     <script src="__JS__/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="__JS__/beyond.js"></script>
+    <script src="__PLUGIN__/layer.js"></script>
     <script src="__JS__/index.js"></script>
+    <script type="text/javascript">
+        function checkstatus(o)
+        {
+           var ad_id = $(o).attr('ad_id');
+           var ad_pos = $(o).attr('ad_pos');
+           var ischeck = $(o).is(":checked");
+
+            $("input[ad_pos="+ad_pos+"]").prop('checked',false);
+
+            if( ischeck )
+            {
+                $(o).prop('checked',true);
+            }
+            else
+            {
+                $(o).prop('checked',false);
+            }
+
+            $.ajax({
+                type : "POST", //提交方式
+                url : "{:url('ad/adStatus')}",//路径
+                data : {
+                    "ad_id" : ad_id,
+                    "ad_pos" : ad_pos
+                },
+                dataType : 'json',
+                success : function(result)
+                {
+                    if ( result.code == 200 )
+                    {
+                        layer.msg(result.msg);
+
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>

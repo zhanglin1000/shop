@@ -14,7 +14,7 @@ class Adpos extends Base
     public function lst()
     {
         //显示广告列表
-        $adposRes = db('ad_pos')->paginate(10);
+        $adposRes = db('adpos')->paginate(10);
 
         return view('adpos/lst',['adposRes'=>$adposRes]);
     }
@@ -37,7 +37,7 @@ class Adpos extends Base
             }
 
             //执行添加数据
-            $adposAdd = db('ad_pos')->insert($data);
+            $adposAdd = db('adpos')->insert($data);
 
             if( $adposAdd )
             {
@@ -71,7 +71,7 @@ class Adpos extends Base
             }
 
             //执行添加数据
-            $adposUpdate = db('ad_pos')->update($data);
+            $adposUpdate = db('adpos')->update($data);
 
             if( $adposUpdate !== false )
             {
@@ -85,7 +85,7 @@ class Adpos extends Base
             return;
         }
         //根据ID获取一条记录
-        $adposFind = db('ad_pos')->find($id);
+        $adposFind = db('adpos')->find($id);
 
         return view('adpos/edit',['adposFind'=>$adposFind]);
     }
@@ -95,7 +95,11 @@ class Adpos extends Base
     {
         if( intval( $id ) )
         {
-            $adposDel = db('ad_pos')->delete( $id );
+            //实例化模型
+            $adposmodel = model('adpos');
+
+            //执行删除
+            $adposDel = $adposmodel::destroy( $id );
 
             if( $adposDel !== false )
             {
