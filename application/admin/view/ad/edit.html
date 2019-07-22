@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>雪狐商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__CSS__/bootstrap.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css" rel="stylesheet">
+    <link href="__CSS__/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__CSS__/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/demo.css" rel="stylesheet">
+    <link href="__CSS__/typicons.css" rel="stylesheet">
+    <link href="__CSS__/animate.css" rel="stylesheet">
+
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="public/top" /}
+	<!-- /头部 -->
+
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+             {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                      <li>
+                         <a href="#">系统</a>
+                      </li>
+                      <li>
+                        <a href="{:url('ad/lst')}">广告管理</a>
+                      </li>
+                       <li class="active">编辑广告</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                 <div class="row">
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">编辑广告</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="{:url('ad/edit')}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{$adposFind.id}" />
+                        <input type="hidden" name="img_src" value="{$adposFind.img_src}" />
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">所属广告位</label>
+                            <div class="col-sm-6">
+                                <select name="adpos_id" style="width: 100%;">
+
+                                    {volist name="adposRes" id="adpos"}
+                                    <option {if $adposFind['adpos_id'] eq $adpos['id']} selected {/if}  value="{$adpos.id}">{$adpos.name}</option>
+                                    {/volist}
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ad_name" class="col-sm-2 control-label no-padding-right">广告名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="ad_name" placeholder="广告名称" name="ad_name" value="{$adposFind.ad_name}" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">广告状态</label>
+                            <div class="col-sm-6">
+                                <label style="margin-top:8px;margin-right:8px;">
+                                    <input name="statue" {if $adposFind['statue'] eq 1}checked{/if} value="1" type="radio" class="colored-blue">
+                                    <span class="text">开启 </span>
+                                </label>
+                                <label style="margin-top:8px;">
+                                    <input name="statue" {if $adposFind['statue'] eq 0}checked{/if} value="0" type="radio" class="colored-blue">
+                                    <span class="text"> 关闭</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                        <label class="col-sm-2 control-label no-padding-right">广告类型</label>
+                        <div class="col-sm-6">
+                            <label style="margin-top:8px;margin-right:8px;">
+                                <input name="ad_type" id="img" {if $adposFind['ad_type'] eq 1} checked {else /} disabled {/if} value="1" type="radio" class="colored-blue">
+                                <span class="text">图片广告 </span>
+                            </label>
+                            <label style="margin-top:8px;">
+                                <input name="ad_type" {if $adposFind['ad_type'] eq 2 } checked {else /} disabled {/if} id="lh" value="2" type="radio" class="colored-blue">
+                                <span class="text"> 轮播广告</span>
+                            </label>
+                        </div>
+                    </div>
+
+                        <div class="form-group img" {if $adposFind['ad_type'] eq 1 } style="display:block;"{else /} style="display:none;"  {/if}>
+                            <div style="display:inline-block;width:100%;">
+                                    <label class="col-sm-2 control-label no-padding-right">图片地址</label>
+                                    <div class="col-sm-6">
+                                         <input style="margin-top:8px;" type="file" name="img_src">
+                                         {if $adposFind['img_src'] }
+                                         <img src="<?php echo APP_PATH; ?>/public/static/uploads/picture/{$adposFind.img_src}" height="50px;" />
+                                         {else /}
+                                         暂无缩略图
+                                         {/if}
+                                    </div>
+                            </div>
+                            <div  style="display:inline-block;width:100%;" >
+                               <label style="margin-top:7px;" class="col-sm-2 control-label no-padding-right">图片网址</label>
+                               <div class="col-sm-6">
+                                   <input class="form-control" style="margin-top:8px;" value="{$adposFind.link}" type="text" name="link">
+                               </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group lh" {if $adposFind['ad_type'] eq 2 } style="display:block;"{else /} style="display:none;" {/if}>
+                            <div style="display:inline-block;width:100%;">
+                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0);" onclick="addrow(this)">[+]</a></label>
+                                <div class="col-sm-6">
+                                    <input style="margin-top:8px; float:left;" type="file" name="flash_img[]">
+                                    <input type="text" style="margin-top:8px;" name="flash_link[]">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>
+	</div>
+
+    <!--Basic Scripts-->
+    <script src="__JS__/jquery.js"></script>
+    <script src="__JS__/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__JS__/beyond.js"></script>
+    <script type="text/javascript">
+        function addrow( a )
+        {
+            //获取上一级
+            var div = $( a ).parent().parent();
+
+            //执行克隆
+            var newdiv = div.clone();
+
+            //判断系统是否点击的加号
+            if($( a ).html() == '[+]')
+            {
+                //把新克隆的改为减号
+                newdiv.find( 'a' ).html( "[-]" );
+                //把克隆的放在后面
+                div.after( newdiv );
+            }
+            else
+            {
+                div.remove();
+            }
+
+        }
+
+        $('#img').click(function ()
+        {
+           $('.img').show();
+           $('.lh').hide();
+        });
+
+        $('#lh').click(function ()
+        {
+            $('.img').hide();
+            $('.lh').show();
+        });
+    </script>
+    
+
+
+</body></html>

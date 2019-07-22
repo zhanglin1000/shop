@@ -131,6 +131,35 @@ class Ad extends Model
             }
 
         });
+
+        //修改之前
+        self::event('before_update',function ( $ad )
+        {
+            //判断类型修改图片
+            if( $ad['ad_type'] == 1 )
+            {
+                if( $_FILES['img_src']['tmp_name'] != '' )
+                {
+                    //查询原图片数据
+                    $oldImg = "../public/static/uploads/picture/".$ad['img_src'];
+
+                    if ( file_exists( $oldImg ) )
+                    {
+                        @unlink($oldImg);
+                    }
+
+                    $ad['img_src'] = self::upload('img_src');
+                }
+
+            }
+
+            //判断广告是否启用状态
+            if( $ad['statue'] == 1 )
+            {
+                db('ad')->where('adpos_id','=',$ad['adpos_id'])->update(['statue'=>0]);
+            }
+
+        });
     }
 
     //单上传文件

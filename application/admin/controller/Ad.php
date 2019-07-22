@@ -63,9 +63,42 @@ class Ad extends Base
     }
 
     //广告编辑
-    public function edit()
+    public function edit( $id )
     {
-        return view('ad/edit');
+        //执行广告编辑
+        if( request()->isPost() )
+        {
+            //接收表单数据
+            $data = input('post.');
+
+            //数据验证
+            $validate = new \app\admin\validate\Ad();
+
+            if (!$validate->check($data))
+            {
+                $this->error($validate->getError());
+            }
+
+            $adUpdate = model('ad')->allowField(true)->save($data,['id'=>$id]);
+
+            if( $adUpdate !== false )
+            {
+                $this->success('修改广告成功','lst');
+            }
+            else
+            {
+                $this->error('修改广告失败');
+            }
+
+            return;
+        }
+        //根据ID查询一条数据
+        $adposFind = db('ad')->find( $id );
+
+        //查询所有广告类型
+        $adposRes = db('adpos')->select();
+
+        return view('ad/edit',['adposRes'=>$adposRes,'adposFind'=>$adposFind]);
     }
 
     //广告删除
