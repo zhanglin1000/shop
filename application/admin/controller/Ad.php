@@ -92,13 +92,20 @@ class Ad extends Base
 
             return;
         }
+
         //根据ID查询一条数据
         $adposFind = db('ad')->find( $id );
+
+        //根据类型查询轮播图片
+        if( $adposFind['ad_type'] == 2 )
+        {
+            $adflash = db('adflash')->where('ad_id','=',$adposFind['id'])->select();
+        }
 
         //查询所有广告类型
         $adposRes = db('adpos')->select();
 
-        return view('ad/edit',['adposRes'=>$adposRes,'adposFind'=>$adposFind]);
+        return view('ad/edit',['adposRes'=>$adposRes,'adposFind'=>$adposFind,'adflash'=>$adflash]);
     }
 
     //广告删除
