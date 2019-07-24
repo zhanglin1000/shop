@@ -105,7 +105,7 @@ class Ad extends Base
         //查询所有广告类型
         $adposRes = db('adpos')->select();
 
-        return view('ad/edit',['adposRes'=>$adposRes,'adposFind'=>$adposFind,'adflash'=>$adflash]);
+        return view('ad/edit',['adposRes'=>$adposRes,'adposFind'=>$adposFind,'adflash'=>isset($adflash)?$adflash:'']);
     }
 
     //广告删除
@@ -170,6 +170,13 @@ class Ad extends Base
 
 
 
+
+    }
+
+    //AJAX动态删除多图广告
+    public function ajaxDelAd($id)
+    {
+       //根据ID删除对用图片
 
     }
 

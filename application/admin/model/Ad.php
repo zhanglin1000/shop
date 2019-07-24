@@ -135,6 +135,9 @@ class Ad extends Model
         //修改之前
         self::event('before_update',function ( $ad )
         {
+            //获取表单数据
+            $data = input('post.');
+
             //判断类型修改图片
             if( $ad['ad_type'] == 1 )
             {
@@ -152,12 +155,74 @@ class Ad extends Model
                 }
 
             }
+            else
+            {
+                if( isset($_FILES['flash_img']) )
+                {
+
+                    //判断上传地址是否为空
+                    foreach ( $_FILES['flash_img']['name'] as $k => $v)
+                    {
+                        if(!$v)
+                        {
+                            unset($data['flash_link'][$k]);
+                            unset($_FILES['flash_img']['name'][$k]);
+                            unset($_FILES['flash_img']['type'][$k]);
+                            unset($_FILES['flash_img']['tmp_name'][$k]);
+                            unset($_FILES['flash_img']['error'][$k]);
+                            unset($_FILES['flash_img']['size'][$k]);
+                        }
+
+                    }
+
+                    //重新排序
+                    sort($_FILES['flash_img']['name']);
+                    sort($_FILES['flash_img']['type']);
+                    sort($_FILES['flash_img']['tmp_name']);
+                    sort($_FILES['flash_img']['error']);
+                    sort($_FILES['flash_img']['size']);
+                    sort($data['flash_link']);
+
+
+                    $files = request()->file('flash_img');
+
+                    foreach($files as $k =>$file)
+                    {
+                        $info = $file->move( '../public/static/uploads/pictures/');
+
+                        if($info)
+                        {
+                            //把上传的缩略图添加到指定表中
+                            db('adflash')->insert(['flash_img'=>$info->getSaveName(),'flash_link'=>$data['flash_link'][$k],'ad_id'=>$data['id']]);
+                        }
+                        else
+                        {
+                            // 上传失败获取错误信息
+                            echo $file->getError();
+                        }
+
+                    }
+                }
+
+            }
+
+            //修改链接
+            if( isset( $data['old_flash_link'] ) )
+            {
+                //遍历数组
+                foreach ( $data['old_flash_link'] as $id => $v )
+                {
+                   db('adflash')->where('id','=',$id)->setField('flash_link',$v);
+                }
+            }
+
 
             //判断广告是否启用状态
             if( $ad['statue'] == 1 )
             {
                 db('ad')->where('adpos_id','=',$ad['adpos_id'])->update(['statue'=>0]);
             }
+
 
         });
     }
