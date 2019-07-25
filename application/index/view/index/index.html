@@ -38,15 +38,12 @@
                     <!-----轮播图=-------->
                     <div class="bd">
                         <ul data-type="range">
-                            <li style="background:url(__IMG__/1494984992503176615.jpg) center center no-repeat;">
+                            {volist name="adflash" id="adflashImg"}
+                            <li style='background:url("<?php echo APP_PATH; ?>/public/static/uploads/pictures/{$adflashImg.flash_img}") center center no-repeat;'>
                                 <div class="banner-width"><a href="" style="height:500px;"></a></div>
                             </li>
-                            <li style="background:url(__IMG__/1494984990506843460.jpg) center center no-repeat;">
-                                <div class="banner-width"><a href="" style="height:500px;"></a></div>
-                            </li>
-                            <li style="background:url(__IMG__/1494984991783527346.jpg) center center no-repeat;">
-                                <div class="banner-width"><a href="" style="height:500px;"></a></div>
-                            </li>
+                            {/volist}
+
                         </ul>
                         <div class="spec" data-spec=""></div>
                     </div>

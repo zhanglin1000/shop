@@ -83,7 +83,10 @@ class Index extends Comment
             facade\Cache::set('promotion',$promotion,3600);
         }
 
-        return view('index/index',['recPos'=>$recPos,'indexhosGoods'=>$indexhosGoods,'notice'=>$notice,'promotion'=>$promotion]);
+        //调用轮播图广告
+        $adflash = $this->adflash(1);
+
+        return view('index/index',['recPos'=>$recPos,'indexhosGoods'=>$indexhosGoods,'notice'=>$notice,'promotion'=>$promotion,'adflash'=>$adflash]);
     }
 
     //首页栏目推荐实现
@@ -214,6 +217,26 @@ class Index extends Comment
 
 
 }
+
+    //调用首页轮播图
+    public function adflash($id)
+    {
+       //查询一条轮播广告
+       $where = [
+           'adpos_id' => $id,
+           'statue' => 1
+       ];
+
+       $adFind = db('ad')->where($where)->find();
+
+       //通过广告ID查询所有轮播广告
+       $adflashRes = db('adflash')->where('ad_id','=',$adFind['id'])->select();
+
+       return $adflashRes;
+
+
+
+    }
 
 
 }

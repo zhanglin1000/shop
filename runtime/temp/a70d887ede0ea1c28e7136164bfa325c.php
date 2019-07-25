@@ -1,8 +1,7 @@
-<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\ad\edit.html";i:1564057420;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\goods\add.html";i:1563781270;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
+<html><head>
+	    <meta charset="utf-8">
     <title>雪狐商城</title>
 
     <meta name="description" content="Dashboard">
@@ -19,11 +18,26 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
+    <style type="text/css">
+        .price
+        {
+            width:150px;
+            display: inline-block;
+        }
+        .select
+        {
+            margin-right:10px;
+        }
+        a,a:hover
+        {
+            text-decoration:none;
+        }
+    </style>
 
 </head>
 <body>
-<!-- 头部 -->
-<div class="navbar">
+	<!-- 头部 -->
+    <div class="navbar">
     <div class="navbar-inner">
         <div class="navbar-container">
             <!-- Navbar Barnd -->
@@ -82,12 +96,12 @@
         </div>
     </div>
 </div>
-<!-- /头部 -->
+	<!-- /头部 -->
 
-<div class="main-container container-fluid">
-    <div class="page-container">
-        <!-- Page Sidebar -->
-        <div class="page-sidebar" id="sidebar">
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+             <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -567,208 +581,365 @@
     </ul>
     <!-- /Sidebar Menu -->
 </div>
-        <!-- /Page Sidebar -->
-        <!-- Page Content -->
-        <div class="page-content">
-            <!-- Page Breadcrumb -->
-            <div class="page-breadcrumbs">
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">系统</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo url('ad/lst'); ?>">广告管理</a>
-                    </li>
-                    <li class="active">编辑广告</li>
-                </ul>
-            </div>
-            <!-- /Page Breadcrumb -->
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                      <li>
+                         <a href="#">系统</a>
+                      </li>
+                      <li>
+                        <a href="<?php echo url('goods/lst'); ?>">商品列表</a>
+                      </li>
+                       <li class="active">添加商品</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
 
-            <!-- Page Body -->
-            <div class="page-body">
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12 col-xs-12">
-                        <div class="widget">
-                            <div class="widget-header bordered-bottom bordered-blue">
-                                <span class="widget-caption">编辑广告</span>
-                            </div>
-                            <div class="widget-body">
-                                <div id="horizontal-form">
-                                    <form class="form-horizontal" role="form" action="<?php echo url('ad/edit'); ?>" method="post"
-                                          enctype="multipart/form-data">
-                                        <input type="hidden" name="id" value="<?php echo htmlentities($adposFind['id']); ?>"/>
-                                        <input type="hidden" name="img_src" value="<?php echo htmlentities($adposFind['img_src']); ?>"/>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">所属广告位</label>
-                                            <div class="col-sm-6">
-                                                <select name="adpos_id" style="width: 100%;">
+                <!-- Page Body -->
+                <div class="page-body">
+                 <div class="row">
+          <div class="col-lg-12 col-sm-12 col-xs-12">
+          <div class="widget">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="<?php echo url('goods/add'); ?>" method="post" enctype="multipart/form-data">
+                        <div class="widget-body">
+                            <div class="widget-main ">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs tabs-flat" id="myTab11">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#home1">
+                                                商品基本设置
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#home2">
+                                                商品描述
+                                            </a>
+                                        </li>
+                                       <li class="">
+                                            <a data-toggle="tab" href="#home3">
+                                                会员价设置
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#home4">
+                                                属性设置
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#home5">
+                                                相册设置
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content tabs-flat">
+                                        <div id="home1" class="tab-pane active">
+                                            <div class="form-group">
+                                                <label for="goods_name" class="col-sm-2 control-label no-padding-right">商品名称</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" id="goods_name" placeholder="商品名称" name="goods_name" required="" type="text">
+                                                </div>
+                                                <p class="help-block col-sm-4 red">* 必填</p>
+                                            </div>
 
-                                                    <?php if(is_array($adposRes) || $adposRes instanceof \think\Collection || $adposRes instanceof \think\Paginator): $i = 0; $__LIST__ = $adposRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adpos): $mod = ($i % 2 );++$i;?>
-                                                    <option <?php if($adposFind[
-                                                    'adpos_id'] == $adpos['id']): ?> selected <?php endif; ?>
-                                                    value="<?php echo htmlentities($adpos['id']); ?>"><?php echo htmlentities($adpos['name']); ?></option>
+                                            <div class="form-group">
+                                                <label for="goods_name" class="col-sm-2 control-label no-padding-right">加入推荐</label>
+                                                <div class="col-sm-6">
+                                                    <?php if(is_array($goodsRec) || $goodsRec instanceof \think\Collection || $goodsRec instanceof \think\Paginator): $i = 0; $__LIST__ = $goodsRec;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$goodsRec): $mod = ($i % 2 );++$i;?>
+                                                    <label style="margin: 6px 5px 0 0;">
+                                                        <input type="checkbox" value="<?php echo htmlentities($goodsRec['id']); ?>" class="colored-blue" name="goods_rec[]">
+                                                        <span class="text"><?php echo htmlentities($goodsRec['rec_name']); ?></span>
+                                                    </label>
                                                     <?php endforeach; endif; else: echo "" ;endif; ?>
+                                                </div>
 
-                                                </select>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label no-padding-right">商品分类</label>
+                                                <div class="col-sm-6">
+                                                   <select name="category_id" class="form-control" >
+                                                       <option value="">请选择</option>
+                                                       <?php if(is_array($categoryAll) || $categoryAll instanceof \think\Collection || $categoryAll instanceof \think\Paginator): $i = 0; $__LIST__ = $categoryAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
+                                                       <option  value="<?php echo htmlentities($category['id']); ?>"><?php if($category['pid'] != 0): ?><?php echo '♩'.str_repeat('--',$category['level'] * 8); ?><?php endif; ?><?php echo htmlentities($category['cate_name']); ?></option>
+                                                       <?php endforeach; endif; else: echo "" ;endif; ?>
+                                                   </select>
+                                                </div>
+                                                <p class="help-block col-sm-4 red">* 必填</p>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="og_thumb" class="col-sm-2 control-label no-padding-right">商品主图</label>
+                                                <div class="col-sm-6">
+                                                    <input id="og_thumb"  name="og_thumb" type="file" style="margin-top:8px;">
+                                                </div>
+                                                <p class="help-block col-sm-4 red">(尺寸：800px * 800px | 格式：jpg，gif，png，jpeg)</p>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="shop_price" class="col-sm-2 control-label no-padding-right">本店价</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" id="shop_price" placeholder="商品本店价" name="shop_price" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="market_price" class="col-sm-2 control-label no-padding-right">市场价</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" id="market_price" placeholder="商品市场价" name="market_price" type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label no-padding-right">上架</label>
+                                                <div class="col-sm-6">
+                                                    <label style="margin:8px 8px 0 0;">
+                                                        <input name="on_sale" checked type="radio" value="1" class="colored-blue">
+                                                        <span class="text">上架</span>
+                                                    </label>
+                                                    <label style="margin:8px 8px 0 0;">
+                                                        <input name="on_sale" type="radio" value="2" class="colored-blue">
+                                                        <span class="text">下架</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label no-padding-right">品牌分类</label>
+                                                <div class="col-sm-6">
+                                                    <select name="brand_id" class="form-control" >
+                                                        <option value="">请选择</option>
+                                                        <?php if(is_array($brandAll) || $brandAll instanceof \think\Collection || $brandAll instanceof \think\Paginator): $i = 0; $__LIST__ = $brandAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$brand): $mod = ($i % 2 );++$i;?>
+                                                        <option value="<?php echo htmlentities($brand['id']); ?>"><?php echo htmlentities($brand['brand_cname']); ?></option>
+                                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="goods_weight" class="col-sm-2 control-label no-padding-right">商品重量</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" style="width:150px;float:left;margin-right:5px;" id="goods_weight" placeholder="商品重量" name="goods_weight" type="text">
+                                                    <select name="goods_unit">
+                                                        <option value="千克" selected>千克</option>
+                                                        <option value="克">克</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="ad_name"
-                                                   class="col-sm-2 control-label no-padding-right">广告名称</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" id="ad_name" placeholder="广告名称"
-                                                       name="ad_name" value="<?php echo htmlentities($adposFind['ad_name']); ?>" required=""
-                                                       type="text">
-                                            </div>
-                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        <div id="home2" class="tab-pane">
+                                           <textarea id="content" name="goods_desc"></textarea>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">广告状态</label>
-                                            <div class="col-sm-6">
-                                                <label style="margin-top:8px;margin-right:8px;">
-                                                    <input name="statue" <?php if($adposFind['statue'] == 1): ?>checked<?php endif; ?>
-                                                    value="1" type="radio" class="colored-blue">
-                                                    <span class="text">开启 </span>
-                                                </label>
-                                                <label style="margin-top:8px;">
-                                                    <input name="statue" <?php if($adposFind['statue'] == 0): ?>checked<?php endif; ?>
-                                                    value="0" type="radio" class="colored-blue">
-                                                    <span class="text"> 关闭</span>
-                                                </label>
+                                       <div id="home3" class="tab-pane">
+
+                                            <?php if(is_array($levelAll) || $levelAll instanceof \think\Collection || $levelAll instanceof \think\Paginator): $i = 0; $__LIST__ = $levelAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ml): $mod = ($i % 2 );++$i;?>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right"><?php echo htmlentities($ml['level_name']); ?> ( <?php echo ($ml['reate'] / 10); ?>折 ) </label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" placeholder="商品级别价格"  name="mp[<?php echo htmlentities($ml['id']); ?>]"  type="text">
+                                                </div>
                                             </div>
+                                            <?php endforeach; endif; else: echo "" ;endif; ?>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">广告类型</label>
-                                            <div class="col-sm-6">
-                                                <label style="margin-top:8px;margin-right:8px;">
-                                                    <input name="ad_type" id="img" <?php if($adposFind['ad_type'] == 1): ?>
-                                                    checked <?php else: ?> disabled <?php endif; ?> value="1" type="radio"
-                                                    class="colored-blue">
-                                                    <span class="text">图片广告 </span>
-                                                </label>
-                                                <label style="margin-top:8px;">
-                                                    <input name="ad_type" <?php if($adposFind['ad_type'] == 2): ?> checked <?php else: ?> disabled <?php endif; ?> id="lh" value="2" type="radio"
-                                                    class="colored-blue">
-                                                    <span class="text"> 轮播广告</span>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <div id="home4" class="tab-pane">
+                                           <div class="form-group">
+                                               <label  class="col-sm-2 control-label no-padding-right">商品类型</label>
+                                               <div class="col-sm-6">
+                                                   <select name="type_id">
 
-                                        <div class="form-group img" <?php if($adposFind['ad_type'] == 1): ?> style="display:block;"<?php else: ?> style="display:none;" <?php endif; ?>>
-                                        <div style="display:inline-block;width:100%;">
-                                            <label class="col-sm-2 control-label no-padding-right">图片地址</label>
-                                            <div class="col-sm-6">
-                                                <input style="margin-top:8px;" type="file" name="img_src">
-                                                <?php if($adposFind['img_src']): ?>
-                                                <img src="<?php echo APP_PATH; ?>/public/static/uploads/picture/<?php echo htmlentities($adposFind['img_src']); ?>"
-                                                     height="50px;"/>
-                                                <?php else: ?>
-                                                暂无缩略图
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        <div style="display:inline-block;width:100%;">
-                                            <label style="margin-top:7px;"
-                                                   class="col-sm-2 control-label no-padding-right">图片网址</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" style="margin-top:8px;"
-                                                       value="<?php echo htmlentities($adposFind['link']); ?>" type="text" name="link">
-                                            </div>
-                                        </div>
-                                </div>
+                                                       <option value="">请选择</option>
 
-                                <div class="form-group lh" <?php if($adposFind['ad_type'] == 2): ?> style="display:block;"<?php else: ?> style="display:none;" <?php endif; ?>>
-                                <?php if(is_array($adflash) || $adflash instanceof \think\Collection || $adflash instanceof \think\Paginator): $i = 0; $__LIST__ = $adflash;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adflash): $mod = ($i % 2 );++$i;?>
-                                <div style="display:inline-block;width:100%;">
-                                    <label class="col-sm-2 control-label no-padding-right" style="margin-top:5px;"><a id="<?php echo htmlentities($adflash['id']); ?>" href="javascript:void(0);"
-                                                                                              onclick="addrow(this)"><?php if($i==1): ?>[+]<?php else: ?>[-]<?php endif; ?></a></label>
-                                    <div class="col-sm-6">
-                                        <img src="<?php echo APP_PATH; ?>/public/static/uploads/pictures/<?php echo htmlentities($adflash['flash_img']); ?>"
-                                             width="100" height="50"/>
-                                            <input type="text" class="form-control" style="margin:8px 0 0 8px; width:50%; display:inline-block;" value="<?php echo htmlentities($adflash['flash_link']); ?>" name="old_flash_link[<?php echo htmlentities($adflash['id']); ?>]">
+                                                       <?php if(is_array($typeAll) || $typeAll instanceof \think\Collection || $typeAll instanceof \think\Paginator): $i = 0; $__LIST__ = $typeAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$type): $mod = ($i % 2 );++$i;?>
+                                                       <option value="<?php echo htmlentities($type['id']); ?>"><?php echo htmlentities($type['type_name']); ?></option>
+                                                       <?php endforeach; endif; else: echo "" ;endif; ?>
+
+                                                   </select>
+                                               </div>
+                                           </div>
+
+                                           <div id="attr">
+                                              <!--<div class="form-group">
+                                                   <label  class="col-sm-2 control-label no-padding-right"><a href="#">[+]</a> 颜色</label>
+                                                   <div class="col-sm-6">
+                                                       <select name="">
+                                                           <option value="黑色">黑色</option>
+                                                           <option value="白色">白色</option>
+                                                       </select>
+                                                       <input type="text" name="" placeholder="价格" class="form-control price" />
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label  class="col-sm-2 control-label no-padding-right">材质</label>
+                                                   <div class="col-sm-6">
+                                                       <select name="">
+                                                           <option value="棉纶">棉纶</option>
+                                                           <option value="亚麻">亚麻</option>
+                                                       </select>
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label  class="col-sm-2 control-label no-padding-right">品牌名称</label>
+                                                   <div class="col-sm-6">
+                                                       <input class="form-control price"  name="" type="text">
+                                                   </div>
+                                               </div>-->
+                                           </div>
+                                       </div>
+
+                                        <div id="home5" class="tab-pane">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0)" onclick="addrow(this)">[+]</a> 上传商品图片：</label>
+                                                <div class="col-sm-6">
+                                                    <input type="file" name="goods_photo[]" style="margin-top:7px;">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <?php endforeach; endif; else: echo "" ;endif; ?>
-
                             </div>
-
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-default">保存信息</button>
                                 </div>
                             </div>
-                            </form>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
         </div>
     </div>
-    <!-- /Page Body -->
 </div>
-<!-- /Page Content -->
-</div>
-</div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>
+	</div>
 
-<!--Basic Scripts-->
-<script src="http://shop.com/public/static/admin/js/jquery.js"></script>
-<script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
-<!--Beyond Scripts-->
-<script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-<script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
-<script type="text/javascript">
-    function addrow(a) {
-        //获取上一级
-        var div = $(a).parent().parent();
+    <!--Basic Scripts-->
+    <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
+    <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
+    <!-- Beyond Scripts-->
+    <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    <script src="http://shop.com/public/static/plugin/ueditor/ueditor.config.js"></script>
+    <script src="http://shop.com/public/static/plugin/ueditor/ueditor.all.min.js"></script>
+    <script src="http://shop.com/public/static/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
+    <script type="text/javascript">
+        UE.getEditor('content');
 
-        //执行克隆
-        var newdiv = div.clone();
+        //类型选择
+        $("select[name='type_id']").change(function ()
+        {
+            //获取选择类型ID
+            var type_id = $(this).val();
 
-        //判断系统是否点击的加号
-        if ($(a).html() == '[+]') {
-            //把新克隆的改为减号
-            newdiv = "<div class='form-group lh'><div style='display:inline-block;width:100%;'><label class='col-sm-2 control-label no-padding-right' style='margin-left:10px;'><a href='javascript:void(0);' onclick='addrow(this)'>[-]</a></label><div class='col-sm-6' style='display: flex; justify-content: center;'><input style='margin-top:8px;' type='file' name='flash_img[]'><input type='text' class='form-control' style='display: inline-block; width:50%;' name='flash_link[]'></div></div></div>";
-            //把克隆的放在后面
-            div.after(newdiv);
-        } else {
-            var id = $(a).attr('id');
-
-            $.ajax({
-                url:"<?php echo url('ad/ajaxDelAd'); ?>",
-                type:'post',
-                data : {
-                    id : id
-                },
-                dataType:'json',
-                success:function(data)
-                {
-                    if(data == 1)
+            //判断类型是否为空
+            if(type_id != '')
+            {
+                //执行AJAX操作查找置顶类型属性
+                $.ajax({
+                    type:"POST",
+                    url:"<?php echo url('attr/getAttr'); ?>",
+                    dataType : 'json',
+                    data : {
+                        'type_id' : type_id
+                    },
+                    success : function(data)
                     {
-                        layer.msg('删除记录成功');
-                        div.remove();
+                        var html = '';
+                        var values = '';
+                        var attr_values = '';
+
+                        //遍历数组
+                        $.each(data,function (k,v)
+                        {
+                            html += "<div class='form-group'>";
+                            html += "<label  class='col-sm-2 control-label no-padding-right'> "+v.attr_name+"</label>";
+                            html += "<div class='col-sm-6'>";
+
+                            if( v.attr_type == 2 )
+                            {
+                                html += " <a href='javascript:void();' onclick='addrow(this)'>[+]</a> &nbsp;&nbsp;";
+                            }
+
+
+                            if( v.attr_values == '' )
+                            {
+                                html += "<input class='form-control'  name='goods_attr["+v.id+"][]' type='text'>";
+                            }
+                            else
+                            {
+                                values = v.attr_values;
+
+                                attr_values = values.split(',');
+
+                                html += "<select name='goods_attr["+v.id+"][]'>";
+                                html += "<option value=''>请选择</option>";
+
+                                for(var i = 0; i < attr_values.length; i++)
+                                {
+                                    html += "<option value="+attr_values[i]+">"+attr_values[i]+"</option>";
+                                }
+
+                                html += "</select>";
+
+                            }
+
+                            if( v.attr_type == 2 )
+                            {
+                                html += "&nbsp;&nbsp;<input type='text' name='goods_price["+v.id+"][]' placeholder='价格' class='form-control price' />";
+                            }
+
+                            html += "</div>";
+                            html += "</div>";
+                        });
+
+                        $('#attr').html(html);
                     }
-                }
-            });
+                });
+            }
+            else
+            {
+                $('#attr').html('');
+            }
+
+
+
+
+        });
+
+        function addrow( o )
+        {
+          //获取上一级
+          var div = $( o ).parent().parent();
+
+          //执行克隆
+          var newdiv = div.clone();
+
+          //判断系统是否点击的加号
+          if($( a ).html() == '[+]')
+          {
+              //把新克隆的改为减号
+              newdiv.find( 'a' ).html( "[-]" );
+              //把克隆的放在后面
+              div.after( newdiv );
+          }
+          else
+          {
+              div.remove();
+          }
 
         }
-
-    }
-
-    $('#img').click(function () {
-        $('.img').show();
-        $('.lh').hide();
-    });
-
-    $('#lh').click(function () {
-        $('.img').hide();
-        $('.lh').show();
-    });
-
-
-</script>
+    </script>
 
 </body>
 </html>

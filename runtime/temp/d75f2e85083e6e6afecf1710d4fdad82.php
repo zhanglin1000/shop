@@ -1,4 +1,4 @@
-<?php /*a:3:{s:53:"D:\phpEnv\www\shop\application\admin\view\ad\add.html";i:1563357440;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
+<?php /*a:3:{s:57:"D:\phpEnv\www\shop\application\admin\view\config\lst.html";i:1558364245;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-
+    
 </head>
 <body>
 	<!-- 头部 -->
@@ -82,11 +82,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-
+	
 	<div class="main-container container-fluid">
 		<div class="page-container">
 			<!-- Page Sidebar -->
-             <div class="page-sidebar" id="sidebar">
+            <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -572,119 +572,101 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                      <li>
-                         <a href="#">系统</a>
-                      </li>
-                      <li>
-                        <a href="<?php echo url('ad/lst'); ?>">广告管理</a>
-                      </li>
-                       <li class="active">添加广告</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">配置管理</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                 <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-          <div class="widget">
-            <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增广告</span>
-            </div>
-            <div class="widget-body">
-                <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('ad/add'); ?>" method="post" enctype="multipart/form-data">
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right">所属广告位</label>
-                            <div class="col-sm-6">
-                                <select name="adpos_id" style="width: 100%;">
-
-                                    <?php if(is_array($adposRes) || $adposRes instanceof \think\Collection || $adposRes instanceof \think\Paginator): $i = 0; $__LIST__ = $adposRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adpos): $mod = ($i % 2 );++$i;?>
-                                    <option  value="<?php echo htmlentities($adpos['id']); ?>"><?php echo htmlentities($adpos['name']); ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ad_name" class="col-sm-2 control-label no-padding-right">广告名称</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="ad_name" placeholder="广告名称" name="ad_name" required="" type="text">
-                            </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right">广告状态</label>
-                            <div class="col-sm-6">
-                                <label style="margin-top:8px;margin-right:8px;">
-                                    <input name="statue" checked value="1" type="radio" class="colored-blue">
-                                    <span class="text">开启 </span>
-                                </label>
-                                <label style="margin-top:8px;">
-                                    <input name="statue" value="0" type="radio" class="colored-blue">
-                                    <span class="text"> 关闭</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right">广告类型</label>
-                        <div class="col-sm-6">
-                            <label style="margin-top:8px;margin-right:8px;">
-                                <input name="ad_type" id="img" checked value="1" type="radio" class="colored-blue">
-                                <span class="text">图片广告 </span>
-                            </label>
-                            <label style="margin-top:8px;">
-                                <input name="ad_type" id="lh" value="2" type="radio" class="colored-blue">
-                                <span class="text"> 轮播广告</span>
-                            </label>
-                        </div>
-                    </div>
-
-                        <div class="form-group img" style="display:block;">
-                            <div style="display:inline-block;width:100%;">
-                                    <label class="col-sm-2 control-label no-padding-right">图片地址</label>
-                                    <div class="col-sm-6">
-                                         <input style="margin-top:8px;" type="file" name="img_src">
-                                    </div>
-                            </div>
-                            <div style="display:inline-block;width:100%;">
-                               <label style="margin-top:7px;" class="col-sm-2 control-label no-padding-right">图片网址</label>
-                               <div class="col-sm-6">
-                                   <input class="form-control" style="margin-top:8px;" type="text" name="link">
-                               </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group lh" style="display:none;">
-                            <div style="display:inline-block;width:100%;">
-                                <label class="col-sm-2 control-label no-padding-right"><a href="javascript:void(0);" onclick="addrow(this)">[+]</a></label>
-                                <div class="col-sm-6">
-                                    <input style="margin-top:8px; float:left;" type="file" name="flash_img[]">
-                                    <input type="text" style="margin-top:8px;" name="flash_link[]">
+                <a href="<?php echo url('config/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">配置中文名称</th>
+                                                <th class="text-center">配置英文名称</th>
+                                                <th class="text-center">表单类型</th>
+                                                <th class="text-center">配置类型</th>
+                                                <th class="text-center">可选值</th>
+                                                <th class="text-center">默认值</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($configAll) || $configAll instanceof \think\Collection || $configAll instanceof \think\Paginator): $i = 0; $__LIST__ = $configAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$config): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($config['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($config['cname']); ?></td>
+                                                <td align="center"><?php echo htmlentities($config['ename']); ?></td>
+                                                <td align="center">
+                                                    <?php if($config['field_type'] == 1): ?>
+                                                    文本
+                                                    <?php elseif($config['field_type'] == 2): ?>
+                                                    单选
+                                                    <?php elseif($config['field_type'] == 3): ?>
+                                                    复选框
+                                                    <?php elseif($config['field_type'] == 4): ?>
+                                                    文本域
+                                                    <?php elseif($config['field_type'] == 5): ?>
+                                                    文件域
+                                                    <?php else: ?>
+                                                    下拉框
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($config['conf_type'] == 1): ?>
+                                                    网店配置
+                                                    <?php else: ?>
+                                                    商品配置
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($config['values']): ?>
+                                                    <?php echo htmlentities($config['values']); else: ?>
+                                                    暂无可选值
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($config['value']): ?>
+                                                    <?php echo htmlentities($config['value']); else: ?>
+                                                    暂无默认值
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('config/edit',array('id'=>$config['id'])); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('config/del',array('id'=>$config['id'])); ?>" onClick="return confirm('你确认要删除选定的配置吗？') ? true : false;" class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                  <div style="text-align:right; margin-top:10px;">
+                                      <?php echo $configAll; ?>
+                                  </div>
+                                <div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">保存信息</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>
+		</div>	
 	</div>
 
     <!--Basic Scripts-->
@@ -692,43 +674,7 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-    <script type="text/javascript">
-        function addrow( a )
-        {
-            //获取上一级
-            var div = $( a ).parent().parent();
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 
-            //执行克隆
-            var newdiv = div.clone();
-
-            //判断系统是否点击的加号
-            if($( a ).html() == '[+]')
-            {
-                //把新克隆的改为减号
-                newdiv.find( 'a' ).html( "[-]" );
-                //把克隆的放在后面
-                div.after( newdiv );
-            }
-            else
-            {
-                div.remove();
-            }
-
-        }
-
-        $('#img').click(function ()
-        {
-           $('.img').show();
-           $('.lh').hide();
-        });
-
-        $('#lh').click(function ()
-        {
-            $('.img').hide();
-            $('.lh').show();
-        });
-    </script>
-    
-
-
-</body></html>
+</body>
+</html>

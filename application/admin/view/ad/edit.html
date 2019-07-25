@@ -182,6 +182,7 @@
 <script src="__JS__/bootstrap.js"></script>
 <!--Beyond Scripts-->
 <script src="__JS__/beyond.js"></script>
+<script src="__PLUGIN__/layer.js"></script>
 <script type="text/javascript">
     function addrow(a) {
         //获取上一级
@@ -210,12 +211,12 @@
                 {
                     if(data == 1)
                     {
+                        layer.msg('删除记录成功');
                         div.remove();
                     }
                 }
             });
 
-           // div.remove();
         }
 
     }

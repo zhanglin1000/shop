@@ -1,8 +1,7 @@
-<?php /*a:3:{s:54:"D:\phpEnv\www\shop\application\admin\view\ad\edit.html";i:1564057420;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
+<?php /*a:3:{s:60:"D:\phpEnv\www\shop\application\admin\view\recommend\lst.html";i:1562142514;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
+<html><head>
+	    <meta charset="utf-8">
     <title>雪狐商城</title>
 
     <meta name="description" content="Dashboard">
@@ -19,11 +18,11 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-
+    
 </head>
 <body>
-<!-- 头部 -->
-<div class="navbar">
+	<!-- 头部 -->
+    <div class="navbar">
     <div class="navbar-inner">
         <div class="navbar-container">
             <!-- Navbar Barnd -->
@@ -82,12 +81,12 @@
         </div>
     </div>
 </div>
-<!-- /头部 -->
-
-<div class="main-container container-fluid">
-    <div class="page-container">
-        <!-- Page Sidebar -->
-        <div class="page-sidebar" id="sidebar">
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -567,208 +566,75 @@
     </ul>
     <!-- /Sidebar Menu -->
 </div>
-        <!-- /Page Sidebar -->
-        <!-- Page Content -->
-        <div class="page-content">
-            <!-- Page Breadcrumb -->
-            <div class="page-breadcrumbs">
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">系统</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo url('ad/lst'); ?>">广告管理</a>
-                    </li>
-                    <li class="active">编辑广告</li>
-                </ul>
-            </div>
-            <!-- /Page Breadcrumb -->
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">推荐位列表</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
 
-            <!-- Page Body -->
-            <div class="page-body">
+                <!-- Page Body -->
+                <div class="page-body">
+                <a href="<?php echo url('recommend/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="widget">
-                            <div class="widget-header bordered-bottom bordered-blue">
-                                <span class="widget-caption">编辑广告</span>
-                            </div>
                             <div class="widget-body">
-                                <div id="horizontal-form">
-                                    <form class="form-horizontal" role="form" action="<?php echo url('ad/edit'); ?>" method="post"
-                                          enctype="multipart/form-data">
-                                        <input type="hidden" name="id" value="<?php echo htmlentities($adposFind['id']); ?>"/>
-                                        <input type="hidden" name="img_src" value="<?php echo htmlentities($adposFind['img_src']); ?>"/>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">所属广告位</label>
-                                            <div class="col-sm-6">
-                                                <select name="adpos_id" style="width: 100%;">
-
-                                                    <?php if(is_array($adposRes) || $adposRes instanceof \think\Collection || $adposRes instanceof \think\Paginator): $i = 0; $__LIST__ = $adposRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adpos): $mod = ($i % 2 );++$i;?>
-                                                    <option <?php if($adposFind[
-                                                    'adpos_id'] == $adpos['id']): ?> selected <?php endif; ?>
-                                                    value="<?php echo htmlentities($adpos['id']); ?>"><?php echo htmlentities($adpos['name']); ?></option>
-                                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="ad_name"
-                                                   class="col-sm-2 control-label no-padding-right">广告名称</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" id="ad_name" placeholder="广告名称"
-                                                       name="ad_name" value="<?php echo htmlentities($adposFind['ad_name']); ?>" required=""
-                                                       type="text">
-                                            </div>
-                                            <p class="help-block col-sm-4 red">* 必填</p>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">广告状态</label>
-                                            <div class="col-sm-6">
-                                                <label style="margin-top:8px;margin-right:8px;">
-                                                    <input name="statue" <?php if($adposFind['statue'] == 1): ?>checked<?php endif; ?>
-                                                    value="1" type="radio" class="colored-blue">
-                                                    <span class="text">开启 </span>
-                                                </label>
-                                                <label style="margin-top:8px;">
-                                                    <input name="statue" <?php if($adposFind['statue'] == 0): ?>checked<?php endif; ?>
-                                                    value="0" type="radio" class="colored-blue">
-                                                    <span class="text"> 关闭</span>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label no-padding-right">广告类型</label>
-                                            <div class="col-sm-6">
-                                                <label style="margin-top:8px;margin-right:8px;">
-                                                    <input name="ad_type" id="img" <?php if($adposFind['ad_type'] == 1): ?>
-                                                    checked <?php else: ?> disabled <?php endif; ?> value="1" type="radio"
-                                                    class="colored-blue">
-                                                    <span class="text">图片广告 </span>
-                                                </label>
-                                                <label style="margin-top:8px;">
-                                                    <input name="ad_type" <?php if($adposFind['ad_type'] == 2): ?> checked <?php else: ?> disabled <?php endif; ?> id="lh" value="2" type="radio"
-                                                    class="colored-blue">
-                                                    <span class="text"> 轮播广告</span>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group img" <?php if($adposFind['ad_type'] == 1): ?> style="display:block;"<?php else: ?> style="display:none;" <?php endif; ?>>
-                                        <div style="display:inline-block;width:100%;">
-                                            <label class="col-sm-2 control-label no-padding-right">图片地址</label>
-                                            <div class="col-sm-6">
-                                                <input style="margin-top:8px;" type="file" name="img_src">
-                                                <?php if($adposFind['img_src']): ?>
-                                                <img src="<?php echo APP_PATH; ?>/public/static/uploads/picture/<?php echo htmlentities($adposFind['img_src']); ?>"
-                                                     height="50px;"/>
-                                                <?php else: ?>
-                                                暂无缩略图
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                        <div style="display:inline-block;width:100%;">
-                                            <label style="margin-top:7px;"
-                                                   class="col-sm-2 control-label no-padding-right">图片网址</label>
-                                            <div class="col-sm-6">
-                                                <input class="form-control" style="margin-top:8px;"
-                                                       value="<?php echo htmlentities($adposFind['link']); ?>" type="text" name="link">
-                                            </div>
-                                        </div>
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">推荐位名称</th>
+                                                <th class="text-center">推荐位类型</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if(is_array($recAll) || $recAll instanceof \think\Collection || $recAll instanceof \think\Paginator): $i = 0; $__LIST__ = $recAll;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$rec): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($rec['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($rec['rec_name']); ?></td>
+                                                <td align="center"><?php if($rec['rec_type'] == 1): ?>商品<?php else: ?>栏目<?php endif; ?></td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('recommend/edit',['id'=>$rec['id']]); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('recommend/del',['id'=>$rec['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                                <div class="form-group lh" <?php if($adposFind['ad_type'] == 2): ?> style="display:block;"<?php else: ?> style="display:none;" <?php endif; ?>>
-                                <?php if(is_array($adflash) || $adflash instanceof \think\Collection || $adflash instanceof \think\Paginator): $i = 0; $__LIST__ = $adflash;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adflash): $mod = ($i % 2 );++$i;?>
-                                <div style="display:inline-block;width:100%;">
-                                    <label class="col-sm-2 control-label no-padding-right" style="margin-top:5px;"><a id="<?php echo htmlentities($adflash['id']); ?>" href="javascript:void(0);"
-                                                                                              onclick="addrow(this)"><?php if($i==1): ?>[+]<?php else: ?>[-]<?php endif; ?></a></label>
-                                    <div class="col-sm-6">
-                                        <img src="<?php echo APP_PATH; ?>/public/static/uploads/pictures/<?php echo htmlentities($adflash['flash_img']); ?>"
-                                             width="100" height="50"/>
-                                            <input type="text" class="form-control" style="margin:8px 0 0 8px; width:50%; display:inline-block;" value="<?php echo htmlentities($adflash['flash_link']); ?>" name="old_flash_link[<?php echo htmlentities($adflash['id']); ?>]">
-                                    </div>
+                                <div style="text-align:right; margin-top:10px;">
+                                    <?php echo $recAll; ?>
                                 </div>
-                                <?php endforeach; endif; else: echo "" ;endif; ?>
-
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">保存信息</button>
+                                <div>
                                 </div>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
+                </div>
+                <!-- /Page Body -->
             </div>
-        </div>
-    </div>
-    <!-- /Page Body -->
-</div>
-<!-- /Page Content -->
-</div>
-</div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
 
-<!--Basic Scripts-->
-<script src="http://shop.com/public/static/admin/js/jquery.js"></script>
-<script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
-<!--Beyond Scripts-->
-<script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-<script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
-<script type="text/javascript">
-    function addrow(a) {
-        //获取上一级
-        var div = $(a).parent().parent();
-
-        //执行克隆
-        var newdiv = div.clone();
-
-        //判断系统是否点击的加号
-        if ($(a).html() == '[+]') {
-            //把新克隆的改为减号
-            newdiv = "<div class='form-group lh'><div style='display:inline-block;width:100%;'><label class='col-sm-2 control-label no-padding-right' style='margin-left:10px;'><a href='javascript:void(0);' onclick='addrow(this)'>[-]</a></label><div class='col-sm-6' style='display: flex; justify-content: center;'><input style='margin-top:8px;' type='file' name='flash_img[]'><input type='text' class='form-control' style='display: inline-block; width:50%;' name='flash_link[]'></div></div></div>";
-            //把克隆的放在后面
-            div.after(newdiv);
-        } else {
-            var id = $(a).attr('id');
-
-            $.ajax({
-                url:"<?php echo url('ad/ajaxDelAd'); ?>",
-                type:'post',
-                data : {
-                    id : id
-                },
-                dataType:'json',
-                success:function(data)
-                {
-                    if(data == 1)
-                    {
-                        layer.msg('删除记录成功');
-                        div.remove();
-                    }
-                }
-            });
-
-        }
-
-    }
-
-    $('#img').click(function () {
-        $('.img').show();
-        $('.lh').hide();
-    });
-
-    $('#lh').click(function () {
-        $('.img').hide();
-        $('.lh').show();
-    });
-
-
-</script>
-
+    <!--Basic Scripts-->
+    <script src="http://shop.com/public/static/admin/js/jquery.js"></script>
+    <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 </body>
 </html>

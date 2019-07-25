@@ -177,7 +177,28 @@ class Ad extends Base
     public function ajaxDelAd($id)
     {
        //根据ID删除对用图片
+       $adflash = db('adflash')->field('flash_img')->where('id','=',$id)->find();
 
+       //组合删除图片路径
+       $flashImg = "../public/static/uploads/pictures/".$adflash['flash_img'];
+
+       //判断是否存在
+       if ( file_exists( $flashImg ) )
+       {
+           @unlink($flashImg);
+       }
+
+       //删除数据库记录
+       $isOk = db('adflash')->where('id','=',$id)->delete();
+
+       if( $isOk !== false )
+       {
+           return 1;
+       }
+       else
+       {
+           return 0;
+       }
     }
 
 

@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1563184054;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1562233499;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
+<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1564060286;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1562233499;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -199,15 +199,12 @@
                     <!-----轮播图=-------->
                     <div class="bd">
                         <ul data-type="range">
-                            <li style="background:url(http://shop.com/public/static/index/images/1494984992503176615.jpg) center center no-repeat;">
+                            <?php if(is_array($adflash) || $adflash instanceof \think\Collection || $adflash instanceof \think\Paginator): $i = 0; $__LIST__ = $adflash;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$adflashImg): $mod = ($i % 2 );++$i;?>
+                            <li style='background:url("<?php echo APP_PATH; ?>/public/static/uploads/pictures/<?php echo htmlentities($adflashImg['flash_img']); ?>") center center no-repeat;'>
                                 <div class="banner-width"><a href="" style="height:500px;"></a></div>
                             </li>
-                            <li style="background:url(http://shop.com/public/static/index/images/1494984990506843460.jpg) center center no-repeat;">
-                                <div class="banner-width"><a href="" style="height:500px;"></a></div>
-                            </li>
-                            <li style="background:url(http://shop.com/public/static/index/images/1494984991783527346.jpg) center center no-repeat;">
-                                <div class="banner-width"><a href="" style="height:500px;"></a></div>
-                            </li>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
+
                         </ul>
                         <div class="spec" data-spec=""></div>
                     </div>
