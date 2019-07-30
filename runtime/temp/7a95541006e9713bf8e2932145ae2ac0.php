@@ -1,4 +1,4 @@
-<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1564060286;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1562233499;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
+<?php /*a:3:{s:58:"D:\phpEnv\www\shop\application\index\view\index\index.html";i:1564232934;s:66:"D:\phpEnv\www\shop\application\index\view\public\index_header.html";i:1562233499;s:60:"D:\phpEnv\www\shop\application\index\view\public\footer.html";i:1562133584;}*/ ?>
 ﻿<!doctype html>
 <html>
 <head>
@@ -227,7 +227,7 @@
                                     <!-----商城登录----->
                                     <div class="login-info">
                                         <span>Hi，欢迎来到雪狐网!</span>
-                                        <a href="#" class="login-button">请登录</a>
+                                        <a href="<?php echo url('member/account/login'); ?>" class="login-button">请登录</a>
                                         <a href="#" target="_blank" class="register_button">我要注册</a>
                                     </div>
                                     <!----END----->

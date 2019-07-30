@@ -1,4 +1,4 @@
-<?php /*a:3:{s:55:"D:\phpEnv\www\shop\application\admin\view\word\lst.html";i:1562668126;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
+<?php /*a:3:{s:63:"D:\phpEnv\www\shop\application\admin\view\article\img_list.html";i:1558105096;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -573,15 +573,14 @@
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
                        <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
-                      <li class="active">栏目关键词列表</li>
+                      <li class="active">图片列表</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                <a href="<?php echo url('word/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
-                <div class="row">
+                    <div class="row">
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="widget">
                             <div class="widget-body">
@@ -590,34 +589,26 @@
                                         <thead class="">
                                             <tr>
                                                 <th class="text-center">编号</th>
-                                                <th class="text-center">所属栏目</th>
-                                                <th class="text-center">栏目关键词</th>
-                                                <th class="text-center">关键词网址</th>
+                                                <th class="text-center">图片列表</th>
                                                 <th class="text-center">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php if(is_array($wordRes) || $wordRes instanceof \think\Collection || $wordRes instanceof \think\Paginator): $i = 0; $__LIST__ = $wordRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$word): $mod = ($i % 2 );++$i;?>
-                                              <tr>
-                                                <td align="center"><?php echo htmlentities($word['id']); ?></td>
-                                                <td align="center"><?php echo htmlentities($word['cate_name']); ?></td>
-                                                <td align="center"><?php echo htmlentities($word['keyword']); ?></td>
-                                                <td align="center"><?php if($word['link_url']): ?> <?php echo htmlentities($word['link_url']); else: ?> 暂无网址 <?php endif; ?></td>
-                                                <td align="center">
-                                                    <a href="<?php echo url('word/edit',['id'=>$word['id']]); ?>" class="btn btn-azure btn-sm">
-                                                        <i class="fa fa-edit"></i> 编辑
-                                                    </a>
-                                                    <a href="<?php echo url('word/del',['id'=>$word['id']]); ?>" onClick="return confirm('你确认要删除这条记录吗？') ? true : false;"  class="btn btn-darkorange btn-sm">
-                                                        <i class="fa fa-trash-o"></i> 删除
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        <?php if($imgArr): if(is_array($imgArr) || $imgArr instanceof \think\Collection || $imgArr instanceof \think\Paginator): $i = 0; $__LIST__ = $imgArr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$imgArr): $mod = ($i % 2 );++$i;?>
+                                                  <tr>
+                                                    <td align="center"><?php echo htmlentities($key+1); ?></td>
+                                                    <td align="center"><img src="<?php echo htmlentities($imgArr); ?>" width="50" height="20"/></td>
+                                                    <td align="center">
+                                                        <a href="#" url="<?php echo url('article/delImg'); ?>" img_src="<?php echo htmlentities($imgArr); ?>" onClick="delImg(this);"  class="btn btn-darkorange btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; endif; else: echo "" ;endif; else: ?>
+                                             <tr>
+                                                 <td align="center" colspan="3">暂无任何图片</td>
+                                             </tr>
+                                        <?php endif; ?>
                                         </tbody>
                                     </table>
-                                </div>
-                                <div style="text-align:right; margin-top:10px;">
-                                 <?php echo $wordRes; ?>
                                 </div>
                                 <div>
                                 </div>
@@ -637,6 +628,7 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
+    <script src="http://shop.com/public/static/plugin/layer/layer.js"></script>
     <script src="http://shop.com/public/static/admin/js/index.js"></script>
 </body>
 </html>

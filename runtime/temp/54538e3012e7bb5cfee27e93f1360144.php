@@ -1,4 +1,4 @@
-<?php /*a:3:{s:61:"D:\phpEnv\www\shop\application\admin\view\categoryad\add.html";i:1563095174;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
+<?php /*a:3:{s:56:"D:\phpEnv\www\shop\application\admin\view\brand\lst.html";i:1558105601;s:57:"D:\phpEnv\www\shop\application\admin\view\public\top.html";i:1563270465;s:58:"D:\phpEnv\www\shop\application\admin\view\public\left.html";i:1563691095;}*/ ?>
 <!DOCTYPE html>
 <html><head>
 	    <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <link href="http://shop.com/public/static/admin/css/demo.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/typicons.css" rel="stylesheet">
     <link href="http://shop.com/public/static/admin/css/animate.css" rel="stylesheet">
-
+    
 </head>
 <body>
 	<!-- 头部 -->
@@ -82,11 +82,11 @@
     </div>
 </div>
 	<!-- /头部 -->
-
+	
 	<div class="main-container container-fluid">
 		<div class="page-container">
 			<!-- Page Sidebar -->
-             <div class="page-sidebar" id="sidebar">
+            <div class="page-sidebar" id="sidebar">
     <!-- Page Sidebar Header-->
     <div class="sidebar-header-wrapper">
         <input class="searchinput" type="text">
@@ -572,85 +572,94 @@
                 <!-- Page Breadcrumb -->
                 <div class="page-breadcrumbs">
                     <ul class="breadcrumb">
-                      <li>
-                         <a href="#">系统</a>
-                      </li>
-                      <li>
-                        <a href="<?php echo url('categoryad/lst'); ?>">图片关联栏目管理</a>
-                      </li>
-                       <li class="active">添加图片关联</li>
+                       <li><a href="<?php echo url('Index/index'); ?>">系统</a></li>
+                      <li class="active">品牌管理</li>
                     </ul>
                 </div>
                 <!-- /Page Breadcrumb -->
 
                 <!-- Page Body -->
                 <div class="page-body">
-                 <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-          <div class="widget">
-            <div class="widget-header bordered-bottom bordered-blue">
-                <span class="widget-caption">新增图片关联</span>
-            </div>
-            <div class="widget-body">
-                <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="<?php echo url('categoryad/add'); ?>" method="post" enctype="multipart/form-data">
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label no-padding-right">上级分类</label>
-                            <div class="col-sm-6">
-                                <select name="category_id" style="width: 100%;">
-                                    <option selected="selected" value="">顶级级分类</option>
-                                    <?php if(is_array($category) || $category instanceof \think\Collection || $category instanceof \think\Paginator): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
-                                    <option  value="<?php echo htmlentities($category['id']); ?>"><?php echo htmlentities($category['cate_name']); ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </select>
+        <form method="post" action="<?php echo url('brand/sort'); ?>">
+                <a href="<?php echo url('brand/add'); ?>" class="btn btn-azure btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <button class="btn btn-azure btn-sm"><i class="fa fa-level-down"></i> 品牌排序</button>
+                <button class="btn btn-azure btn-sm" formaction="<?php echo url('brand/generate'); ?>"><i class="fa fa-flask"></i>生成品牌首字母</button>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-body">
+                                <div class="flip-scroll">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center">编号</th>
+                                                <th class="text-center">品牌中文名称</th>
+                                                <th class="text-center">品牌英文名称</th>
+                                                <th class="text-center">品牌首字母</th>
+                                                <th class="text-center">品牌图片</th>
+                                                <th class="text-center">品牌描述</th>
+                                                <th class="text-center">排序</th>
+                                                <th class="text-center">加入推荐</th>
+                                                <th class="text-center">是否显示</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           <?php if(is_array($brandRes) || $brandRes instanceof \think\Collection || $brandRes instanceof \think\Paginator): $i = 0; $__LIST__ = $brandRes;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$brand): $mod = ($i % 2 );++$i;?>
+                                              <tr>
+                                                <td align="center"><?php echo htmlentities($brand['id']); ?></td>
+                                                <td align="center"><?php echo htmlentities($brand['brand_cname']); ?></td>
+                                                <td align="center"><?php echo htmlentities($brand['brand_ename']); ?></td>
+                                                <td align="center"><?php echo htmlentities($brand['brand_initials']); ?></td>
+                                                <td align="center">
+                                                    <?php if($brand['brand_logo']): ?>
+                                                     <img height="30" src="http://shop.com/public/static/uploads/brand/<?php echo htmlentities($brand['brand_logo']); ?>"/>
+                                                    <?php else: ?>
+                                                    暂无品牌LOGO
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center">
+                                                    <?php if($brand['brand_desc']): ?>
+                                                    <?php echo htmlentities(subtext($brand['brand_desc'],8)); else: ?>
+                                                    暂无品牌描述
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td align="center"><input type="text" name="brand_sort[<?php echo htmlentities($brand['id']); ?>]" value="<?php echo htmlentities($brand['brand_sort']); ?>" style="width:60px;height:25px;text-align:center;"></td>
+                                                <td align="center">
+                                                    <a href="javascript:void(0);"  brandid="<?php echo htmlentities($brand['id']); ?>" brandurl="<?php echo url('brand/brand_status'); ?>" onclick="brand_status(this)" class="<?php if($brand['brand_recommend'] == 1): ?> label label-info <?php else: ?>label label-pink graded <?php endif; ?>"><?php if($brand['brand_recommend'] == 1): ?>推荐<?php else: ?>未推荐<?php endif; ?></a>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="javascript:void(0);" brandid="<?php echo htmlentities($brand['id']); ?>" brandurl="<?php echo url('brand/brand_show'); ?>" onclick="brand_show(this)" class="<?php if($brand['brand_status'] == 0): ?> label label-info <?php else: ?>label label-pink graded <?php endif; ?>"><?php if($brand['brand_status'] == 0): ?>显示<?php else: ?>隐藏<?php endif; ?></a>
+                                                </td>
+                                                <td align="center">
+                                                    <a href="<?php echo url('brand/edit',['id' => $brand['id']]); ?>" class="btn btn-azure btn-sm">
+                                                        <i class="fa fa-edit"></i> 编辑
+                                                    </a>
+                                                    <a href="<?php echo url('brand/del',['id' => $brand['id']]); ?>" onClick="return confirm('你确认要删除选定的商品品牌吗？') ? true : false;" class="btn btn-darkorange btn-sm">
+                                                        <i class="fa fa-trash-o"></i> 删除
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                           <?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                  <div style="text-align:right; margin-top:10px;">
+                                      <?php echo $brandRes; ?>
+                                  </div>
+                                <div>
+                                </div>
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">关键图片</label>
-                            <div class="col-sm-6">
-                               <input type="file" name="category_img" style="margin-top: 7px;">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label  class="col-sm-2 control-label no-padding-right">关联图片位置</label>
-                            <div class="col-sm-6">
-                                <select name="category_position" style="width: 100%;">
-                                    <option selected="selected" value="">请选择</option>
-                                    <option  value="A">左图</option>
-                                    <option  value="B">上图</option>
-                                    <option  value="C">下图</option>
-                                </select>
-                            </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="category_link" class="col-sm-2 control-label no-padding-right">关联图网址</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" id="category_link" placeholder="关联图网址" name="category_link"  type="text">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">保存信息</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+        </form>
                 </div>
                 <!-- /Page Body -->
             </div>
             <!-- /Page Content -->
-		</div>
+		</div>	
 	</div>
 
     <!--Basic Scripts-->
@@ -658,7 +667,7 @@
     <script src="http://shop.com/public/static/admin/js/bootstrap.js"></script>
     <!--Beyond Scripts-->
     <script src="http://shop.com/public/static/admin/js/beyond.js"></script>
-    
+    <script src="http://shop.com/public/static/admin/js/index.js"></script>
 
-
-</body></html>
+</body>
+</html>
