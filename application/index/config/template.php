@@ -11,7 +11,8 @@ return [
         '__CSS__'=>APP_PATH.'/public/static/index/css',
         '__JS__' => APP_PATH.'/public/static/index/js',
         '__IMG__' => APP_PATH.'/public/static/index/images',
-        '__PICTURE__' => APP_PATH.'/public/static/index/picture'
+        '__PICTURE__' => APP_PATH.'/public/static/index/picture',
+        '__PLUGIN__' => APP_PATH.'/public/static/plugin/layer'
 
     ]
 ];

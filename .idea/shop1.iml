@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" packagePrefix="app\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpmailer/phpmailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-captcha" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-image" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-installer" />
