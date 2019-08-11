@@ -37,11 +37,35 @@ class Account extends Controller
                 $this->error($validate->getError());
             }
 
+            //验证验证码是否正确
+            if( $data['send_code'] != session('code') )
+            {
+                $this->error('邮箱验证码错误');
+            }
+            else
+            {
+                session('code',null);
+            }
 
-            print_r($data); die();
+            //组合表单数据
+            $data['password'] = md5($data['password']);
+            $data['creat_time'] = date('Y-m-d H:i:s');
+
+            //写入注册数据
+            $add = db('user')->field('confirm_password',true)->insert($data);
+
+            if( $add )
+            {
+                $this->success('注册成功','login');
+            }
+            else
+            {
+                $this->error('注册失败');
+            }
 
             return;
         }
+
         return view('account/reg');
     }
 

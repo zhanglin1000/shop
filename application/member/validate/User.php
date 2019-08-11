@@ -15,8 +15,9 @@ class User extends Validate
     protected $rule =   [
         'username'  => 'require|max:20|unique:user',
         'password'   => 'require|length:6',
-        'confirm_password' => 'require|confirm',
+        'confirm_password' => 'require|confirm:password',
         'email' => 'email',
+        'send_code' => 'require',
     ];
 
     protected $message  =   [
@@ -27,7 +28,8 @@ class User extends Validate
         'confirm_password.require'   => '确认密码不得为空',
         'confirm_password.confirm'   => '两次密码不一致',
         'password.length'  => '密码长度必须是6位',
-        'email'        => '邮箱格式错误',
+        'email' => '邮箱格式错误',
+        'send_code'  => '验证码错误',
     ];
 }
 ?>
