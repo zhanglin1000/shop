@@ -19,7 +19,21 @@
     <script type="text/javascript" src="__JS__/register.js"></script>
     <script type="text/javascript">
         var url = "{:url('account/sendEmail')}";
+        var user_check_url = "{:url('account/check_user')}";
+        var emaile_check_url = "{:url('account/check_email')}";
+        var check_code = "{:url('account/check_code')}";
     </script>
+    <style type="text/css">
+        .sms-btn
+        {
+            border-radius: 5px;
+            background:none;
+            background-color:#eeeeee;
+            cursor: pointer;
+            outline: none;
+            border:1px solid #cccccc;
+        }
+    </style>
 </head>
 
 <body class="bg-ligtGary">
@@ -57,8 +71,7 @@
                             <div class="item">
                                 <div class="item-label">用　户　名</div>
                                 <div class="item-info">
-                                    <input type="text" name="username" id="username" required class="text" value=""
-                                           autocomplete="off"/>
+                                    <input type="text" name="username" id="username" required class="text" value=""/>
                                 </div>
                                 <div class="input-tip"></div>
                             </div>
@@ -99,8 +112,7 @@
                             <div class="item" id="code_email" style="display:block;">
                                 <div class="item-label">邮箱验证码</div>
                                 <div class="item-info">
-                                    <input type="text" name="send_code" id="send_code" class="text text-2 ignore"
-                                           value="" autocomplete="off"/>
+                                    <input type="text" name="send_code" id="send_code" class="text text-2 ignore"/>
                                     <input type="button" class="sms-btn" id="zemail" value="获取验证码">
                                 </div>
                                 <div class="input-tip"></div>
@@ -116,7 +128,7 @@
                                 </div>
                                 <div class="input-tip"></div>
                             </div>
-                            <div class="item item2 item-button">
+                            <div class="item item2 item-button button_show" style="display:block;">
                                 <input type="submit" id="registsubmit" name="Submit" maxlength="8"
                                        class="btn sc-redBg-btn" value="立即注册"/>
                             </div>

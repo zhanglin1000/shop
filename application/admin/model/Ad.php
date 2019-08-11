@@ -227,24 +227,26 @@ class Ad extends Model
         });
     }
 
-    //单上传文件
-    public static function upload( $imgName )
-    {
-
-        $file = request()->file($imgName);
-
-        $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move( '../public/static/uploads/picture/');
-
-        if($info)
+        //单上传文件
+        public static function upload( $imgName )
         {
-            return  $info->getSaveName();
+
+            $file = request()->file($imgName);
+
+            $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move( '../public/static/uploads/picture/');
+
+            if($info)
+            {
+                return  $info->getSaveName();
+            }
+            else
+            {
+                // 上传失败获取错误信息
+                echo $file->getError();
+            }
         }
-        else
-        {
-            // 上传失败获取错误信息
-            echo $file->getError();
-        }
-    }
+
+
 
 }
 ?>

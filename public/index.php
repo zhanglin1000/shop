@@ -15,6 +15,7 @@ namespace think;
 // 加载基础文件
 require __DIR__ . '/../thinkphp/base.php';
 
+
 //定义路径常量
 define('APP_PATH','http://'.$_SERVER['SERVER_NAME']);
 
