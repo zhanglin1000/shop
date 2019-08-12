@@ -1,0 +1,215 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="WEBSC" />
+<meta name="Description" content="WEBSC" />
+
+<title>{$config.name}</title>
+
+
+
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="__CSS__/base.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/style.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/purebox.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/quicklinks.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/user.css">
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/user.js"></script>
+</head>
+
+<body>
+<!---商城顶部导航--->
+{include file="index@public/header" /}
+<!----END---->
+
+<!------用户中心----------->
+<div class="user-content clearfix">
+
+    <div class="user-side" ectype="userSide">
+        <!----用户头像和资料--------->
+        <div class="user-mod user-perinfo">
+            <div class="profile clearfix">
+                <div class="avatar">
+                    <a href="#" class="u-pic">
+                        <img src="__IMG__/touxiang.jpg" alt="">
+                    </a>
+                </div>
+                <div class="name">
+                    <h2>77821974-385628</h2>
+                    <div class="user-rank user-rank-1">铜牌</div>
+                </div>
+            </div>
+            <div class="account">
+                <div class="item clearfix">
+                    <div class="item-name">账户资料：</div>
+                    <div class="item-main">
+                        <b class="integrity"><em style="width: 45%;"></em></b><span>45%</span>
+                    </div>
+                </div>
+                <div class="item clearfix">
+                    <div class="item-name">账户安全：</div>
+                    <div class="item-main safe">
+                        <a href="#" class="iconfont icon-email active"><span class="tip">邮箱已验证</span></a>
+                        <a href="#" class="iconfont icon-see "><span class="tip">实名认证未完成</span></a>
+                        <a href="#" class="iconfont icon-password active"><span class="tip">密码已设置</span></a>
+                        <a href="#" class="iconfont icon-mobile-phone "><span class="tip">手机未验证</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-----END--------->
+
+        <!----用户中心列表--------->
+        <div class="user-mod">
+
+            <div class="side-menu">
+                <dl>
+                    <dt><i class="square"></i><span>订单中心</span></dt>
+                    <dd>
+                        <p><a href="#" target="_self">我的订单</a></p>
+                        <p><a href="#" target="_self">收货地址</a></p>
+                        <p><a href="#" target="_self">缺货登记</a></p>
+                        <p><a href="#" target="_self">退换货订单</a></p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <!----END--------->
+    </div>
+
+    <div class="user-main" ectype="userMain" data-action="default">
+        <!-----订单状态-------->
+        <ul class="user-index-order-statu clearfix">
+            <li>
+                <a href="#">
+                    <div class="circle"><i class="iconfont icon-columns"></i></div>
+                    <div class="info">
+                        <p>待付款</p>
+                        <div class="num">0</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="circle"><i class="iconfont icon-truck-alt"></i></div>
+                    <div class="info">
+                        <p>待收货</p>
+                        <div class="num">0</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="circle"><i class="iconfont icon-edit"></i></div>
+                    <div class="info">
+                        <p>待评价</p>
+                        <div class="num">0</div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="circle"><i class="iconfont icon-complete"></i></div>
+                    <div class="info">
+                        <p>已完成</p>
+                        <div class="num">0</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <!-----END-------->
+
+        <!-----用户金额、劵等-------->
+        <ul class="user-index-wallet clearfix">
+            <li>
+                <div class="words"></div>
+                <div class="info info-line">
+                    <a href="#"><em>¥</em>110.00</a>
+                </div>
+            </li>
+            <li>
+                <div class="words"></div>
+                <div class="info info-line">
+                    <a href="#">红包（<span class="red">0</span>）</a>
+
+                </div>
+            </li>
+            <li>
+                <div class="words"></div>
+                <div class="info">
+                    <a href="#">优惠券（<span class="red">0</span>）</a><br>
+                    <div class="num"><a href="#" target="_blank" class="line">领券</a></div>
+                </div>
+            </li>
+            <li>
+                <div class="words"></div>
+                <div class="info info-line"><a href="#">0</a></div>
+            </li>
+        </ul>
+        <!----END------->
+
+        <!-----用户右侧模块-------->
+        <div class="user-mod">
+
+            <!-----用户订单-------->
+            <div class="user-section">
+                <div class="user-title">
+                    <h2>我的订单</h2>
+                    <a href="#" class="more">查看所有订单</a>
+                </div>
+                <div class="user-index-order-list">
+                    <div class="tr">
+                        <div class="td td-goods">
+                            <div class="c-img">
+                                <a href="#"><img src="__IMG__/0_thumb_g_1556491484473.jpg" alt=""></a>
+                            </div>
+                            <div class="c-info">32434</div>
+
+                        </div>
+                        <div class="td td-price"><em>¥</em>1.00</div>
+                        <div class="td td-name">23432</div>
+                        <div class="td td-statu">已确认,已付款,未发货</div>
+                        <div class="td td-handle">
+                            <a href="#" class="sc-btn">订单详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-----END------->
+
+            <!-----用户收藏-------->
+            <div class="user-section">
+                <div class="user-title">
+                    <h2>近期收藏</h2>
+                    <a href="#" class="more">查看所有收藏</a>
+                </div>
+                <div class="user-index-collection-list">
+                    <div class="no_records">
+                        <i class="no_icon"></i>
+                        <div class="no_info">
+                            <h3>主人，您近期还没有收藏商品呦~</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!----END------>
+
+        </div>
+        <!-----END-------->
+   </div>
+</div>
+<!------END-------->
+
+<!------底部导航--------->
+{include file="index@public/footer" /}
+<!-----END--------->
+
+</body>
+</html>
+<script type="text/javascript">
+    var user_url = "{:url('User/getCateInfo')}";
+    var img = $('#site-nav').attr('img');
+</script>

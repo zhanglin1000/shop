@@ -17,6 +17,38 @@ class Account extends Controller
     //登录模块
     public function login()
     {
+        if( request()->isPost() )
+        {
+            //接收表单数据
+            $data = input('post.');
+
+            //判断用户名是否存在
+            $userData = [];
+            $userData['username'] = $data['username'];
+            $where[] = ['username','=',$userData['username']];
+            $where[] = ['email','=',$userData['username']];
+
+            $users = db('user')->whereOr($where)->find();
+
+            if( $users )
+            {
+                //验证密码是否正确
+                if( $users['password'] == md5($data['password']) )
+                {
+
+                }
+                else
+                {
+                    return json(['code'=>0,'msg'=>'用户名或密码错误']);
+                }
+            }
+            else
+            {
+                return json(['code'=>0,'msg'=>'用户名或密码错误']);
+            }
+
+            return;
+        }
         return view('account/login');
     }
 
