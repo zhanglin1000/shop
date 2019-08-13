@@ -22,30 +22,22 @@ class Account extends Controller
             //接收表单数据
             $data = input('post.');
 
-            //判断用户名是否存在
-            $userData = [];
-            $userData['username'] = $data['username'];
-            $where[] = ['username','=',$userData['username']];
-            $where[] = ['email','=',$userData['username']];
+            //实例化模型登录
 
-            $users = db('user')->whereOr($where)->find();
+            $login = model('User')->login($data);
 
-            if( $users )
+            if( $login )
             {
-                //验证密码是否正确
-                if( $users['password'] == md5($data['password']) )
-                {
+                //跳转成功URL网址
+               $url = url('index/Index/index');
 
-                }
-                else
-                {
-                    return json(['code'=>0,'msg'=>'用户名或密码错误']);
-                }
+               return json(['code'=>1,'url'=>$url]);
             }
             else
             {
                 return json(['code'=>0,'msg'=>'用户名或密码错误']);
             }
+
 
             return;
         }

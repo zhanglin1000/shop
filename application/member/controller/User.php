@@ -91,5 +91,12 @@ class User extends Comment
 
         return json($data);
     }
+
+    //退出登录
+    public function logout()
+    {
+        model('User')->logout();
+        $this->success('退出系统成功','index/Index/index');
+    }
 }
 ?>
