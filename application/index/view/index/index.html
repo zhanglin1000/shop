@@ -29,7 +29,8 @@
     <div class="content" style="min-height: 974px;">
 
         <!-------轮播图和登录模块------->
-        <div class="visual-item" data-mode="lunbo" data-purebox="banner" data-li="1" data-length="5" ectype="visualItme" style="display: block;" data-diff="0">
+        <div class="visual-item" data-mode="lunbo" data-purebox="banner" data-li="1" data-length="5" ectype="visualItme"
+             style="display: block;" data-diff="0">
 
             <div class="view">
 
@@ -65,9 +66,15 @@
 
                                     <!-----商城登录----->
                                     <div class="login-info">
+                                        {if $Think.session.uid || $Think.cookie.uid }
+                                            <span>Hi，<?php if(session('uid')) { echo session('username'); } else{ echo cookie('username'); }  ?></span>
+                                            <a href="#" class="login-button login-success">进入会员中心</a>
+                                        {else /}
                                         <span>Hi，欢迎来到雪狐网!</span>
                                         <a href="{:url('member/account/login')}" class="login-button">请登录</a>
-                                        <a href="#" target="_blank" class="register_button">我要注册</a>
+                                        <a href="{:url('member/account/reg')}" target="_blank" class="register_button">我要注册</a>
+                                        {/if}
+
                                     </div>
                                     <!----END----->
 
@@ -80,12 +87,16 @@
                                         <div class="con">
                                             <ul>
                                                 {volist name="notice" id="notice"}
-                                                <li><a href="{:url('index/ArticleContent/index',['id'=>$notice['id'],'pid'=>$notice['cate_id']])}" target="_blank">{$notice.title}</a></li>
+                                                <li>
+                                                    <a href="{:url('index/ArticleContent/index',['id'=>$notice['id'],'pid'=>$notice['cate_id']])}"
+                                                       target="_blank">{$notice.title}</a></li>
                                                 {/volist}
                                             </ul>
                                             <ul style="display: none;">
                                                 {volist name="promotion" id="promotion"}
-                                                <li><a href="{:url('index/ArticleContent/index',['id'=>$promotion['id'],'pid'=>$promotion['cate_id']])}" target="_blank">{$promotion.title}</a></li>
+                                                <li>
+                                                    <a href="{:url('index/ArticleContent/index',['id'=>$promotion['id'],'pid'=>$promotion['cate_id']])}"
+                                                       target="_blank">{$promotion.title}</a></li>
                                                 {/volist}
                                             </ul>
                                         </div>
@@ -182,7 +193,8 @@
         <!-------END---------->
 
         <!------首页新品------->
-        <div class="visual-item w1200" data-mode="h-need" data-purebox="homeAdv" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">
+        <div class="visual-item w1200" data-mode="h-need" data-purebox="homeAdv" data-li="1" ectype="visualItme"
+             data-diff="0" style="display: block;">
             <div class="view">
                 <div class="need-channel clearfix" id="h-need_0" data-type="range" data-lift="推荐">
                     <div class="channel-column" style="background:url(__IMG__/1494984987302153402.jpg) no-repeat;">
@@ -231,7 +243,8 @@
         <!----END----->
 
         <!------首页品牌------->
-        <div class="visual-item w1200 brandList" data-mode="h-brand" data-purebox="homeAdv" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">
+        <div class="visual-item w1200 brandList" data-mode="h-brand" data-purebox="homeAdv" data-li="1"
+             ectype="visualItme" data-diff="0" style="display: block;">
             <div class="view">
                 <div class="brand-channel clearfix" id="h-brand_0" data-type="range" data-lift="品牌">
                     <!----左侧广告-------->
@@ -255,7 +268,8 @@
                                 <span>换一批</span>
                             </a>
                         </div>-->
-                        <a style="display: none;" href="javascript:void(0);" ectype="changeBrand" id="refresh-btn" class="refresh-btn">
+                        <a style="display: none;" href="javascript:void(0);" ectype="changeBrand" id="refresh-btn"
+                           class="refresh-btn">
                             <i class="iconfont icon-rotate-alt"></i>
                             <span>换一批</span>
                         </a>
@@ -269,10 +283,12 @@
 
         <!--------男女装模块----------->
         <?php foreach( $recPos as $k => $v ): ?>
-        <div class="visual-item w1200" data-mode="homeFloor" data-purebox="homeFloor" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">
+        <div class="visual-item w1200" data-mode="homeFloor" data-purebox="homeFloor" data-li="1" ectype="visualItme"
+             data-diff="0" style="display: block;">
             <div class="view">
                 <div class="floor-content" data-type="range" id="homeFloor_0" data-lift="女装">
-                    <div class="floor-line-con floorOne floor-color-type-<?php echo $k+1; ?>" data-title="<?php echo $v['cate_name']; ?>" data-idx="1" id="floor_1" ectype="floorItem">
+                    <div class="floor-line-con floorOne floor-color-type-<?php echo $k+1; ?>"
+                         data-title="<?php echo $v['cate_name']; ?>" data-idx="1" id="floor_1" ectype="floorItem">
 
                         <!-------男女装导航---------->
                         <div class="floor-hd" ectype="floorTit">
@@ -287,7 +303,8 @@
                                     </li>
 
                                     <?php foreach($v['subclass'] as $k1 => $v1): ?>
-                                    <li data-catgoods="" class="first" ectype="floor_cat_content" data-flooreveval="0" data-visualhome="1" data-floornum="6" data-id="347">
+                                    <li data-catgoods="" class="first" ectype="floor_cat_content" data-flooreveval="0"
+                                        data-visualhome="1" data-floornum="6" data-id="347">
                                         <span><?php echo $v1['cate_name'] ?></span>
                                         <i class="arrowImg"></i>
                                     </li>
@@ -304,8 +321,11 @@
                                 <div class="floor-left-slide">
                                     <div class="bd">
                                         <ul>
-                                            <?php if($v['categoryAd']): foreach( $v['categoryAd']['A'] as $k1 => $v1 ): ?>
-                                            <li><a href="<?php echo $v1['category_link'] ?>"><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v1['category_img']; ?>"></a></li>
+                                            <?php if($v['categoryAd']): foreach( $v['categoryAd']['A'] as $k1 => $v1 ):
+                                            ?>
+                                            <li><a href="<?php echo $v1['category_link'] ?>"><img
+                                                    src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v1['category_img']; ?>"></a>
+                                            </li>
                                             <?php endforeach; endif; ?>
                                         </ul>
                                     </div>
@@ -316,10 +336,14 @@
 
                                 <div class="floor-left-adv">
                                     <?php if( isset($v['categoryAd']['B']) ): ?>
-                                    <a href="<?php echo $v['categoryAd']['B'][0]['category_link'];?>" target="_blank"><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v['categoryAd']['B'][0]['category_img']; ?>"></a>
+                                    <a href="<?php echo $v['categoryAd']['B'][0]['category_link'];?>"
+                                       target="_blank"><img
+                                            src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v['categoryAd']['B'][0]['category_img']; ?>"></a>
                                     <?php endif; ?>
                                     <?php if( isset($v['categoryAd']['C']) ): ?>
-                                    <a href="<?php echo $v['categoryAd']['C'][0]['category_link']; ?>" target="_blank"><img src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v['categoryAd']['C'][0]['category_img']; ?>"></a>
+                                    <a href="<?php echo $v['categoryAd']['C'][0]['category_link']; ?>"
+                                       target="_blank"><img
+                                            src="<?php echo APP_PATH; ?>/public/static/uploads/ad/<?php echo $v['categoryAd']['C'][0]['category_img']; ?>"></a>
                                     <?php endif; ?>
                                 </div>
 
@@ -327,19 +351,27 @@
                             <div class="bd-right">
                                 <div class="floor-tabs-content clearfix">
                                     <div class="f-r-main f-r-m-adv" style="display: block;">
-                                            <ul class="p-list">
-                                                <?php foreach( $v['newRecGoods'] as $k1 => $v1 ): ?>
-                                                <li class="opacity_img">
-                                                    <div class="product">
-                                                        <div class="p-img"><a href="{:url('index/category/index',['id'=>$v1['id']])}" target="_blank"><img src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v1['og_thumb'] ?>" width="140" height="140"></a></div>
-                                                        <div class="p-name"><a href="{:url('index/category/index',['id'=>$v1['id']])}" title="<?php echo $v1['goods_name'] ?>"><?php echo $v1['goods_name'] ?></a></div>
-                                                        <div class="p-price"><span class="shop-price">¥<?php echo $v1['market_price'] ?> </span>
-                                                            <span class="original-price"><?php echo $v1['shop_price'] ?></span>
-                                                        </div>
+                                        <ul class="p-list">
+                                            <?php foreach( $v['newRecGoods'] as $k1 => $v1 ): ?>
+                                            <li class="opacity_img">
+                                                <div class="product">
+                                                    <div class="p-img"><a
+                                                            href="{:url('index/category/index',['id'=>$v1['id']])}"
+                                                            target="_blank"><img
+                                                            src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v1['og_thumb'] ?>"
+                                                            width="140" height="140"></a></div>
+                                                    <div class="p-name"><a
+                                                            href="{:url('index/category/index',['id'=>$v1['id']])}"
+                                                            title="<?php echo $v1['goods_name'] ?>"><?php echo $v1['goods_name'] ?></a>
                                                     </div>
-                                                </li>
-                                                <?php endforeach; ?>
-                                            </ul>
+                                                    <div class="p-price"><span
+                                                            class="shop-price">¥<?php echo $v1['market_price'] ?> </span>
+                                                        <span class="original-price"><?php echo $v1['shop_price'] ?></span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                     </div>
                                     <?php foreach( $v['subclass'] as $k1 => $v1 ): ?>
                                     <div class="f-r-main" id="floor_cat_<?php echo $v1['id'] ?>" style="display: none;">
@@ -347,8 +379,14 @@
                                             <?php foreach( $v1['baseGoods'] as $k2 => $v2 ): ?>
                                             <li class="opacity_img">
                                                 <div class="product">
-                                                    <div class="p-img"><a href="{:url('index/category/index',['id'=>$v2['id']])}" target="_blank"><img src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v2['og_thumb'] ?>" width="140" height="140"></a></div>
-                                                    <div class="p-name"><a href="{:url('index/category/index',['id'=>$v2['id']])}" title=""><?php echo $v2['goods_name'] ?></a></div>
+                                                    <div class="p-img"><a
+                                                            href="{:url('index/category/index',['id'=>$v2['id']])}"
+                                                            target="_blank"><img
+                                                            src="<?php echo APP_PATH.'/public/static/uploads/goods/'.$v2['og_thumb'] ?>"
+                                                            width="140" height="140"></a></div>
+                                                    <div class="p-name"><a
+                                                            href="{:url('index/category/index',['id'=>$v2['id']])}"
+                                                            title=""><?php echo $v2['goods_name'] ?></a></div>
                                                     <div class="p-price">
                                                         <span class="shop-price">¥<?php echo $v2['shop_price']; ?></span>
                                                         <span class="original-price"><?php echo $v2['market_price']; ?></span>
@@ -372,7 +410,9 @@
                                 <div class="item">
                                     <a href="<?php echo $v1['brand_url'] ?>" target="_blank">
                                         <div class="link-l"></div>
-                                        <div class="img"><img src="<?php echo APP_PATH.'/public/static/uploads/brand/'.$v1['brand_logo'] ?>" title="ELLE HOME">
+                                        <div class="img"><img
+                                                src="<?php echo APP_PATH.'/public/static/uploads/brand/'.$v1['brand_logo'] ?>"
+                                                title="ELLE HOME">
                                         </div>
                                         <div class="link"></div>
                                     </a>
@@ -390,12 +430,14 @@
         <!-------END------------>
 
         <!------商城达人---------->
-        <div class="visual-item w1200" data-mode="h-master" data-purebox="homeAdv" data-li="1" ectype="visualItme" data-diff="0" style="display: block;">
+        <div class="visual-item w1200" data-mode="h-master" data-purebox="homeAdv" data-li="1" ectype="visualItme"
+             data-diff="0" style="display: block;">
             <div class="view">
                 <div class="master-channel" id="h-master_0" data-type="range" data-lift="达人">
                     <div class="ftit"><h3>达人</h3></div>
                     <div class="master-con">
-                        <div class="m-c-item m-c-i-1" style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
+                        <div class="m-c-item m-c-i-1"
+                             style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
                             <div class="m-c-main">
                                 <div class="title">
                                     <h3>纯棉质品</h3>
@@ -409,7 +451,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="m-c-item m-c-i-2" style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
+                        <div class="m-c-item m-c-i-2"
+                             style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
                             <div class="m-c-main">
                                 <div class="title">
                                     <h3>纯棉质品</h3>
@@ -423,7 +466,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="m-c-item m-c-i-3" style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
+                        <div class="m-c-item m-c-i-3"
+                             style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
                             <div class="m-c-main">
                                 <div class="title">
                                     <h3>纯棉质品</h3>
@@ -437,7 +481,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="m-c-item m-c-i-4" style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
+                        <div class="m-c-item m-c-i-4"
+                             style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
                             <div class="m-c-main">
                                 <div class="title">
                                     <h3>纯棉质品</h3>
@@ -451,7 +496,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="m-c-item m-c-i-5" style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
+                        <div class="m-c-item m-c-i-5"
+                             style="background:url(__IMG__/1494985006295599886.jpg) center center no-repeat;">
                             <div class="m-c-main">
                                 <div class="title">
                                     <h3>纯棉质品</h3>
@@ -472,7 +518,8 @@
         <!-------END--------->
 
         <!--------还没逛够---------->
-        <div class="visual-item w1200" data-mode="guessYouLike" data-purebox="goods" ectype="visualItme" data-diff="0" style="display: block;">
+        <div class="visual-item w1200" data-mode="guessYouLike" data-purebox="goods" ectype="visualItme" data-diff="0"
+             style="display: block;">
             <div class="view">
                 <div class="lift-channel clearfix" id="guessYouLike" data-type="range" data-lift="商品">
                     <div data-goodstitle="title">
@@ -483,7 +530,9 @@
                         {volist name="indexhosGoods" id="hosGoods"}
                         <li class="opacity_img">
                             <a href="{:url('Goodslist/index',['id'=>$hosGoods['id']])}" target="_blank">
-                                <div class="p-img"><img src="<?php echo APP_PATH; ?>/public/static/uploads/goods/{$hosGoods.og_thumb}"></div>
+                                <div class="p-img"><img
+                                        src="<?php echo APP_PATH; ?>/public/static/uploads/goods/{$hosGoods.og_thumb}">
+                                </div>
                                 <div class="p-name" title="{$hosGoods.goods_name}">
                                     {$hosGoods.goods_name}
                                 </div>
@@ -518,6 +567,10 @@
 </body>
 </html>
 <script type="text/javascript">
+    var logout_url = "{:url('member/user/logout')}";
+    var check_url = "{:url('member/account/checkLogin')}";
+    var login_url_href = "{:url('member/account/login')}";
+    var reg_url_href = "{:url('member/account/reg')}";
     var page = 0;
     var brand_url = "{:url('index/getBrand')}";
     $(function () {

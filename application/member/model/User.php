@@ -29,6 +29,23 @@ class User extends Model
              {
                  session('uid',$users['id']);
                  session('username',$users['username']);
+
+                 //选择保存就写入COOKIE
+                 if( isset( $data['remember'] ) )
+                 {
+                      //一个月时间
+                      $aMont = 30*24*60*60;
+
+                      $username = encrytion($data['username'],1);
+                      $password = encrytion($data['password'],1);
+                      $uid = encrytion($users['id'],1);
+
+                      cookie('username',$username,$aMont,'/');
+                      cookie('password',$password,$aMont,'/');
+                      cookie('uid',$uid,$aMont,'/');
+
+                 }
+
                  return true;
              }
              else
@@ -47,6 +64,9 @@ class User extends Model
      public function logout()
      {
          session(null);
+         cookie('username',null);
+         cookie('password',null);
+         cookie('uid',null);
      }
 }
 ?>

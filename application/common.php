@@ -149,13 +149,31 @@ function send_mail($tomail, $name, $subject = '', $body = '', $attachment = null
     $mail->Subject = $subject;
     $mail->MsgHTML($body);
     $mail->AddAddress($tomail, $name);
-    if (is_array($attachment))
-    { // 添加附件
+    if (is_array($attachment)) { // 添加附件
         foreach ($attachment as $file) {
             is_file($file) && $mail->AddAttachment($file);
         }
     }
     return $mail->Send();
+}
+
+/*
+ *登陆如果自动登陆加密
+ *默认是0解密状态，1是加密
+ *采用的方法是异位或加密
+ */
+function encrytion($value, $type = 0)
+{
+    $key = config('template.key');
+    //加密
+    if ($type) {
+        // 64位加密
+        //return base64_encode($value ^ $key);
+        // 加密后可能会有等号
+        return str_replace('=', '', base64_encode($value ^ $key));
+    };
+    $value = base64_decode($value);
+    return $value ^ $key;
 }
 
 

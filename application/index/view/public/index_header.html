@@ -5,14 +5,6 @@
         <!----顶部登录----->
         <div class="fl">
             <div class="txt-info" id="ECS_MEMBERZONE">
-                {if $Think.session.uid}
-                <span>您好 &nbsp;<a href="user.php">{$Think.session.username}</a></span>
-                <span>，欢迎来到&nbsp;<a alt="首页" title="首页" href="index.php">大商创</a></span>
-                <span>[<a href="{:url('member/user/logout')}">退出</a>]</span>
-                {else /}
-                <a href="#" class="link-login red">请登录</a>
-                <a href="#" class="link-regist">免费注册</a>
-                {/if}
             </div>
         </div>
         <!---END------>

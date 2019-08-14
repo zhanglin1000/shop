@@ -9,16 +9,14 @@ namespace app\member\controller;
 
 use PHPMailer\PHPMailer;
 
-use think\Controller;
 
-
-class Account extends Controller
+class Account extends Comment
 {
     //登录模块
     public function login()
     {
-        if( request()->isPost() )
-        {
+
+        if (request()->isPost()) {
             //接收表单数据
             $data = input('post.');
 
@@ -26,21 +24,20 @@ class Account extends Controller
 
             $login = model('User')->login($data);
 
-            if( $login )
-            {
-                //跳转成功URL网址
-               $url = url('index/Index/index');
 
-               return json(['code'=>1,'url'=>$url]);
-            }
-            else
-            {
-                return json(['code'=>0,'msg'=>'用户名或密码错误']);
+            if ($login) {
+                //跳转成功URL网址
+                $url = url('index/Index/index');
+
+                return json(['code' => 1, 'url' => $url]);
+            } else {
+                return json(['code' => 0, 'msg' => '用户名或密码错误']);
             }
 
 
             return;
         }
+
         return view('account/login');
     }
 
@@ -48,27 +45,22 @@ class Account extends Controller
     public function reg()
     {
         //判断是否是POST提交
-        if( request()->isPost() )
-        {
+        if (request()->isPost()) {
             //接收表单数据
             $data = input('post.');
 
             //验证数据
             $validate = new \app\member\validate\User();
 
-            if( !$validate->check($data) )
-            {
+            if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
 
             //验证验证码是否正确
-            if( $data['send_code'] != session('code') )
-            {
+            if ($data['send_code'] != session('code')) {
                 $this->error('邮箱验证码错误');
-            }
-            else
-            {
-                session('code',null);
+            } else {
+                session('code', null);
             }
 
             //组合表单数据
@@ -76,14 +68,11 @@ class Account extends Controller
             $data['creat_time'] = date('Y-m-d H:i:s');
 
             //写入注册数据
-            $add = db('user')->field('confirm_password',true)->insert($data);
+            $add = db('user')->field('confirm_password', true)->insert($data);
 
-            if( $add )
-            {
-                $this->success('注册成功','login');
-            }
-            else
-            {
+            if ($add) {
+                $this->success('注册成功', 'login');
+            } else {
                 $this->error('注册失败');
             }
 
@@ -91,6 +80,32 @@ class Account extends Controller
         }
 
         return view('account/reg');
+    }
+
+    // 检测登录状态
+    public function checkLogin()
+    {
+        $uid = session('uid');
+
+        if ($uid) {
+            $data['error'] = 0;
+            $data['uid'] = $uid;
+            $data['username'] = session('username');
+            return json($data);
+        } else {
+            if (cookie('username') && cookie('password')) {
+                $data['username'] = encrytion(cookie('username'), 0);
+                $data['password'] = encrytion(cookie('password'), 0);
+                $data['uid'] = encrytion(cookie('uid'), 0);
+                $loginRes = model('User')->login($data);
+                if ($loginRes) {
+                    session('uid', $data['uid']);
+                    session('username', $data['username']);
+                }
+            }
+            $data['error'] = 1;
+            return json($data);
+        }
     }
 
 
@@ -132,16 +147,13 @@ class Account extends Controller
     public function check_user($username)
     {
         //根据用户名查询数据库是否存在
-        $username = db('user')->where('username','=',$username)->count();
+        $username = db('user')->where('username', '=', $username)->count();
 
         //判断是否存在
-        if( $username > 0 )
-        {
-             return json(['status'=>0,'msg'=>'用户名已存在']);
-        }
-        else
-        {
-            return json(['status'=>1,'msg'=>'用户名可以注册']);
+        if ($username > 0) {
+            return json(['status' => 0, 'msg' => '用户名已存在']);
+        } else {
+            return json(['status' => 1, 'msg' => '用户名可以注册']);
         }
     }
 
@@ -149,29 +161,23 @@ class Account extends Controller
     public function check_email($email)
     {
         //根据用户名查询数据库是否存在
-        $email = db('user')->where('email','=',$email)->count();
+        $email = db('user')->where('email', '=', $email)->count();
 
         //判断是否存在
-        if( $email > 0 )
-        {
-            return json(['status'=>0,'msg'=>'邮箱已存在']);
-        }
-        else
-        {
-            return json(['status'=>1,'msg'=>'邮箱可以注册']);
+        if ($email > 0) {
+            return json(['status' => 0, 'msg' => '邮箱已存在']);
+        } else {
+            return json(['status' => 1, 'msg' => '邮箱可以注册']);
         }
     }
 
     //验证邮箱验证码
     public function check_code($code)
     {
-        if( $code == session('code') )
-        {
-            return json(['status'=>0,'msg'=>'验证码通过']);
-        }
-        else
-        {
-            return json(['status'=>1,'msg'=>'验证码错误']);
+        if ($code == session('code')) {
+            return json(['status' => 0, 'msg' => '验证码通过']);
+        } else {
+            return json(['status' => 1, 'msg' => '验证码错误']);
         }
     }
 
