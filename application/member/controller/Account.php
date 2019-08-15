@@ -82,6 +82,12 @@ class Account extends Comment
         return view('account/reg');
     }
 
+    //忘记密码
+    public function forget_password()
+    {
+        return view('forget_password');
+    }
+
     // 检测登录状态
     public function checkLogin()
     {
@@ -109,8 +115,8 @@ class Account extends Comment
     }
 
 
-    //发送邮件验证码
-    public function sendEmail()
+    //发送邮件验证码 0 : 短信验证码 1：密码修改
+    public function sendEmail($type = 0)
     {
         //收件人的邮箱
         $toemail = input('email');
@@ -123,11 +129,22 @@ class Account extends Comment
         //生成随机验证码
         $code = mt_rand(10000, 99999);
 
-        //把随机生成的验证码存入session
-        session("code", $code);
+        if( $type == 0 )
+        {
+            //把随机生成的验证码存入session
+            session("code", $code);
 
-        //验证码内容
-        $content = '你的验证码为' . $code;
+            //验证码内容
+            $content = '你的验证码为' . $code;
+        }
+
+        else
+        {
+            //修改密码
+            session('password',$code);
+            $content = '你修改的密码为' . $code;
+        }
+
 
         //验证码发送成功
         $is_status = send_mail($toemail, $name, $subject, $content);
@@ -180,6 +197,36 @@ class Account extends Comment
             return json(['status' => 1, 'msg' => '验证码错误']);
         }
     }
+
+    //验证邮箱和用户名是否正确
+    public function check_get_info()
+    {
+        if( request()->isAjax() )
+        {
+            //接收异步发送数据
+            $username = input('username');
+            $email = input('email');
+
+            //判断是否存在
+            $where[] = ['username','=',$username];
+            $where[] = ['email','=',$email];
+
+            $info = db('user')->where($where)->find();
+
+            if( $info )
+            {
+                $this->sendEmail(1);
+                db('user')->whereOr($where)->setField('password',md5(session('password')));
+                return json(['code'=>0,'msg'=>'密码重置成功']);
+            }
+            else
+            {
+                return json(['code'=>1,'msg'=>'用户名或邮箱不存在']);
+            }
+        }
+
+    }
+
 
 
 }
