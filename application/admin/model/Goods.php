@@ -130,7 +130,7 @@ class Goods extends Model
                 foreach( $files as $file )
                 {
 
-                    $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move(  '../public/static/uploads/goods_photo' );
+                    $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move(  '../public/static/uploads/goods' );
 
                     if( $info )
                     {
@@ -138,7 +138,7 @@ class Goods extends Model
                         $photoName =  $info->getFilename();
 
                         //拼装缩略图路径
-                        $ogPhotoPath = '../public/static/uploads/goods_photo/';
+                        $ogPhotoPath = '../public/static/uploads/goods/';
 
                         //根据原图生成三张缩略图
                         $ogPhoto = date('Ymd').'/'.$photoName;
@@ -443,7 +443,7 @@ class Goods extends Model
                 foreach( $files as $file )
                 {
 
-                    $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move(  '../public/static/uploads/goods_photo' );
+                    $info = $file->validate(['ext'=>'jpg,gif,png,jpeg'])->move(  '../public/static/uploads/goods' );
 
                     if( $info )
                     {
@@ -451,7 +451,7 @@ class Goods extends Model
                         $photoName =  $info->getFilename();
 
                         //拼装缩略图路径
-                        $ogPhotoPath = '../public/static/uploads/goods_photo/';
+                        $ogPhotoPath = '../public/static/uploads/goods/';
 
                         //根据原图生成三张缩略图
                         $ogPhoto = date('Ymd').'/'.$photoName;
